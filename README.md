@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# client directory
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+아주 기초적인 디렉터리만 설정했습니다.
 
-## Available Scripts
+### 실행 방법
 
-In the project directory, you can run:
+1. 디렉토리가 client인지 확인해주세요. client내에서 작업해야합니다. 전체 yonseitalk 안됩니다!
+2. client 디렉토리에서 npm install
+3. 이후 npm start
+4. http://localhost:3000/에서 리액트 파일이 돌아갑니다.
+   기존에 돌아가는 다른 프로젝트가 있을 경우 http://localhost:3001/등에 돌아갑니다.
+   보통 자동으로 크롬창에 뜹니다.
 
-### `yarn start`
+### 주요 라이브러리
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+react:기본 라이브러리. state를 통한 상태 관리, 컴포넌트 사용, Virtual dom 등이 특징입니다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+react-router-dom: 라우팅을 하는데 사용됩니다
 
-### `yarn test`
+styled-components: css 모음을 태그로 만들어 사용할 수 있습니다. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 설명
 
-### `yarn build`
+/public: 퍼블릭은 가상 돔이 들어갈 빈 index.html과 기타 이미지 파일이 존재합니다. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+/src: 개발이 이루어질 메인 폴더입니다
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+src에 있는 index.js가 화면에 띄워지고, index.js에 띄워지는 <App/>은 app.js를 import한 것입니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+app.js는 react-router-dom 라이브러리을 사용하여 페이지 path별로 pages 폴더 안 페이지 js 파일들과 연결되어 있습니다. 페이지 js 파일들이 app에 쓰일 페이지 코드들을 리턴합니다.
 
-### `yarn eject`
+컴포넌트는 page에 들어갈 요소들입니다. 아시겠지만 뷰나 리액트 없이는 매번 다시 써야하는 걸 재활용 가능하고, props에 따라 조금만 모양/요소를 바꿔 띄울 수도 있습니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+style 파일은 styled-components 라이브러리를 사용하여 페이지/컴포넌트에서 사용할 태그를 만듭니다. props 전달은 불가능하고 css가 딸린 tag를 만든다는 점에서 기본 컴포넌트와 약간 다릅니다. css를 묶음으로 만들어 재사용이 가능하게 해주는 친구라고 생각하면 되겠습니다.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+style 파일을 조합하여 component(+page)를, component 파일을 조합하여 page를 만들면 app에서 라우팅해 index.js띄운다고 생각하면 되겠습니다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+ 
