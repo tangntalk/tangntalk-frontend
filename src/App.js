@@ -24,11 +24,11 @@ function App() {
         <Route exact path="/" component={withRouter(mainPage)} />
         <Route exact path="/search" component={withRouter(searchPage)} />
 
-        <Route exact path="/around" component={withRouter(chatListPage)} />
-        <Route exact path="/setting" component={withRouter(chattingPage)} />
+        <Route exact path="/around" component={withRouter(aroundPage)} />
+        <Route exact path="/setting" component={withRouter(settingPage)} />
 
-        <Route exact path="/chatlist" component={withRouter(aroundPage)} />
-        <Route exact path="/chatting" component={withRouter(settingPage)} />
+        <Route exact path="/chatlist" component={withRouter(chatListPage)} />
+        <Route exact path="/chatting" component={withRouter(chattingPage)} />
         {/* chatting별 아이디 처리 */}
       </Switch>
     </Router>

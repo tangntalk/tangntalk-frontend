@@ -1,13 +1,16 @@
 import React from "react";
 
 import { Container } from "../styles/style";
+import Header from "../components/hearder";
 
 function aroundPage(props) {
-    
     return (
-        <Container>
-            aroundPage
-        </Container>
+        <>
+            <Header></Header>
+            <Container>
+                aroundPage
+            </Container>
+        </>
     );
 }
 
