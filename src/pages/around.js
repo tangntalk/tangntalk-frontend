@@ -11,7 +11,7 @@ function aroundPage(props) {
                 </Header>
                 <Container>
                 </Container>
-                <NaviBar>
+                <NaviBar around>
                 </NaviBar>
         </>
     );

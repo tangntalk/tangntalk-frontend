@@ -12,7 +12,7 @@ function mainPage(props) {
         </Header>
         <Container>
         </Container>
-        <NaviBar>
+        <NaviBar user>
         </NaviBar>
     </>
     );

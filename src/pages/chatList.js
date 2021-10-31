@@ -12,7 +12,7 @@ function chatListPage(props) {
             </Header>
             <Container>
             </Container>
-            <NaviBar>
+            <NaviBar chat>
             </NaviBar>
         </>
     );
