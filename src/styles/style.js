@@ -4,4 +4,11 @@ export const Icon = styled.div`
     cursor:pointer;
     margin:0 10px;
     text-align:center;
-`   
+`     
+export const NaviIcon = styled.div`
+    cursor:pointer;
+    margin:0 10px;
+    text-align:center;
+    fill:${props => props.selected ? "#000000" : "#948EA5"};
+    color:${props => props.selected ? "#000000" : "#948EA5"};
+`    

@@ -26,7 +26,7 @@ export default withRouter(Header);
 
 export const HeaderSpace = styled.div`
     width:100%;
-    height:60px;
+    height:50px;
     box-sizing: border-box;
 
     position:fixed;
@@ -42,7 +42,7 @@ export const HeaderSpace = styled.div`
 export const HeaderContent = styled.div`
     width:100%;
     max-width:800px;
-    height:60px;
+    height:50px;
     box-sizing: border-box;
 
     display: flex;
