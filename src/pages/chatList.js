@@ -5,7 +5,6 @@ import Container from "../components/Container";
 import NaviBar from "../components/NaviBar";
 
 function chatListPage(props) {
-
     return (
         <>
             <Header title="채팅 목록">

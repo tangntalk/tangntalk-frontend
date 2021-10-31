@@ -4,7 +4,6 @@ import Header from "../components/Hearder";
 import Container from "../components/Container";
 
 function loginPage(props) {
-
     return (
         <>
         <Header title="연세톡 로그인">

@@ -1,15 +1,17 @@
+import React from "react";
 import { withRouter } from 'react-router-dom';
 
+
 import styled from "styled-components";
-import BackIcon from "./icon/Back"
-import SearchIcon from "./icon/Search"
+import BackIcon from "./icon/Back";
+import SearchIcon from "./icon/Search";
 
 function Header(props) {
     return (
         <HeaderSpace>
             <HeaderContent>
                 <Wrapper>
-                    {props.back&&<BackIcon> </BackIcon>}
+                    {props.back&&(props.function?<BackIcon function={props.function}></BackIcon>:<BackIcon></BackIcon>)}
                     <Title>
                         {props.title}
                     </Title>
