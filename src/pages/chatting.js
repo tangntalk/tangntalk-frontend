@@ -1,13 +1,17 @@
 import React from "react";
 
-import { Container } from "../styles/style";
+import Header from "../components/Hearder";
+import Container from "../components/Container";
 
 function chattingPage(props) {
-    
+
     return (
-        <Container>
-            chattingPage
-        </Container>
+        <>
+            <Header back title="박효정">
+            </Header>
+            <Container>
+            </Container>
+        </>
     );
 }
 
