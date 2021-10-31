@@ -21,6 +21,7 @@ function Header(props) {
                 </Wrapper>
             </HeaderContent>
         </HeaderSpace>
+        // 헤더 왜 자꾸 오류나지
     );
 }
 
