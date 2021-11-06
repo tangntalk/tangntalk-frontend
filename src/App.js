@@ -18,10 +18,10 @@ function App() {
   return (
     <Router>
       <Switch>
-      <Route exact path="/login" component={withRouter(loginPage)} />
+      <Route exact path="/" component={withRouter(loginPage)} />
         <Route exact path="/register" component={withRouter(registerPage)} />
 
-        <Route exact path="/" component={withRouter(mainPage)} />
+        <Route exact path="/user" component={withRouter(mainPage)} />
         <Route exact path="/search" component={withRouter(searchPage)} />
 
         <Route exact path="/around" component={withRouter(aroundPage)} />

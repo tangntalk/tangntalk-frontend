@@ -1,16 +1,18 @@
 import React from "react";
 
 import Header from "../components/Hearder";
-import Container from "../components/Container";
+import { ContainerSpace2, ContainerContent} from "../styles/style";
 
 function settingPage(props) {
     return (
         <>
-        <Header back title="내 정보 수정">
-        </Header>
-        <Container>
-        </Container>
-    </>
+            <Header back title="내 정보 수정">
+            </Header>
+            <ContainerSpace2>
+                < ContainerContent>
+                </ContainerContent>
+            </ContainerSpace2>
+        </>
     );
 }
 

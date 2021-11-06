@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "../components/Hearder";
-import Container from "../components/Container";
+import { ContainerSpace, ContainerContent } from "../styles/style";
 import NaviBar from "../components/NaviBar";
 
 function chatListPage(props) {
@@ -9,8 +9,10 @@ function chatListPage(props) {
         <>
             <Header title="채팅 목록">
             </Header>
-            <Container>
-            </Container>
+            <ContainerSpace>
+                < ContainerContent>
+                </ContainerContent>
+            </ContainerSpace>
             <NaviBar chat>
             </NaviBar>
         </>

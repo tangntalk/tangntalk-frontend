@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { NaviIcon,NaviText} from "../../styles/style";
 
 function UserIcon(props) {
-    const goUser = () => props.history.push('/');
+    const goUser = () => props.history.push('/user');
     if (props.selected) {
         return (
             <NaviIcon onClick={goUser} selected>
