@@ -14,11 +14,9 @@ function loginPage(props) {
             </Header>
             <ContainerSpace2>
                 <ContainerContent>
-                    <Space></Space>
                     <Title title="ID"></Title>
                     <BoxInput placeholder="아이디"></BoxInput>
                     <InputLink>아이디를 입력해주세요</InputLink>
-                    <Space></Space>
                     <Title title="Password"></Title>
                     <BoxInput placeholder="비밀번호"></BoxInput>
                     <InputLink></InputLink>

@@ -28,9 +28,9 @@ export const ContainerSpace = styled.div`
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    flex-flow: column nowrap;
     
-    background-color:#ECEBED;
+    background-color:#ffffff;
 `
 export const ContainerSpace2 = styled.div`
     width:100%;
@@ -40,16 +40,16 @@ export const ContainerSpace2 = styled.div`
 
     display: flex;
     align-items: center;
-    justify-content: center;
-    
-    background-color:#ECEBED;
+    flex-flow: column nowrap;
+
+    background-color:#ffffff;
 `
 export const ContainerContent = styled.div`
     width:100%;
     max-width:800px;
-    min-height:calc(100vh - 50px);
+    max-height:calc(100vh - 50px);
     box-sizing: border-box;
-    padding:20px;
+    padding:0 10px;
 
     display: flex;
     flex-flow: column nowrap;
@@ -57,13 +57,39 @@ export const ContainerContent = styled.div`
 
     word-break:keep-all;
 
-    background-color:#ffffff;
     overflow:scroll;
+    overflow-x:hidden;
+`
+export const ContainerContentG = styled.div`
+    width:100%;
+    max-width:800px;
+    max-height:calc(100vh - 50px);
+    box-sizing: border-box;
+    padding:0 10px;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+
+    word-break:keep-all;
+
+    background-color:#ECEBED;
+
+    overflow:scroll;
+    overflow-x:hidden;
+
+    gap:10px;
 `
 
 export const Space = styled.div`
     width:100%;
     height:10px;
+`
+
+export const Gray = styled.div`
+    width:100%;
+    height:100%;
+    background-color:#ECEBED;
 `
 
 export const Line = styled.div`
@@ -74,6 +100,15 @@ export const Line = styled.div`
     border-bottom:1px solid #ECEBED;
 
     max-width:530px;
+`
+export const InputBox = styled.div`
+    width: 85%;
+    width: calc(80% + 30px);
+    max-width:530px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 `
 
 export const InputLink = styled.div`

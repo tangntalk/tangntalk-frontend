@@ -4,7 +4,7 @@ import Header from "../components/Hearder";
 import BoxInput from "../components/BoxInput";
 import BlueButton from "../components/BlueButton";
 import Title from "../components/Title";
-import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink } from "../styles/style";
+import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink, InputBox } from "../styles/style";
 
 function registerPage(props) {
     const goLogin = () => props.history.push('/');
@@ -14,12 +14,12 @@ function registerPage(props) {
             </Header>
             <ContainerSpace2>
                 <ContainerContent>
-
-                    <Space></Space>
                     <Title title="ID"></Title>
-                    <BoxInput placeholder="아이디"></BoxInput>
+                    <InputBox>
+                        <BoxInput placeholder="아이디" width="calc(80% - 50px)"></BoxInput>
+                        <BlueButton width="60px">중복<br />확인</BlueButton>
+                    </InputBox>
                     <InputLink>아이디를 입력해주세요</InputLink>
-                    <Space></Space>
 
                     <Title title="Password"></Title>
                     <BoxInput placeholder="비밀번호"></BoxInput>

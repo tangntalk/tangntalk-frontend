@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 function BlueButton(props) {
     return (
-        <Button width={props.width} negative={props.negative} onClick={props.onClick}>
-        {props.children}
+        <Button {...props}>
+            {props.children}
         </Button>
     );
 }
@@ -15,17 +15,16 @@ const Button = styled.button`
     width: ${props => props.width || "calc(80% + 30px)"};
     width : -webkit-${props => props.width || "calc(80% + 30px)"};
     width :    -moz-${props => props.width || "calc(80% + 30px)"};
-    max-width:${props => props.width || "530px"};
-    height: ${props => props.width || "50px"};
+    max-width:${props => props.maxwidth || "530px"};
+    height: ${props => props.height || "50px"};
     border: none;
-    padding: 15px;
     border-radius: 5px;
 
     background-color: #1949D8;
     color: #ffffff;
 
     font-weight: bold;
-    font-size:1em;
+    font-size:${props => props.size || "1em"};
 
     cursor: pointer;
 

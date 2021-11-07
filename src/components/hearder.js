@@ -29,7 +29,6 @@ export default withRouter(Header);
 
 export const HeaderSpace = styled.div`
     width:100%;
-    height:50px;
     box-sizing: border-box;
 
     position:fixed;
@@ -39,9 +38,9 @@ export const HeaderSpace = styled.div`
     align-items: center;
     justify-content: center;
 
-    border-bottom:1px solid #ECEBED;
-
     background-color:#ffffff;
+
+    border-bottom:1px solid #ECEBED;
 `
 
 export const HeaderContent = styled.div`
