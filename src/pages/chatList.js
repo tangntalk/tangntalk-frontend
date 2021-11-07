@@ -1,6 +1,6 @@
 import React from "react";
 
-import Header from "../components/Hearder";
+import Header from "../components/Header";
 import { ContainerSpace, ContainerContent } from "../styles/style";
 import NaviBar from "../components/NaviBar";
 
