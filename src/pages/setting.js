@@ -7,7 +7,7 @@ import Title from "../components/Title";
 import Text from "../components/Text";
 import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink, Line} from "../styles/style";
 
-function settingPage(props) {
+function SettingPage(props) {
     return (
         <>
             <Header back title="내 정보 수정">
@@ -40,4 +40,4 @@ function settingPage(props) {
     );
 }
 
-export default settingPage;
+export default SettingPage;

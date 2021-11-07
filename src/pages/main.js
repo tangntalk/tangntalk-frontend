@@ -6,7 +6,7 @@ import Box from "../components/Box";
 import Title from "../components/Title";
 import { ContainerSpace, ContainerContentG, Space } from "../styles/style";
 
-function mainPage(props) {
+function MainPage(props) {
 
     return (
         <>
@@ -31,4 +31,4 @@ function mainPage(props) {
     );
 }
 
-export default mainPage;
+export default MainPage;

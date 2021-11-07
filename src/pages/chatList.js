@@ -4,7 +4,7 @@ import Header from "../components/Hearder";
 import { ContainerSpace, ContainerContent } from "../styles/style";
 import NaviBar from "../components/NaviBar";
 
-function chatListPage(props) {
+function ChatListPage(props) {
     return (
         <>
             <Header title="채팅 목록">
@@ -19,4 +19,4 @@ function chatListPage(props) {
     );
 }
 
-export default chatListPage;
+export default ChatListPage;

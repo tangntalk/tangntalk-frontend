@@ -6,7 +6,7 @@ import BlueButton from "../components/BlueButton";
 import Title from "../components/Title";
 import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink, InputBox } from "../styles/style";
 
-function registerPage(props) {
+function RegisterPage(props) {
     const goLogin = () => props.history.push('/');
     return (
         <>
@@ -43,4 +43,4 @@ function registerPage(props) {
     );
 }
 
-export default registerPage;
+export default RegisterPage;

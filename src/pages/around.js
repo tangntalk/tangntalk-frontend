@@ -8,7 +8,7 @@ import Title from "../components/Title";
 import styled from "styled-components";
 import { ContainerSpace, ContainerContentG, ContainerContent, Space } from "../styles/style";
 
-function aroundPage(props) {
+function AroundPage(props) {
     return (
         <>
             <Header search title="내 주변">
@@ -34,7 +34,7 @@ function aroundPage(props) {
     );
 }
 
-export default aroundPage;
+export default AroundPage;
 
 export const White = styled.div`
     width:100%;

@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../components/Hearder";
 import { ContainerSpace2, ContainerContent } from "../styles/style";
 
-function chattingPage(props) {
+function ChattingPage(props) {
     const goChatList = () => props.history.push('/chat');
     return (
         <>
@@ -17,4 +17,4 @@ function chattingPage(props) {
     );
 }
 
-export default chattingPage;
+export default ChattingPage;

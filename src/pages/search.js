@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../components/Hearder";
 import { ContainerSpace2, ContainerContent } from "../styles/style";
 
-function searchPage(props) {
+function SearchPage(props) {
     return (
         <>
             <Header back title="친구 검색하기">
@@ -16,4 +16,4 @@ function searchPage(props) {
     );
 }
 
-export default searchPage;
+export default SearchPage;

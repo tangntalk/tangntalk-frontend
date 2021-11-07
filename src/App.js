@@ -2,33 +2,33 @@ import './App.css';
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from "react-router-dom";
 
-import loginPage from "../src/pages/login";
-import registerPage from "../src/pages/register";
+import LoginPage from "../src/pages/login";
+import RegisterPage from "../src/pages/register";
 
-import mainPage from "../src/pages/main";
-import searchPage from "../src/pages/search";
+import MainPage from "../src/pages/main";
+import SearchPage from "../src/pages/search";
 
-import chatListPage from "../src/pages/chatList";
-import chattingPage from "../src/pages/chatting";
+import ChatListPage from "../src/pages/chatList";
+import ChattingPage from "../src/pages/chatting";
 
-import aroundPage from "../src/pages/around";
-import settingPage from "../src/pages/setting";
+import AroundPage from "../src/pages/around";
+import SettingPage from "../src/pages/setting";
 
 function App() {
   return (
     <Router>
       <Switch>
-      <Route exact path="/" component={withRouter(loginPage)} />
-        <Route exact path="/register" component={withRouter(registerPage)} />
+      <Route exact path="/" component={withRouter(LoginPage)} />
+        <Route exact path="/register" component={withRouter(RegisterPage)} />
 
-        <Route exact path="/user" component={withRouter(mainPage)} />
-        <Route exact path="/search" component={withRouter(searchPage)} />
+        <Route exact path="/user" component={withRouter(MainPage)} />
+        <Route exact path="/search" component={withRouter(SearchPage)} />
 
-        <Route exact path="/around" component={withRouter(aroundPage)} />
-        <Route exact path="/setting" component={withRouter(settingPage)} />
+        <Route exact path="/around" component={withRouter(AroundPage)} />
+        <Route exact path="/setting" component={withRouter(SettingPage)} />
 
-        <Route exact path="/chat" component={withRouter(chatListPage)} />
-        <Route exact path="/chatting" component={withRouter(chattingPage)} />
+        <Route exact path="/chat" component={withRouter(ChatListPage)} />
+        <Route exact path="/chatting" component={withRouter(ChattingPage)} />
         {/* chatting별 아이디 처리 */}
       </Switch>
     </Router>
