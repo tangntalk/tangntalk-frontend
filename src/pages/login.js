@@ -42,10 +42,10 @@ function LoginPage(props) {
             </Header>
             <ContainerSpace2>
                 <ContainerContent>
-                    <Title title="ID"></Title>
+                    <Title>ID</Title>
                     <BoxInput placeholder="아이디"></BoxInput>
                     <InputLink>아이디를 입력해주세요</InputLink>
-                    <Title title="Password"></Title>
+                    <Title>Password</Title>
                     <BoxInput placeholder="비밀번호"></BoxInput>
                     <InputLink></InputLink>
                     <Space></Space>

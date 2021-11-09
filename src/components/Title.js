@@ -6,7 +6,7 @@ function Title(props) {
     return (
         <TitleBox>
             <TitleContent>
-                {props.title}
+                {props.children}
             </TitleContent>
         </TitleBox>
     );

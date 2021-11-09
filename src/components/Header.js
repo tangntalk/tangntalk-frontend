@@ -17,7 +17,7 @@ function Header(props) {
                     </Title>
                 </Wrapper>
                 <Wrapper>
-                    {props.search&&<SearchIcon></SearchIcon>}   
+                    {props.search&&<SearchIcon id={props.id}></SearchIcon>}   
                 </Wrapper>
             </HeaderContent>
         </HeaderSpace>

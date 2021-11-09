@@ -14,21 +14,17 @@ function RegisterPage(props) {
             </Header>
             <ContainerSpace2>
                 <ContainerContent>
-                    <Title title="ID"></Title>
-                    <InputBox>
-                        <BoxInput placeholder="아이디" width="calc(80% - 50px)"></BoxInput>
-                        <BlueButton width="60px">중복<br />확인</BlueButton>
-                    </InputBox>
+                    <Title>ID</Title>
+                        <BoxInput placeholder="아이디"></BoxInput>
                     <InputLink>아이디를 입력해주세요</InputLink>
-
-                    <Title title="Password"></Title>
+                    <Title>Password</Title>
                     <BoxInput placeholder="비밀번호"></BoxInput>
                     <InputLink></InputLink>
                     <Space></Space>
                     <BoxInput placeholder="비밀번호 확인"></BoxInput>
                     <InputLink></InputLink>
 
-                    <Title title="Member"></Title>
+                    <Title>Member</Title>
                     <BoxInput placeholder="별명"></BoxInput>
                     <InputLink>양식에 맞지 않는 별명입니다</InputLink>
 

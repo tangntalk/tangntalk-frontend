@@ -15,6 +15,7 @@ export const NaviIcon = styled.div`
 
 export const NaviText = styled.div`
     word-break:keep-all;
+    text-overflow: ellipsis;
     font-size:0.8em;
     font-weight:bold;
     overflow:hidden;
@@ -47,7 +48,7 @@ export const ContainerSpace2 = styled.div`
 export const ContainerContent = styled.div`
     width:100%;
     max-width:800px;
-    max-height:calc(100vh - 50px);
+    min-height:calc(100vh - 50px);
     box-sizing: border-box;
     padding:0 10px;
 
@@ -63,9 +64,8 @@ export const ContainerContent = styled.div`
 export const ContainerContentG = styled.div`
     width:100%;
     max-width:800px;
-    max-height:calc(100vh - 50px);
+    min-height:calc(100vh - 150px);
     box-sizing: border-box;
-    padding:0 10px;
 
     display: flex;
     flex-flow: column nowrap;
@@ -79,6 +79,11 @@ export const ContainerContentG = styled.div`
     overflow-x:hidden;
 
     gap:10px;
+`
+
+export const WhiteSpace = styled.div`
+    width:100%;
+    background-color:#ffffff;
 `
 
 export const Space = styled.div`
@@ -100,15 +105,6 @@ export const Line = styled.div`
     border-bottom:1px solid #ECEBED;
 
     max-width:530px;
-`
-export const InputBox = styled.div`
-    width: 85%;
-    width: calc(80% + 30px);
-    max-width:530px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
 `
 
 export const InputLink = styled.div`
