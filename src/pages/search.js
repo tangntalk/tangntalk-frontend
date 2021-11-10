@@ -1,6 +1,6 @@
 import React from "react";
 
-import Header from "../components/Hearder";
+import Header from "../components/Header";
 import { ContainerSpace2, ContainerContent } from "../styles/style";
 
 function SearchPage(props) {
