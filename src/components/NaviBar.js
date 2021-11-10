@@ -10,9 +10,9 @@ function NaviBar(props) {
     return (
         <NaviSpace>
             <NaviContent>
-                {props.user?<UserIcon selected></UserIcon>:<UserIcon></UserIcon>}
-                {props.around?<AroundIcon selected></AroundIcon>:<AroundIcon></AroundIcon>}
-                {props.chat?<ChattingIcon selected></ChattingIcon>:<ChattingIcon></ChattingIcon>}
+                {props.user?<UserIcon selected id={props.id} ></UserIcon>:<UserIcon id={props.id}></UserIcon>}
+                {props.around?<AroundIcon selected id={props.id}></AroundIcon>:<AroundIcon id={props.id}></AroundIcon>}
+                {props.chat?<ChattingIcon selected id={props.id}></ChattingIcon>:<ChattingIcon id={props.id}></ChattingIcon>}
             </NaviContent>
         </NaviSpace>
     );

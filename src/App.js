@@ -29,7 +29,7 @@ function App() {
 
         <Route exact path="/chat/:user_id" component={withRouter(ChatListPage)} />
         <Route exact path="/chatting/:user_id/:opponent" component={withRouter(ChattingPage)} />
-        {/* chatting별 아이디 처리 */}
+        <Route component={() => <Redirect to="/"/>}/>
       </Switch>
     </Router>
 
