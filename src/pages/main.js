@@ -1,6 +1,6 @@
 import React from "react";
 
-import Header from "../components/Header";
+import Header from "../components/Hearder";
 import NaviBar from "../components/NaviBar";
 import Box from "../components/Box";
 import Title from "../components/Title";
