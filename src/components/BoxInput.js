@@ -22,16 +22,3 @@ export const Input = styled.input`
         border-color: #1949D8;
     }
 `
-export const SmallInput = styled.input`
-    height: 50px;
-    width : ${props => props.width || "60%"};
-    max-width:${props => props.width || "600px"};
-    padding: 0 15px;
-    border: 1px solid #948EA5;
-    border-radius: 5px;
-    font-size:15px;
-    &:focus {
-        outline: none;
-        border-color: #1949D8;
-    }
-`
