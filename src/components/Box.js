@@ -3,12 +3,13 @@ import { withRouter } from 'react-router-dom';
 import styled from "styled-components";
 
 function Box(props) {
+    const goChatting = () => props.history.push(`/chatting/${props.user_id[0]}/${props.user_id[1]}`);
     return (
         <BoxContainer>
             <Left>
                 <TextSpace>
                     {props.on &&
-                        <Button>
+                        <Button onClick={goChatting}>
                             <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="49" height="48" rx="4" fill="#1949D8" />
                                 <path d="M16 33V17C16 15.8954 16.8954 15 18 15H32C33.1046 15 34 15.8954 34 17V27C34 28.1046 33.1046 29 32 29H22C21.5671 28.9992 21.1458 29.1396 20.8 29.4L16 33ZM18 17V29L20.134 27.4C20.4796 27.1393 20.9011 26.9988 21.334 27H32V17H18Z" fill="white" />
@@ -54,7 +55,8 @@ function Box(props) {
                                 </svg>
                             </Round>
                             <Round>
-                                공학관
+                                {/* 공학관{props.location}  */}
+                                {props.me}
                         </Round>
                         </Button>
                     </>
