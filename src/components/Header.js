@@ -8,20 +8,21 @@ import SearchIcon from "./icon/Search";
 
 function Header(props) {
     return (
-        <HeaderSpace>
-            <HeaderContent>
-                <Wrapper>
-                    {props.back&&(props.function?<BackIcon function={props.function}></BackIcon>:<BackIcon></BackIcon>)}
-                    <Title>
-                        {props.title}
-                    </Title>
-                </Wrapper>
-                <Wrapper>
-                    {props.search&&<SearchIcon id={props.id}></SearchIcon>}   
-                </Wrapper>
-            </HeaderContent>
-        </HeaderSpace>
-        // 헤더 왜 자꾸 오류나지
+        <>
+            <HeaderSpace>
+                <HeaderContent>
+                    <Wrapper>
+                        {props.back && (props.function ? <BackIcon function={props.function}></BackIcon> : <BackIcon></BackIcon>)}
+                        <Title>
+                            {props.title}
+                        </Title>
+                    </Wrapper>
+                    <Wrapper>
+                        {props.search && <SearchIcon id={props.id}></SearchIcon>}
+                    </Wrapper>
+                </HeaderContent>
+            </HeaderSpace>
+        </>
     );
 }
 
