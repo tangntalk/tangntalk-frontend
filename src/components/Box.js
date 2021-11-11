@@ -55,7 +55,6 @@ function Box(props) {
                                 </svg>
                             </Round>
                             <Round>
-                                {/* 공학관{props.location}  */}
                                 {props.me}
                         </Round>
                         </Button>

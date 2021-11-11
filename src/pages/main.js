@@ -15,13 +15,10 @@ function MainPage(props) {
     const [isloading, setLoading] = useState(2);
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [offlineFriends, setOfflineFriends] = useState([]);
-    // state = {
-    //     my
-    // }
+
     useEffect(() => {
         api.user(user_id)
         .then(response => {
-            // console.log(response);
             setMyInfo(response.data.user);
             if(response.data.success) setLoading((isloading)=>(
                 isloading-1
@@ -61,7 +58,6 @@ function MainPage(props) {
 
         })
     }, []);
-    // console.log(myInfo);
     
 
     if(isloading>0){
