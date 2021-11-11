@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import Header from "../components/Header";
-import BoxInput from "../components/BoxInput";
+import Box from "../components/Box";
 import SearchIcon from "../components/icon/Search";
 
-import { ContainerSpace2, ContainerContent } from "../styles/style";
+import { ContainerSpace2, ContainerContentG } from "../styles/style";
 
 function SearchPage(props) {
     return (
@@ -18,9 +18,22 @@ function SearchPage(props) {
                     <SearchIcon></SearchIcon>
                 </SearchContent>
             </SearchSpace>
+            <Margin></Margin>
             <ContainerSpace2>
-                < ContainerContent>
-                </ContainerContent>
+                <ContainerContentG>
+                    <div></div>
+                    <Box name="이지영" add>아이고야</Box>
+                    <Box name="이예림">집에 가자</Box>
+                    <Box name="이예림">초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 </Box>
+                    <Box name="이예림">초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 </Box>
+                    <Box name="이예림">초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 </Box>
+                    <Box name="이예림">초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 </Box>
+                    <Box name="이예림">초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 </Box>
+                    <Box name="이예림">초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 </Box>
+                    <Box name="이예림">초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 </Box>
+                    <Box name="이예림">초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 초코하임 맛있다 </Box>
+                    <div></div>
+                </ContainerContentG>
             </ContainerSpace2>
 
         </>
@@ -28,6 +41,10 @@ function SearchPage(props) {
 }
 
 export default SearchPage;
+
+export const Margin = styled.div`
+    height:100px;
+`
 
 export const SearchSpace = styled.div`
     width:100%;
@@ -49,7 +66,7 @@ export const SearchContent = styled.div`
     width:100%;
     max-width:550px;
     padding:0 10px;
-    height:60px;
+    height:100px;
     box-sizing: border-box;
 
     display: flex;
