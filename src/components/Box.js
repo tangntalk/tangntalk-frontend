@@ -23,9 +23,12 @@ function Box(props) {
                     }
                 </TextSpace>
                 <TextSpace>
-                    <Name>
-                        {props.name}
-                    </Name>
+                    <UserTextSpace>
+                        <Name>
+                            {props.name}
+                        </Name>
+                        {(props.type) ? <UserType> ({props.type}) </UserType>: null }
+                    </UserTextSpace>
                     <Status>
                         {props.children}
                     </Status>
@@ -119,7 +122,12 @@ export const TextSpace = styled.div`
     justify-content:space-between;
     padding-left:10px;
 `
-
+export const UserTextSpace = styled.div`
+    display: flex;
+    flex-direction:row;
+    align-items: baseline;
+    justify-content:space-between;
+`
 export const Name = styled.div`
     font-size:1.2em;
     font-weight:bold;
@@ -136,6 +144,18 @@ export const Status = styled.div`
     font-size:0.8em;
     color:#948EA5;
 
+    display: -webkit-box;
+    line-height: 1.5;
+    height: 1.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical; 
+    -webkit-line-clamp: 1;
+`
+export const UserType = styled.div`
+    font-size:0.8em;
+    color:#948EA5;
+    padding-left: 5px;
     display: -webkit-box;
     line-height: 1.5;
     height: 1.5em;

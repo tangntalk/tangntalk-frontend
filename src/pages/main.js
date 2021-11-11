@@ -43,9 +43,11 @@ function MainPage(props) {
             console.log(response);
             setOfflineFriends(response.data.offline);
             setOnlineFriends(response.data.online);
-            if(response.data.success) setLoading((isloading)=>(
-                isloading-1
-            ));
+            if(response.data.success){
+                setLoading((isloading)=>(
+                    isloading-1
+                ));
+            } 
             else alert('요청한 사용자가 존재하지 않습니다');
         })
         .catch(error => {
@@ -55,10 +57,16 @@ function MainPage(props) {
             else{
                 alert('친구 정보 조회 중 문제가 생겼습니다.')
             }
-
+            
         })
     }, []);
     
+    onlineFriends.sort(function(a, b) { 
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
+    offlineFriends.sort(function(a, b) {
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+    });
 
     if(isloading>0){
         return(
@@ -79,13 +87,13 @@ function MainPage(props) {
                     <Box me={myInfo.location_name} name={myInfo.name} children={myInfo.status_message}></Box>
                     <Title>접속한 친구</Title>
                     {onlineFriends.map((friend) => (
-                        <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]}>
+                        <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
                             {friend.status_message}
                         </Box>
                     ))}
                     <Title>미접속 친구</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off key={friend.user_id} name={friend.name}>
+                        <Box off key={friend.user_id} name={friend.name} type={friend.type}>
                             {friend.status_message}
                         </Box>
                     ))}
