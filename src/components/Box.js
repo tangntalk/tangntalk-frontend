@@ -126,7 +126,6 @@ export const UserTextSpace = styled.div`
     display: flex;
     flex-direction:row;
     align-items: baseline;
-    justify-content:space-between;
 `
 export const Name = styled.div`
     font-size:1.2em;
