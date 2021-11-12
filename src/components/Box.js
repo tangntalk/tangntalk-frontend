@@ -1,10 +1,25 @@
-import { withRouter } from 'react-router-dom';
+import { useState } from "react";
+import { withRouter, useParams } from 'react-router-dom';
 
 import styled from "styled-components";
 
+import * as api from "../util/api";
+
 function Box(props) {
+    const { user_id } = useParams();
+    const [add, setAdd] = useState(props.add);
+
     const goChatting = () =>{props.history.push(`/chatting/${props.user_id[0]}/${props.user_id[1]}`);}
     const goSetting = () =>{props.history.push(`/setting/${props.user_id}`);}
+    const addFriend = () => {
+        api.friendAdd(user_id, props.friend_id);
+        setAdd(false);
+    }
+    const deleteFriend = () => {
+        api.friendDelete(user_id, props.friend_id);
+        setAdd(true);
+    }
+
     return (
         <BoxContainer>
             <Left>
@@ -39,8 +54,8 @@ function Box(props) {
             </Left>
 
             <Right>
-                {(props.me !== true && props.add !== true) &&
-                    <Button>
+                {(props.me !== true && add !== true) &&
+                    <Button onClick={deleteFriend}>
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.59 0L5 3.59L1.41 0L0 1.41L3.59 5L0 8.59L1.41 10L5 6.41L8.59 10L10 8.59L6.41 5L10 1.41L8.59 0Z" fill="black" />
                         </svg>
@@ -66,8 +81,8 @@ function Box(props) {
                         </Button>
                     </>
                 }
-                {props.add &&
-                    <Button>
+                {add &&
+                    <Button onClick={addFriend}>
                         <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect width="49" height="48" rx="4" fill="#1949D8" />
                             <path d="M25.25 21.25V28.75H22.75V21.25H15.25V18.75H22.75V11.25H25.25V18.75H32.75V21.25H25.25Z" fill="white" />

@@ -81,8 +81,10 @@ function SearchPage(props) {
             <ContainerSpace2>
                 <ContainerContentG id="friend-search">
                     <div></div>
-                    {friends.map((friend) => (
-                        <Box add={!friend.is_friend} name={friend.name}>{friend.status_message}</Box>
+                    {friends.map((friend, index) => (
+                        <Box add={!friend.is_friend} name={friend.name} friend_id={friend.user_id} key={index}>
+                            {friend.status_message}
+                        </Box>
                     ))}
                     <div></div>
                 </ContainerContentG>
