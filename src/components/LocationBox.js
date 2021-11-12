@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { withRouter } from 'react-router-dom';
-import { useDetectOutsideClick } from "./useDetectOutsideClick";
 import styled from "styled-components";
 import BlueButton from "../components/BlueButton";
 import { Space } from "../styles/style";
