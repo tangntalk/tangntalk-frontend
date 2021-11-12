@@ -73,6 +73,8 @@ function MainPage(props) {
             <>
             <Header search title="친구 목록" id={user_id}>
             </Header>
+            <NaviBar user id={user_id}>
+            </NaviBar>
             </>
         );
     }

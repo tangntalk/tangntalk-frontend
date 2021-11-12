@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 function BlueButton(props) {
     return (
-        <Button {...props}>
+        <Button {...props} onClick={props.onClick}>
             {props.children}
         </Button>
     );

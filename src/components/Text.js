@@ -5,8 +5,8 @@ import styled from "styled-components";
 function Text(props) {
     return (
         <TextBox>
-            <TextContent>
-                {props.text}
+            <TextContent onClick={props.onClick}>
+                {props.children}
             </TextContent>
         </TextBox>
     );

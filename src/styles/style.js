@@ -25,7 +25,8 @@ export const ContainerSpace = styled.div`
     width:100%;
     height:100%;
     box-sizing: border-box;
-    padding:50px 0 100px 0;
+    padding-top:50px;
+    padding-bottom:${props => props.paddingBottom || "100px"};
 
     display: flex;
     align-items: center;
@@ -37,7 +38,7 @@ export const ContainerSpace2 = styled.div`
     width:100%;
     height:100%;
     box-sizing: border-box;
-    padding:50px 0 0 0;
+    padding-top:50px;
 
     display: flex;
     align-items: center;
@@ -64,7 +65,7 @@ export const ContainerContent = styled.div`
 export const ContainerContentG = styled.div`
     width:100%;
     max-width:800px;
-    min-height:calc(100vh - 150px);
+    min-height:${props => props.minHeight || "calc(100vh - 150px)"};
     box-sizing: border-box;
 
     display: flex;
@@ -140,4 +141,16 @@ export const ButtonLink = styled.div`
     &:hover {
         text-decoration: underline;
     }
+`
+
+export const SpaceAround = styled.div`
+    width: ${props => props.width || "calc(80% + 30px)"};
+    width : -webkit-${props => props.width || "calc(80% + 30px)"};
+    width :    -moz-${props => props.width || "calc(80% + 30px)"};
+    max-width:${props => props.maxwidth || "530px"};
+    height: ${props => props.height || "100%"};
+
+    display:flex;
+    align-items:space-around;
+    justify-content:space-around;
 `
