@@ -28,12 +28,12 @@ function SettingPage(props) {
 
                     <Title>위치</Title>
                     <SpaceAround>
-                        <RadioButton onClick={() => setUserType('GENERAL')} selected={userType === 'GENERAL'}>일반</RadioButton>
-                        <RadioButton onClick={() => setUserType('STUDENT')} selected={userType === 'STUDENT'}>학생</RadioButton>
+                        <RadioButton onClick={() => setUserType('GENERAL')} selected={userType === 'GENERAL'}>학생회관</RadioButton>
+                        <RadioButton onClick={() => setUserType('STUDENT')} selected={userType === 'STUDENT'}>신촌역</RadioButton>
                     </SpaceAround>
                     <SpaceAround height="100px">
-                        <RadioButton onClick={() => setUserType('CORPORATION')} selected={userType === 'CORPORATION'}>기업</RadioButton>
-                        <RadioButton onClick={() => setUserType('INSTRUCTOR')} selected={userType === 'INSTRUCTOR'}>강사</RadioButton>
+                        <RadioButton onClick={() => setUserType('CORPORATION')} selected={userType === 'CORPORATION'}>공학관</RadioButton>
+                        <RadioButton onClick={() => setUserType('INSTRUCTOR')} selected={userType === 'INSTRUCTOR'}>백양관</RadioButton>
                     </SpaceAround>
 
                     <BlueButton>변경하기</BlueButton>
