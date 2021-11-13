@@ -6,10 +6,22 @@ import BlueButton from "../components/BlueButton";
 import RadioButton from "../components/RadioButton";
 import Title from "../components/Title";
 import Text from "../components/Text";
-import { ContainerSpace2, ContainerContent, Space, InputLink, SpaceAround, Line, Gap} from "../styles/style";
+import { ContainerSpace2, ContainerContent, Space, InputLink, SpaceAround, Line} from "../styles/style";
+
+import * as api from "../util/api";
 
 function SettingPage(props) {
     const [userType, setUserType] = useState('GENERAL');
+
+    const logout = () => {
+        api.logout()
+            .then(() => {
+                alert('로그아웃 되었습니다');
+            })
+            .catch(error => {
+                alert('로그아웃에 실패했습니다');
+            });
+    }
     return (
         <>
             <Header back title="내 정보 수정">
@@ -40,7 +52,7 @@ function SettingPage(props) {
 
                     <Line></Line>
 
-                    <Text>로그아웃</Text>
+                    <Text onClick={logout}>로그아웃</Text>
 
                     <Line></Line>
 

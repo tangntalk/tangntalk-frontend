@@ -7,7 +7,7 @@ import Title from "../components/Title";
 import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink} from "../styles/style";
 
 import * as api from "../util/api";
-import * as reg from "../util/regex";
+
 
 function LoginPage(props) {
     const goRegister = () => props.history.push('/register');
