@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import RadioButton from "../components/RadioButton";
 import BlueButton from "../components/BlueButton";
+import Message from "../components/Message";
 import styled from "styled-components";
 import { ContainerSpace, ContainerContentG, Space } from "../styles/style";
 
@@ -15,12 +16,13 @@ function ChattingPage(props) {
             </Header>
             <ContainerSpace paddingBottom="200px">
                 <ContainerContentG minHeight="calc(100vh - 250px)">
-                    <Send>
-                        <ChatBox>힘들다 망할</ChatBox>
-                    </Send>
-                    <Receive>
-                        <ChatBox2>ㅋㅋㅋㅋ</ChatBox2>
-                    </Receive>
+                    <div></div>
+                    <Message send rendezvous={"공학관, 14:01:21까지"} date={"2021-9-4"} time={"15:31:21"}>오늘 뭐먹었어</Message>
+                    <Message receive date={"2021-9-4"} time={"15:31:21"}>콩나물 국밥 시켜 먹었어</Message>
+                    <Message receive date={"2021-9-4"} time={"15:31:21"}>메밀 전병이랑</Message>
+                    <Message send rendezvous={"공학관, 14:01:21까지"} date={"2021-9-4"} time={"15:31:21"}>이거 자꾸 파랑색으로 가는데 왜 그러는 걸까</Message>
+                    <Message receive date={"2021-9-4"} time={"15:31:21"}>동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산</Message>
+                    <div></div>
                 </ContainerContentG>
             </ContainerSpace>
             <NaviSpace>
@@ -98,59 +100,12 @@ export const ChatInput = styled.textarea`
     padding:10px;
     height:150px;
     border:1px solid #ECEBED;
+    font-size:1.2em;
     border-radius:5px;
     &:focus {
         outline: none;
     }
     @media only screen and (max-width: 600px) {
         width:calc(100% - 30px);
-    }
-`
-export const Send = styled.div`
-    width:90%;
-    display:flex;
-    justify-content:start;
-`
-export const Receive = styled.div`
-    width:90%;
-    display:flex;
-    align-items:end;
-`
-export const ChatBox = styled.div`
-    padding:10px;
-    position:relative;
-    width:180px;
-    min-height:60px;
-    background-color:#ffffff;
-    border:none;
-    border-radius: 10px;
-    :before {
-    border-top:15px solid #ffffff;
-    border-left: 15px solid transparent;
-    border-right: 0px solid transparent;
-    border-bottom: 0px solid transparent;
-    content:"";
-    position:absolute;
-    top:10px;
-    left:-15px;
-    }
-`
-export const ChatBox2 = styled.div`
-    padding:10px;
-    position:relative;
-    width:180px;
-    min-height:60px;
-    background-color:#ffffff;
-    border:none;
-    border-radius: 10px;
-    :before {
-    border-top:15px solid #ffffff;
-    border-left: 0px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 0px solid transparent;
-    content:"";
-    position:absolute;
-    top:10px;
-    left:200px;
     }
 `

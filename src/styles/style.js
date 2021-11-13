@@ -57,16 +57,14 @@ export const ContainerContent = styled.div`
     flex-flow: column nowrap;
     align-items: center;
 
-    word-break:keep-all;
-
-    overflow:scroll;
     overflow-x:hidden;
+
+    word-break:keep-all;
 `
 export const ContainerContentG = styled.div`
     width:100%;
     max-width:800px;
     min-height:${props => props.minHeight || "calc(100vh - 150px)"};
-    box-sizing: border-box;
 
     display: flex;
     flex-flow: column nowrap;
@@ -76,7 +74,6 @@ export const ContainerContentG = styled.div`
 
     background-color:#ECEBED;
 
-    overflow:scroll;
     overflow-x:hidden;
 
     gap:10px;

@@ -21,6 +21,8 @@ function NaviBar(props) {
 export default withRouter(NaviBar);
 
 export const NaviSpace = styled.div`
+    z-index:10;
+    
     width:100%;
     height:100px;
     box-sizing: border-box;
