@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 import Header from "../components/Header";
 import RadioButton from "../components/RadioButton";
@@ -8,7 +9,10 @@ import styled from "styled-components";
 import { ContainerSpace, ContainerContentG, Space } from "../styles/style";
 
 function ChattingPage(props) {
-    const goChatList = () => props.history.push('/chat');
+    const { user_id } = useParams();
+
+    const goChatList = () => props.history.push(`/chat/${user_id}`);
+    
     const [userType, setUserType] = useState('GENERAL');
     return (
         <>

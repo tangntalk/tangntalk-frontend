@@ -17,10 +17,10 @@ function ChatListPage(props) {
             <ContainerSpace>
                 < ContainerContentG>
                     <Title>진행 중인 채팅</Title>
-                    <ChatBox on date="2021-9-4" time="15:31:21" to oppenent="홍길동" rendezvous>지금 어디에요?</ChatBox>
-                    <ChatBox on date="2021-9-4" time="15:31:21" to oppenent="홍길동" >지금 어디에요?</ChatBox>
-                    <ChatBox off date="2021-9-4" time="15:31:21" from oppenent="이름수 제한 공백포함 10글자" rendezvous>잘 모르겠어요</ChatBox>
-                    <ChatBox off date="2021-9-4" time="15:31:21" to oppenent="이주연">
+                    <ChatBox on date="2021-9-4" time="15:31:21" to oppenent="홍길동" rendezvous id="1234" oppenent_id="1234">지금 어디에요?</ChatBox>
+                    <ChatBox on date="2021-9-4" time="15:31:21" to oppenent="홍길동" id="1234" oppenent_id="1234">지금 어디에요?</ChatBox>
+                    <ChatBox off date="2021-9-4" time="15:31:21" from oppenent="이름수 제한 공백포함 10글자" rendezvous rendezvous id="1234" oppenent_id="1234">잘 모르겠어요</ChatBox>
+                    <ChatBox off date="2021-9-4" time="15:31:21" to oppenent="이주연" id="1234" oppenent_id="1234">
                         지금 어디에요? 지금 어디에요? 지금 어디에요? 지금 어디에요? 지금 어디에요? 지금 어디에요? 지금 어디에요? 지금 어디에요? 지금 어디에요? 
                     </ChatBox>
                 </ContainerContentG>
