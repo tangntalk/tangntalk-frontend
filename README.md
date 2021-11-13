@@ -31,8 +31,6 @@ app.js는 react-router-dom 라이브러리을 사용하여 페이지 path별로 
 
 컴포넌트는 page에 들어갈 요소들입니다. 아시겠지만 뷰나 리액트 없이는 매번 다시 써야하는 걸 재활용 가능하고, props에 따라 조금만 모양/요소를 바꿔 띄울 수도 있습니다.
 
-style 파일은 styled-components 라이브러리를 사용하여 페이지/컴포넌트에서 사용할 태그를 만듭니다. props 전달은 불가능하고 css가 딸린 tag를 만든다는 점에서 기본 컴포넌트와 약간 다릅니다. css를 묶음으로 만들어 재사용이 가능하게 해주는 친구라고 생각하면 되겠습니다.
-
-style 파일을 조합하여 component(+page)를, component 파일을 조합하여 page를 만들면 app에서 라우팅해 index.js띄운다고 생각하면 되겠습니다.
+style 파일은 styled-components 라이브러리를 사용하여 페이지/컴포넌트에서 사용할 태그를 만듭니다.
 
  
