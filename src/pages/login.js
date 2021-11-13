@@ -7,15 +7,40 @@ import Title from "../components/Title";
 import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink} from "../styles/style";
 
 import * as api from "../util/api";
+import * as reg from "../util/regex";
 
 function LoginPage(props) {
     const goRegister = () => props.history.push('/register');
-    const [id, setId] = useState('');
-    const [password, setPassword] = useState('');
-    const Login = () => {
+
+    const [inputs, setInputs] = useState({
+        id: '',
+        password: '',
+    });
+    const { id, password } = inputs;
+
+    const onChange = (e) => {
+        const { value, name } = e.target;
+        setInputs({
+            ...inputs,
+            [name]: value
+        });
+    };
+
+    const detectInput = () => {
+        if (id.length === 0) {
+            alert('아이디를 입력하세요');
+            return;
+        }
+        if (password.length === 0) {
+            alert('패스워드를 입력하세요');
+            return;
+        }
+        login();
+    }
+
+    const login = () => {
         api.login(id, password)
             .then(() => {
-                alert('성공');
             })
             .catch(error => {
                 if (error.response) {
@@ -43,15 +68,13 @@ function LoginPage(props) {
             <ContainerSpace2>
                 <ContainerContent>
                     <Title>ID</Title>
-                    <BoxInput placeholder="아이디"></BoxInput>
-                    <InputLink>아이디를 입력해주세요</InputLink>
+                    <BoxInput placeholder="아이디" name="id" value={id} onInput={onChange}></BoxInput>
                     <Title>Password</Title>
-                    <BoxInput placeholder="비밀번호"></BoxInput>
-                    <InputLink></InputLink>
+                    <BoxInput placeholder="비밀번호" name="password" value={password} onInput={onChange} type="password"></BoxInput>
                     <Space></Space>
                     <Space></Space>
                     <Space></Space>
-                    <BlueButton onClick={Login}>로그인</BlueButton>
+                    <BlueButton onClick={detectInput}>로그인</BlueButton>
                     <ButtonLink onClick={goRegister}>회원가입하기</ButtonLink>
                 </ContainerContent>
             </ContainerSpace2>
