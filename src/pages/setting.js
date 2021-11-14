@@ -75,7 +75,7 @@ function SettingPage(props) {
                 < ContainerContent>
                     <Space></Space>
                     <Title> 내 정보</Title>
-                    <Box me={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message}></Box>
+                    <Box me user_location={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message} profile></Box>
                     <Line></Line>
                     <Title> 상태 메시지</Title>
                     <BoxInput maxLength="20" placeholder="상태 메세지" onChange={handleChange} ></BoxInput>

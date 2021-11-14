@@ -64,7 +64,7 @@ function MainPage(props) {
             <ContainerSpace>
                 <ContainerContentG>
                     <Title>내 정보</Title>
-                    <Box me={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message}></Box>
+                    <Box me user_location={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message}></Box>
                     <Title>접속한 친구</Title>
                     {onlineFriends.map((friend) => (
                         <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
