@@ -14,22 +14,19 @@ function LocationBox(props) {
     const setInitLocation = (idx) => {
         setCurrentLocation(props.Options[idx]);
         setIsActive(false);
-        console.log(currentLocation);
+        // console.log(currentLocation);
     }
     const postLocation = () => {
         api.userLocation(props.user_id, currentLocation)
         .then(response => {
-            console.log(response);
+            // console.log(response);
+            props.handleLocationChange(currentLocation);
             if(response.data.success)
                 alert('사용자의 위치가 성공적으로 바뀌었습니다')
         })
         .catch(error => {
-            if (error.request) {
-                alert('서버에서 응답이 오지 않습니다.');
-            }
-            else{
-                alert('내 정보 조회 중 문제가 생겼습니다.')
-            }
+            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            else{alert('내 정보 조회 중 문제가 생겼습니다.')}
 
         })
     }

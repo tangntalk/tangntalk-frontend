@@ -20,19 +20,12 @@ function MainPage(props) {
         api.user(user_id)
         .then(response => {
             setMyInfo(response.data.user);
-            if(response.data.success) setLoading((isloading)=>(
-                isloading-1
-            ));
+            if(response.data.success) setLoading((isloading)=>(isloading-1));
             else alert('요청한 사용자가 존재하지 않습니다');
         })
         .catch(error => {
-            if (error.request) {
-                alert('서버에서 응답이 오지 않습니다.');
-            }
-            else{
-                alert('내 정보 조회 중 문제가 생겼습니다.')
-            }
-
+            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            else{alert('내 정보 조회 중 문제가 생겼습니다.')}
         })
     }, []);
 
@@ -43,36 +36,23 @@ function MainPage(props) {
             console.log(response);
             setOfflineFriends(response.data.offline);
             setOnlineFriends(response.data.online);
-            if(response.data.success){
-                setLoading((isloading)=>(
-                    isloading-1
-                ));
-            } 
+            if(response.data.success){setLoading((isloading)=>(isloading-1));} 
             else alert('요청한 사용자가 존재하지 않습니다');
         })
         .catch(error => {
-            if (error.request) {
-                alert('서버에서 응답이 오지 않습니다.');
-            }
-            else{
-                alert('친구 정보 조회 중 문제가 생겼습니다.')
-            }
+            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            else{alert('친구 정보 조회 중 문제가 생겼습니다.')}
             
         })
     }, []);
     
-    onlineFriends.sort(function(a, b) { 
-        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-    });
-    offlineFriends.sort(function(a, b) {
-        return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;
-    });
+    onlineFriends.sort(function(a, b) {return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;});
+    offlineFriends.sort(function(a, b) {return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;});
 
     if(isloading>0){
         return(
             <>
-            <Header search title="친구 목록" id={user_id}>
-            </Header>
+            <Header search title="친구 목록" id={user_id}></Header>
             </>
         );
     }
@@ -97,7 +77,6 @@ function MainPage(props) {
                             {friend.status_message}
                         </Box>
                     ))}
-                    <Box add name="박효정">친구 추가 해주세요</Box>
                     <Space></Space>
                 </ContainerContentG>
             </ContainerSpace>

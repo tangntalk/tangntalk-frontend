@@ -104,7 +104,7 @@ export const BoxContainer = styled.div`
     max-width:${props => props.maxwidth || "530px"};
     height: 80px;
     padding: 10px;
-
+    border: 1px solid #ECEBED;
     box-sizing: border-box;
     border-radius:5px;
 
