@@ -65,7 +65,7 @@ function MainPage(props) {
         return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
     });
     offlineFriends.sort(function(a, b) {
-        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+        return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;
     });
 
     if(isloading>0){
@@ -86,7 +86,7 @@ function MainPage(props) {
             <ContainerSpace>
                 <ContainerContentG>
                     <Title>내 정보</Title>
-                    <Box me={myInfo.location_name} name={myInfo.name} children={myInfo.status_message}></Box>
+                    <Box me={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message}></Box>
                     <Title>접속한 친구</Title>
                     {onlineFriends.map((friend) => (
                         <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
@@ -95,7 +95,7 @@ function MainPage(props) {
                     ))}
                     <Title>미접속 친구</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off key={friend.user_id} name={friend.name} type={friend.type}>
+                        <Box off key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
                             {friend.status_message}
                         </Box>
                     ))}
