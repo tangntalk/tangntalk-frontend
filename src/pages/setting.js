@@ -91,9 +91,9 @@ function SettingPage(props) {
                     <Title >위치</Title>
                     <LocationBox userLocation={myInfo.location_name} user_id={user_id} Options={["공학관", "언더우드관", "학생회관", "백양관"]} handleLocationChange={handleLocationChange}></LocationBox>
                     <Line></Line>
-                    <Text text="로그아웃"></Text>
+                    <Text children="로그아웃"></Text>
                     <Line></Line>
-                    <Text text="회원 탈퇴"></Text>
+                    <Text children="회원 탈퇴"></Text>
                 </ContainerContent>
             </ContainerSpace2>
         </>
