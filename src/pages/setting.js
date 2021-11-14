@@ -1,15 +1,19 @@
 import React, { state, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import Header from "../components/Header";
 import BoxInput from "../components/BoxInput";
 import BlueButton from "../components/BlueButton";
+import RadioButton from "../components/RadioButton";
 import Title from "../components/Title";
 import Text from "../components/Text";
 import Box from "../components/Box";
 import LocationBox from "../components/LocationBox";
 
-import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink, Line} from "../styles/style";
+import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink, SpaceAround, Line} from "../styles/style";
+
 import * as api from "../util/api";
+
 
 function SettingPage(props) {
 
@@ -66,17 +70,17 @@ function SettingPage(props) {
         );
     }
 
-
     return (
         <>
             <Header back title="내 정보 수정">
             </Header>
             <ContainerSpace2>
-                < ContainerContent>
+                <ContainerContent>
                     <Space></Space>
                     <Title> 내 정보</Title>
                     <Box me={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message}></Box>
                     <Line></Line>
+
                     <Title> 상태 메시지</Title>
                     <BoxInput maxLength="20" placeholder="상태 메세지" onChange={handleChange} ></BoxInput>
                     <InputLink>공백 포함 20자 이하여야 합니다</InputLink>
