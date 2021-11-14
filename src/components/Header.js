@@ -42,6 +42,8 @@ export const HeaderSpace = styled.div`
     background-color:#ffffff;
 
     border-bottom:1px solid #ECEBED;
+
+    z-index:10;
 `
 
 export const HeaderContent = styled.div`

@@ -3,30 +3,33 @@ import { withRouter } from 'react-router-dom';
 import styled from "styled-components";
 
 function ChatBox(props) {
+    const goChattingRoom= () => props.history.push(`/chatting/${props.id}/${props.oppenent_id}`);
     return (
         <OutBox>
             <BoxContainer>
                 <Left>
                     {props.on &&
-                        <Button>
+                        <Button onClick={goChattingRoom}>
                             <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect width="49" height="48" rx="4" fill="#1949D8" />
                                 <path d="M16 33V17C16 15.8954 16.8954 15 18 15H32C33.1046 15 34 15.8954 34 17V27C34 28.1046 33.1046 29 32 29H22C21.5671 28.9992 21.1458 29.1396 20.8 29.4L16 33ZM18 17V29L20.134 27.4C20.4796 27.1393 20.9011 26.9988 21.334 27H32V17H18Z" fill="white" />
                             </svg>
                         </Button>}
                     {props.off &&
-                        <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <Button>
+                        <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={goChattingRoom}>
                             <rect width="49" height="48" rx="4" fill="#ECEBED" />
                             <path d="M16 33V17C16 15.8954 16.8954 15 18 15H32C33.1046 15 34 15.8954 34 17V27C34 28.1046 33.1046 29 32 29H22C21.5671 28.9992 21.1458 29.1396 20.8 29.4L16 33ZM18 17V29L20.134 27.4C20.4796 27.1393 20.9011 26.9988 21.334 27H32V17H18Z" fill="#948EA5" />
                         </svg>
+                        </Button>
                     }
-                    <Text>
+                    <Text {...props}>
                         {props.children}
                     </Text>
                 </Left>
                 <Right>
-                    <Data>{props.date}</Data>
-                    <Data>{props.time}</Data>
+                    <Data {...props}>{props.date}</Data>
+                    <Data {...props}>{props.time}</Data>
                     <Data>{props.to && 'to.'}{props.from && 'from.'}{props.oppenent}</Data>
                 </Right>
             </BoxContainer>
@@ -82,6 +85,7 @@ export const Right = styled.div`
 export const Text = styled.div`
     width:70%;
     margin-left:10px;
+
     display: -webkit-box;
     font-size: 1em;
     font-weight:bold;
@@ -92,10 +96,13 @@ export const Text = styled.div`
     -webkit-box-orient: vertical; 
     word-break: keep-all;
     -webkit-line-clamp: 2;
+
+    color: ${props => props.rendezvous ? "#1949D8" : "#000000"};
 `
 export const Data = styled.div`
     font-size:0.8em;
-    color:#948EA5;
+
+    color: ${props => props.rendezvous ? "#1949D8" : "#948EA5"};
 
     display: -webkit-box;
     line-height: 1.5;
