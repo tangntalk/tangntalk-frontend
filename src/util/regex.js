@@ -1,18 +1,27 @@
-export const checkEmail = (email) => {
-    const regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+export const isNull = (string) => {
+    return string === '' || string === undefined || string === ' ';
+}
 
-    const isValid = (email !== '' && email !== undefined);
-    const isPatternValid = regExp.test(email);
+export const isWhitespace = (string) => {
+    const regExp = /[\s]/g;
+    return regExp.test(string);
+};
 
-    return isValid && isPatternValid;
+export const isSpecial = (string) => {
+    const regExp = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+    return regExp.test(string);
+};
+
+export const checkId = (id) => {
+    const isRange = (id.length >= 8 && id.length <= 20);
+    return isRange && !isNull(id) && !isWhitespace(id) && !isSpecial(id);
 };
 
 export const checkPassword = (password) => {
-    const num = password.search(/[0-9]/g);
-    const eng = password.search(/[a-z]/ig);
+    const isRange = (password.length >= 8);
+    return isRange && !isNull(password) && !isWhitespace(password);
+};
 
-    const isValid = (password !== '' && password !== undefined);
-    const isPatternValid = (password.length >= 8 && password.length <= 20 && password.search(/\s/) === -1 && num !== -1 && eng !== -1);
-
-    return isValid && isPatternValid;
+export const checkName = (name) => {
+    return !isNull(name) && !isWhitespace(name);
 };
