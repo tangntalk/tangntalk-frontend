@@ -47,7 +47,6 @@ function RegisterPage(props) {
                 break;
             case 'password':
                 reg.checkPassword(value) ? setAlerts({ ...alerts, passwordAlert: '' }) : setAlerts({ ...alerts, passwordAlert: '공백 없이 8자 이상이여야 합니다' });
-                (password === rePassword) ? setAlerts({ ...alerts, rePasswordAlert: '' }) : setAlerts({ ...alerts, rePasswordAlert: '비밀번호 재입력이 일치하지 않습니다' });
                 break;
             case 'rePassword':
                 (password === value) ? setAlerts({ ...alerts, rePasswordAlert: '' }) : setAlerts({ ...alerts, rePasswordAlert: '비밀번호 재입력이 일치하지 않습니다' });
