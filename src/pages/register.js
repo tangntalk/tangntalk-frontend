@@ -29,9 +29,7 @@ function RegisterPage(props) {
         rePasswordAlert: '',
         nameAlert: '',
     });
-    const { idAlert, passwordAlert, rePasswordAlert, nameAlert } = inputs;
-
-    const [idIsInputChecked, setIsInputChecked] = useState(true);
+    const { idAlert, passwordAlert, rePasswordAlert, nameAlert } = alerts;
 
     const onChange = (e) => {
         const { value, name } = e.target;
@@ -49,6 +47,7 @@ function RegisterPage(props) {
                 break;
             case 'password':
                 reg.checkPassword(value) ? setAlerts({ ...alerts, passwordAlert: '' }) : setAlerts({ ...alerts, passwordAlert: '공백 없이 8자 이상이여야 합니다' });
+                (password === rePassword) ? setAlerts({ ...alerts, rePasswordAlert: '' }) : setAlerts({ ...alerts, rePasswordAlert: '비밀번호 재입력이 일치하지 않습니다' });
                 break;
             case 'rePassword':
                 (password === value) ? setAlerts({ ...alerts, rePasswordAlert: '' }) : setAlerts({ ...alerts, rePasswordAlert: '비밀번호 재입력이 일치하지 않습니다' });
@@ -104,6 +103,7 @@ function RegisterPage(props) {
     const register = () => {
         api.register(id, password, name, type)
             .then(() => {
+                goLogin();
             })
             .catch(error => {
                 if (error.response) {
@@ -130,16 +130,16 @@ function RegisterPage(props) {
                 <ContainerContent>
                     <Title>ID</Title>
                     <BoxInput placeholder="아이디" name="id" value={id} onInput={onChange} onChange={inputCheck} onBlur={inputCheck}></BoxInput>
-                    <InputLink>{alerts.idAlert}</InputLink>
+                    <InputLink>{idAlert}</InputLink>
                     <Title>Password</Title>
                     <BoxInput placeholder="비밀번호" name="password" type="password" value={password} onInput={onChange} onChange={inputCheck} onBlur={inputCheck}></BoxInput>
-                    <InputLink>{alerts.passwordAlert}</InputLink>
+                    <InputLink>{passwordAlert}</InputLink>
                     <Space></Space>
                     <BoxInput placeholder="비밀번호 확인" name="rePassword" type="password" value={rePassword} onInput={onChange} onChange={inputCheck} onBlur={inputCheck}></BoxInput>
-                    <InputLink>{alerts.rePasswordAlert}</InputLink>
+                    <InputLink>{rePasswordAlert}</InputLink>
                     <Title>Member</Title>
                     <BoxInput placeholder="별명" name="name" value={name} onInput={onChange} onChange={inputCheck} onBlur={inputCheck}></BoxInput>
-                    <InputLink>{alerts.nameAlert}</InputLink>
+                    <InputLink>{nameAlert}</InputLink>
 
                     <SpaceAround height="80px">
                         <RadioButton onClick={() => setType('GENERAL')} selected={type === 'GENERAL'}>일반</RadioButton>
