@@ -141,12 +141,12 @@ function RegisterPage(props) {
                     <InputLink>{nameAlert}</InputLink>
 
                     <SpaceAround height="80px">
-                        <RadioButton onClick={() => setType('GENERAL')} selected={type === 'GENERAL'}>일반</RadioButton>
-                        <RadioButton onClick={() => setType('STUDENT')} selected={type === 'STUDENT'}>학생</RadioButton>
+                        <RadioButton onClick={() => setType('일반')} selected={type === '일반'}>일반</RadioButton>
+                        <RadioButton onClick={() => setType('학생')} selected={type === '학생'}>학생</RadioButton>
                     </SpaceAround>
                     <SpaceAround height="50px">
-                        <RadioButton onClick={() => setType('CORPORATION')} selected={type === 'CORPORATION'}>기업</RadioButton>
-                        <RadioButton onClick={() => setType('INSTRUCTOR')} selected={type === 'INSTRUCTOR'}>강사</RadioButton>
+                        <RadioButton onClick={() => setType('기업')} selected={type === '기업'}>기업</RadioButton>
+                        <RadioButton onClick={() => setType('강사')} selected={type === '강사'}>강사</RadioButton>
                     </SpaceAround>
 
                     <Space></Space>
