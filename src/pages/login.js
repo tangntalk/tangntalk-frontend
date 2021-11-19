@@ -4,13 +4,14 @@ import Header from "../components/Header";
 import BoxInput from "../components/BoxInput";
 import BlueButton from "../components/BlueButton";
 import Title from "../components/Title";
-import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink} from "../styles/style";
+import { ContainerSpace2, ContainerContent, Space, ButtonLink} from "../styles/style";
 
 import * as api from "../util/api";
 
 
 function LoginPage(props) {
     const goRegister = () => props.history.push('/register');
+    const goUser = (user_id) => props.history.push(`/user/${user_id}`);
 
     const [inputs, setInputs] = useState({
         id: '',
@@ -41,6 +42,7 @@ function LoginPage(props) {
     const login = () => {
         api.login(id, password)
             .then(() => {
+                goUser(id);
             })
             .catch(error => {
                 if (error.response) {
