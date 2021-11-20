@@ -13,14 +13,45 @@ function Box(props) {
     const goChatting = () =>{props.history.push(`/chatting/${props.user_id[0]}/${props.user_id[1]}`);}
     const goSetting = () =>{props.history.push(`/setting/${props.user_id}`);}
     const addFriend = () => {
-        api.friendAdd(user_id, props.friend_id);
-        setAdd(false);
-        setDel(true);
-    }
+        api.friendAdd(user_id, props.friend_id)
+            .then((response) => {
+                if(!response.data.success) {
+                    alert('변경 중 문제가 생겼습니다.');
+                } else {
+                    setAdd(false);
+                    setDel(true);            
+                }
+            }).catch(error => {
+                console.log(error);
+    
+                if (error.request) {
+                    alert('서버에서 응답이 오지 않습니다.');
+                }
+                else{
+                    alert('변경 중 문제가 생겼습니다.');
+                }
+            });
+    };
+
     const deleteFriend = () => {
-        api.friendDelete(user_id, props.friend_id);
-        setAdd(true);
-        setDel(false);
+        api.friendDelete(user_id, props.friend_id)
+            .then((response) => {
+                if(!response.data.success) {
+                    alert('변경 중 문제가 생겼습니다.');
+                } else {
+                    setAdd(true);
+                    setDel(false);     
+                }   
+            }).catch(error => {
+                console.log(error);
+    
+                if (error.request) {
+                    alert('서버에서 응답이 오지 않습니다.');
+                }
+                else{
+                    alert('변경 중 문제가 생겼습니다.');
+                }
+            });
     }
 
     return (
