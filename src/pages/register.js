@@ -21,7 +21,7 @@ function RegisterPage(props) {
     });
     const { id, password, rePassword, name } = inputs;
 
-    const [type, setType] = useState('GENERAL');
+    const [type, setType] = useState('일반');
 
     const [alerts, setAlerts] = useState({
         idAlert: '',
