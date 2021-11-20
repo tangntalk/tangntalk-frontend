@@ -8,16 +8,19 @@ import * as api from "../util/api";
 function Box(props) {
     const { user_id } = useParams();
     const [add, setAdd] = useState(props.add);
+    const [del, setDel] = useState(props.delete);
 
     const goChatting = () =>{props.history.push(`/chatting/${props.user_id[0]}/${props.user_id[1]}`);}
     const goSetting = () =>{props.history.push(`/setting/${props.user_id}`);}
     const addFriend = () => {
         api.friendAdd(user_id, props.friend_id);
         setAdd(false);
+        setDel(true);
     }
     const deleteFriend = () => {
         api.friendDelete(user_id, props.friend_id);
         setAdd(true);
+        setDel(false);
     }
 
     return (
@@ -54,7 +57,7 @@ function Box(props) {
             </Left>
 
             <Right>
-                {(props.me!==true && add !== true) &&
+                {del &&
                     <Button onClick={deleteFriend}>
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.59 0L5 3.59L1.41 0L0 1.41L3.59 5L0 8.59L1.41 10L5 6.41L8.59 10L10 8.59L6.41 5L10 1.41L8.59 0Z" fill="black" />

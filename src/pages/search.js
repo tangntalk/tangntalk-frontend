@@ -30,7 +30,7 @@ function SearchPage(props) {
                 var i;
 
                 for (i = 0; i < users.length; i++) {
-                    if (users[i].user_id != user_id) {
+                    if (users[i].user_id !== user_id) {
                         filtered_users.push(users[i]);
                     }
                 }
@@ -46,7 +46,6 @@ function SearchPage(props) {
                 });
 
                 setFriends(filtered_users);
-
             })
             .catch(error => {
                 console.log(error);
@@ -82,7 +81,7 @@ function SearchPage(props) {
                 <ContainerContentG id="friend-search">
                     <div></div>
                     {friends.map((friend) => (
-                        <Box add={!friend.is_friend} name={friend.name} friend_id={friend.user_id} key={friend.user_id}>
+                        <Box add={!friend.is_friend} delete={friend.is_friend} name={friend.name} friend_id={friend.user_id} key={friend.user_id}>
                             {friend.status_message}
                         </Box>
                     ))}
