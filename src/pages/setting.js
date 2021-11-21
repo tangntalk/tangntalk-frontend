@@ -17,7 +17,7 @@ import * as api from "../util/api";
 
 function SettingPage(props) {
 
-    
+
     const { user_id } = useParams();
     const [myInfo, setMyInfo] = useState(null);
     const [isLoading, setLoading] = useState(1);
@@ -61,6 +61,30 @@ function SettingPage(props) {
 
     useEffect(getMyInfo, []);
 
+    const logout = () =>{
+        api.logout()
+        .then(() => {
+            alert('로그아웃 되었습니다.');
+            props.history.push('/login');
+        })
+        .catch(error => {
+            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            else{alert('로그아웃 중 문제가 생겼습니다.')}
+        })
+    }
+
+    const userDelete = () =>{
+        api.userDelete(user_id)
+        .then(() => {
+            alert('회원 탈퇴 처리되었습니다.');//비동기 처리
+            props.history.push('/login');
+        })
+        .catch(error => {
+            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            else{alert('로그아웃 중 문제가 생겼습니다.')}
+        })
+    }
+
 
     if(isLoading>0){
         return(
@@ -91,9 +115,9 @@ function SettingPage(props) {
                     <Title >위치</Title>
                     <LocationBox userLocation={myInfo.location_name} user_id={user_id} Options={["공학관", "언더우드관", "학생회관", "백양관"]} handleLocationChange={handleLocationChange}></LocationBox>
                     <Line></Line>
-                    <Text children="로그아웃"></Text>
+                    <Text children="로그아웃" onClick={logout}></Text>
                     <Line></Line>
-                    <Text children="회원 탈퇴"></Text>
+                    <Text children="회원 탈퇴" onClick={userDelete}></Text>
                 </ContainerContent>
             </ContainerSpace2>
         </>
