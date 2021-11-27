@@ -20,4 +20,4 @@ export const friendNearby = (user_id) => server.get(`/users/${user_id}/nearby`);
 export const chatroomList = (user_id) => server.get(`/users/${user_id}/chatrooms`);
 export const chatroomEnter = (user_id, opponent_id) => server.post(`/users/${user_id}/chatrooms`, { opponent_id: opponent_id});
 export const chatList = (user_id, chatroom_id) => server.get(`/users/${user_id}/chatrooms/${chatroom_id}`);
-export const chatSend = (user_id, chatroom_id, content, rendezvous_time, message_location) => server.post(`/users/${user_id}/chatrooms/${chatroom_id}`, {content: content, rendezvous_time: rendezvous_time , message_location: message_location});
+export const chatSend = (user_id, chatroom_id, content, rendezvous_time) => server.post(`/users/${user_id}/chatrooms/${chatroom_id}`, {content: content, rendezvous_time: rendezvous_time});

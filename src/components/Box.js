@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { withRouter, useParams } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -10,7 +10,14 @@ function Box(props) {
     const [add, setAdd] = useState(props.add);
     const [del, setDel] = useState(props.delete);
 
-    const goChatting = () =>{props.history.push(`/chatting/${props.user_id[0]}/${props.user_id[1]}`);}
+    const goChatting = () =>{
+        
+        props.history.push({
+            pathname: `/chatting/${props.user_id[0]}/${props.user_id[1]}`,
+            state: {opponent_name: props.name,
+                    chatroom_id: props.chatroom_id}
+        });}
+    
     const goSetting = () =>{props.history.push(`/setting/${props.user_id}`);}
     const addFriend = () => {
         api.friendAdd(user_id, props.friend_id)

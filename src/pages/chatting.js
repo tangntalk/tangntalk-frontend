@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router";
 import { useParams } from "react-router-dom";
 
 import Header from "../components/Header";
@@ -8,43 +9,172 @@ import Message from "../components/Message";
 import styled from "styled-components";
 import { ContainerSpace, ContainerContentG, Space } from "../styles/style";
 
-function ChattingPage(props) {
-    const { user_id } = useParams();
+import * as api from "../util/api";
 
-    const goChatList = () => props.history.push(`/chat/${user_id}`);
+function ChattingPage(props) {
+    const { user_id, opponent } = useParams();
+    const location = useLocation();
+    const [chatroomid, setChatroomid] = useState(-1);
+    const [mesasgeList, setMessageList] = useState([]);
+    const [isloading, setLoading] = useState(2);
+    const [newMessage, setNewMessage] = useState('');
+    const [time, setTime] = useState(-1);
+    const [customTime, setCustomTime] = useState(false);
+    var messagesEnd = React.createRef();
+
+    const [refreshInterval, setRefreshInterval] = useState(1000);
+    const fetchMetrics = () => {
+      getMessages(location.state.chatroom_id);
+    }
+    useEffect(() => {
+      if (refreshInterval && refreshInterval > 0) {
+        const interval = setInterval(fetchMetrics, refreshInterval);
+        return () => clearInterval(interval);
+      }
+    }, [refreshInterval]);
+
+
+    const scrollToBottom = () => {
+        messagesEnd.current.scrollIntoView({ behavior: "smooth" });
+    }
+
+    const handleTime = (event) => {
+        setTime(parseInt(event.target.value));
+        console.log(time);
+    }
+    const handleMessage = (event) => {
+        setNewMessage(event.target.value);
+        console.log(newMessage);
+    }
+
+    const sendNewMessage = () => {
+        while(chatroomid === -1) initializePage();
+        console.log(newMessage);
+        console.log(time);
+        api.chatSend(user_id, location.state.chatroom_id.toString(), newMessage, time)
+        .then(response =>{
+            console.log(response);
+            getMessages(location.state.chatroom_id)            
+        })
+        .then(
+            scrollToBottom()
+        )
+    }
     
-    const [userType, setUserType] = useState('GENERAL');
+    const getMessages = (chatid) => {
+        api.chatList(user_id, chatid)
+        .then(response =>{
+            setMessageList(response.data.messages);
+            if(response.data.success){setLoading((isloading)=>(isloading-1));} 
+            else alert('요청한 사용자가 존재하지 않습니다');
+        })
+        .catch(error => {
+            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            else{alert('친구 정보 조회 중 문제가 생겼습니다.')};
+        })
+    }
+
+    var chat_id;
+    const initializePage = () =>{
+        
+        api.chatroomEnter(user_id, opponent)
+        .then(response =>{
+            chat_id = response.data.chatroom_id;
+            setChatroomid(response.data.chatroom_id);
+            if(response.data.chatroom_id>=0){
+                setLoading((isloading)=>(isloading-1));
+            } 
+            else alert('요청한 채팅방이 존재하지 않습니다');
+        })
+        .then(() => {
+            getMessages(chat_id);              
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            else{alert('채팅방 조회 중 문제가 생겼습니다.')}
+            
+        })
+    }
+    
+    const goChatList = () => props.history.push(`/chat/${user_id}`);
+    useEffect(initializePage, []);
+    
+
+    if(isloading>0){
+        return(
+            <>
+            <Header back search title="로딩중입니다"></Header>
+            </>
+        );
+    }
+    
     return (
         <>
-            <Header back title="박효정" function={goChatList}>
+            <Header back title={location.state.opponent_name} function={goChatList}>
             </Header>
             <ContainerSpace paddingBottom="200px">
                 <ContainerContentG minHeight="calc(100vh - 250px)">
                     <div></div>
-                    <Message send rendezvous={"공학관, 14:01:21까지"} date={"2021-9-4"} time={"15:31:21"}>오늘 뭐먹었어</Message>
-                    <Message receive date={"2021-9-4"} time={"15:31:21"}>콩나물 국밥 시켜 먹었어</Message>
-                    <Message receive date={"2021-9-4"} time={"15:31:21"}>메밀 전병이랑</Message>
-                    <Message send rendezvous={"공학관, 14:01:21까지"} date={"2021-9-4"} time={"15:31:21"}>이거 자꾸 파랑색으로 가는데 왜 그러는 걸까</Message>
-                    <Message receive date={"2021-9-4"} time={"15:31:21"}>동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산 동해물과 백두산</Message>
-                    <div></div>
+                    {mesasgeList.map((message) => {
+                        var location_unit = message.rendezvous_location;
+                        if(message.rendezvous_flag == false) location_unit = "";
+                        if(message.sender_id == user_id){
+                            if(message.rendezvous_flag == true){
+                                return(
+                                    <Message receive rendezvous={message.rendezvous_location +", "+ message.rendezvous_time.substring(11,19)}
+                                        date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
+                                        {message.content}
+                                    </Message>
+                                )
+                            }
+                            else{
+                                return (
+                                <Message receive date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}> 
+                                    {message.content}
+                                </Message>
+                                )
+                            }
+                        }
+                        else{
+                            if(message.rendezvous_flag == true){
+                                return(
+                                    <Message send rendezvous={message.rendezvous_location+", "+ message.rendezvous_time.substring(11,19)}
+                                        date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
+                                        {message.content}
+                                    </Message>
+                                )
+                            }
+                            else{
+                                return(
+                                <Message send date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
+                                    {message.content}
+                                </Message>
+                                )
+                            }
+                        }
+                    })}
+                    <div ref={messagesEnd}></div>
                 </ContainerContentG>
             </ContainerSpace>
             <NaviSpace>
                 <NaviContent>
                     <div>
-                        <ChatInput></ChatInput>
+                        <ChatInput placeholder="메시지를 입력하세요" onChange={handleMessage}></ChatInput>
                     </div>
                     <div>
-                        <BlueButton width="90px" height="40px">전송</BlueButton>
+                        <BlueButton width="90px" height="40px" onClick={sendNewMessage}>전송</BlueButton>
                         <Space></Space>
-                        <RadioButton onClick={() => setUserType('GENERAL')} selected={userType === 'GENERAL'}>일반</RadioButton>
+                        <RadioButton onClick={() => {setTime(-1);setCustomTime(false);}} selected={time === -1}>일반</RadioButton>
                         <Space></Space>
-                        <RadioButton onClick={() => setUserType('30')} selected={userType === '30'}>30분</RadioButton>
+                        <RadioButton onClick={() => {setTime(3);setCustomTime(false);}} selected={time === 3}>3분</RadioButton>
                         <Space></Space>
-                        <RadioButton onClick={() => setUserType('60')} selected={userType === '60'}>60분</RadioButton>
+                        <RadioButton onClick={() => {setTime(30);setCustomTime(false);}} selected={time === 30}>30분</RadioButton>
                         <Space></Space>
-                        <RadioButton onClick={() => setUserType('custom')} selected={userType === 'custom'}>
-                            <TimeInput></TimeInput> 분
+                        <RadioButton onClick={() => {setTime(60);setCustomTime(false);}} selected={time === 60}>60분</RadioButton>
+                        <Space></Space>
+                        <RadioButton onClick={()=>{setTime(0);setCustomTime(true);}} selected={customTime === true}>
+                            <TimeInput onChange={handleTime}></TimeInput> 분
                         </RadioButton>
                     </div>
                 </NaviContent>
