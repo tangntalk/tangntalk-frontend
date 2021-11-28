@@ -20,9 +20,10 @@ function ChattingPage(props) {
     const [newMessage, setNewMessage] = useState('');
     const [time, setTime] = useState(-1);
     const [customTime, setCustomTime] = useState(false);
+    const [count, setCount] = useState(10);
     var messagesEnd = React.createRef();
 
-    const [refreshInterval, setRefreshInterval] = useState(1000);
+    const [refreshInterval, setRefreshInterval] = useState(10000);
     const fetchMetrics = () => {
       getMessages(location.state.chatroom_id);
     }
@@ -40,20 +41,15 @@ function ChattingPage(props) {
 
     const handleTime = (event) => {
         setTime(parseInt(event.target.value));
-        console.log(time);
     }
     const handleMessage = (event) => {
         setNewMessage(event.target.value);
-        console.log(newMessage);
     }
 
     const sendNewMessage = () => {
         while(chatroomid === -1) initializePage();
-        console.log(newMessage);
-        console.log(time);
         api.chatSend(user_id, location.state.chatroom_id.toString(), newMessage, time)
-        .then(response =>{
-            console.log(response);
+        .then(() =>{
             getMessages(location.state.chatroom_id)            
         })
         .then(
@@ -90,7 +86,6 @@ function ChattingPage(props) {
             getMessages(chat_id);              
         })
         .catch(error => {
-            console.log(error);
             if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
             else{alert('채팅방 조회 중 문제가 생겼습니다.')}
             
@@ -100,7 +95,8 @@ function ChattingPage(props) {
     const goChatList = () => props.history.push(`/chat/${user_id}`);
     useEffect(initializePage, []);
     
-
+    
+    
     if(isloading>0){
         return(
             <>
@@ -117,12 +113,11 @@ function ChattingPage(props) {
                 <ContainerContentG minHeight="calc(100vh - 250px)">
                     <div></div>
                     {mesasgeList.map((message) => {
-                        var location_unit = message.rendezvous_location;
-                        if(message.rendezvous_flag == false) location_unit = "";
+                      
                         if(message.sender_id == user_id){
                             if(message.rendezvous_flag == true){
                                 return(
-                                    <Message receive rendezvous={message.rendezvous_location +", "+ message.rendezvous_time.substring(11,19)}
+                                    <Message receive readOrNot={message.read_time} rendezvous={message.rendezvous_location +", "+ message.rendezvous_time.substring(11,19)}
                                         date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
                                         {message.content}
                                     </Message>
@@ -130,7 +125,7 @@ function ChattingPage(props) {
                             }
                             else{
                                 return (
-                                <Message receive date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}> 
+                                <Message receive readOrNot={message.read_time} date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}> 
                                     {message.content}
                                 </Message>
                                 )
@@ -139,7 +134,7 @@ function ChattingPage(props) {
                         else{
                             if(message.rendezvous_flag == true){
                                 return(
-                                    <Message send rendezvous={message.rendezvous_location+", "+ message.rendezvous_time.substring(11,19)}
+                                    <Message send readOrNot={message.read_time} rendezvous={message.rendezvous_location+", "+ message.rendezvous_time.substring(11,19)}
                                         date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
                                         {message.content}
                                     </Message>
@@ -147,7 +142,7 @@ function ChattingPage(props) {
                             }
                             else{
                                 return(
-                                <Message send date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
+                                <Message send readOrNot={message.read_time} date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
                                     {message.content}
                                 </Message>
                                 )
@@ -179,6 +174,7 @@ function ChattingPage(props) {
                     </div>
                 </NaviContent>
             </NaviSpace>
+
         </>
     );
 }

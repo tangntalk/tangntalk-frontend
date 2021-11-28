@@ -48,8 +48,6 @@ function SearchPage(props) {
                 setFriends(filtered_users);
             })
             .catch(error => {
-                console.log(error);
-
                 if (error.response) {
                     alert('알 수 없는 에러가 발생했습니다.');
                 }

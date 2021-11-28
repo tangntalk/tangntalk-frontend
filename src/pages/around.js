@@ -19,8 +19,6 @@ function AroundPage(props) {
     useEffect(() => {
         api.friendNearby(user_id)
         .then(response => {
-            console.log(response);
-
             if(!response.data.success) {
                 alert('조회 중 문제가 생겼습니다.');
             } 
@@ -30,8 +28,6 @@ function AroundPage(props) {
             }
         })
         .catch(error => {
-            console.log(error);
-
             if (error.request) {
                 alert('서버에서 응답이 오지 않습니다.');
             }

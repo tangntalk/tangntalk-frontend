@@ -28,9 +28,7 @@ function Box(props) {
                     setAdd(false);
                     setDel(true);            
                 }
-            }).catch(error => {
-                console.log(error);
-    
+            }).catch(error => {  
                 if (error.request) {
                     alert('서버에서 응답이 오지 않습니다.');
                 }
@@ -50,8 +48,6 @@ function Box(props) {
                     setDel(false);     
                 }   
             }).catch(error => {
-                console.log(error);
-    
                 if (error.request) {
                     alert('서버에서 응답이 오지 않습니다.');
                 }

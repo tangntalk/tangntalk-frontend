@@ -33,7 +33,6 @@ function MainPage(props) {
     useEffect(() => {
         api.friendList(user_id)
           .then(response =>{
-            console.log(response);
             setOfflineFriends(response.data.offline);
             setOnlineFriends(response.data.online);
             if(response.data.success){setLoading((isloading)=>(isloading-1));} 

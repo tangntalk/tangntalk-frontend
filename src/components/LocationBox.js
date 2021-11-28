@@ -14,12 +14,10 @@ function LocationBox(props) {
     const setInitLocation = (idx) => {
         setCurrentLocation(props.Options[idx]);
         setIsActive(false);
-        // console.log(currentLocation);
     }
     const postLocation = () => {
         api.userLocation(props.user_id, currentLocation)
         .then(response => {
-            // console.log(response);
             props.handleLocationChange(currentLocation);
             if(response.data.success)
                 alert('사용자의 위치가 성공적으로 바뀌었습니다')
