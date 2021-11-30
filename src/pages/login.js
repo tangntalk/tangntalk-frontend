@@ -6,12 +6,17 @@ import BlueButton from "../components/BlueButton";
 import Title from "../components/Title";
 import { ContainerSpace2, ContainerContent, Space, ButtonLink} from "../styles/style";
 
+import { Cookies } from "react-cookie";
+
 import * as api from "../util/api";
 
 
 function LoginPage(props) {
     const goRegister = () => props.history.push('/register');
     const goUser = (user_id) => props.history.push(`/user/${user_id}`);
+
+    const cookies= new Cookies();
+    //console.log(cookies.get("JSESSIONID"));
 
     const [inputs, setInputs] = useState({
         id: '',
@@ -41,13 +46,24 @@ function LoginPage(props) {
 
     const login = () => {
         api.login(id, password)
-            .then(() => {
-                goUser(id);
+            .then((response) => {
+                console.log(response.data.jwt);
+                cookies.set("accessToken", response.data.jwt, {path:'/'});
+                //cookies.set("accessToken", response.data.jwt, {path:'/', httpOnly:'true'});
+                // console.log(response.headers['set-cookie']);
+                // console.log(localStorage.getItem('JSESSIONID'));
+                // console.log(sessionStorage.getItem('JSESSIONID'));
+                // console.log(document.cookie);
+                // console.log(request.getCookies());
+                // cookies.set("JSESSIONID", "8A7EC7F5A0732379540C6815ECF3760F", {path:'/'});
+                // console.log(document.cookie);
+                
+                // goUser(id);
             })
             .catch(error => {
                 if (error.response) {
                     // 요청이 이루어졌으나 서버가 2xx의 범위를 벗어나는 상태 코드
-                    if (error.response && error.response.status === 401) {
+                    if (error.response.status === 401) {
                         alert('잘못된 형식입니다');
                     } else if (error.response && error.response.status === 409) {
                         alert('이미 가입된 이메일이거나 별명입니다');
