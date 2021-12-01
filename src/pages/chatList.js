@@ -17,6 +17,7 @@ function ChatListPage(props) {
     const getChatroom = () => {
         api.chatroomList(user_id)
         .then(response => {
+            console.log(response);
             setChatList(response.data.chatrooms);
             if(response.data.success) setLoading((isloading)=>(isloading-1));
             else alert('요청한 사용자가 존재하지 않습니다');})
@@ -34,8 +35,8 @@ function ChatListPage(props) {
                     <Title>진행 중인 채팅</Title>
                     {
                         chatList.map((chat)=>(
-                            <ChatBox off={!chat.connection_status} on={chat.connection_status} date={chat.last_send_time.substr(0,9)} to opponent={chat.opponent_name} time={chat.last_send_time.substr(11,18)}
-                                            chatroom_id={chat.chatroom_id} id={user_id} opponent_id={chat.opponent_id}>
+                            <ChatBox off={!chat.connection_status} on={chat.connection_status} date={chat.last_send_time.substr(0,10)} to opponent={chat.opponent_name} time={chat.last_send_time.substr(11,8)}
+                                            id={user_id} opponent_id={chat.opponent_id}>
                                 {chat.last_message}
                             </ChatBox>
                     ))}

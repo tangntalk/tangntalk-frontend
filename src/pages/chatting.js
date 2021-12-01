@@ -13,30 +13,21 @@ import * as api from "../util/api";
 
 function ChattingPage(props) {
     const { user_id, opponent } = useParams();
-    const location = useLocation();
     const [chatroomid, setChatroomid] = useState(-1);
     const [mesasgeList, setMessageList] = useState([]);
     const [isloading, setLoading] = useState(2);
     const [newMessage, setNewMessage] = useState('');
     const [time, setTime] = useState(-1);
     const [customTime, setCustomTime] = useState(false);
-    const [count, setCount] = useState(10);
-    var messagesEnd = React.createRef();
-
+    const [messageCount, setMessageCount] = useState(0);
+    const [opponentInfo, setOpponentInfo] = useState([]);
     const [refreshInterval, setRefreshInterval] = useState(10000);
-    const fetchMetrics = () => {
-      getMessages(location.state.chatroom_id);
-    }
-    useEffect(() => {
-      if (refreshInterval && refreshInterval > 0) {
-        const interval = setInterval(fetchMetrics, refreshInterval);
-        return () => clearInterval(interval);
-      }
-    }, [refreshInterval]);
-
-
+    const [isFriend, setIsFriend] = useState(false);
+    var messagesEnd = React.createRef();
+    
+    
     const scrollToBottom = () => {
-        messagesEnd.current.scrollIntoView({ behavior: "smooth" });
+        window.scrollTo({top: document.documentElement.scrollHeight, behavior: "smooth"});
     }
 
     const handleTime = (event) => {
@@ -46,20 +37,44 @@ function ChattingPage(props) {
         setNewMessage(event.target.value);
     }
 
+    const getOpponentInfo = () => {
+        api.user(opponent)
+        .then(response => {
+            console.log(response);
+            setOpponentInfo(response.data.user);
+            if(!response.data.success) alert('요청한 사용자가 존재하지 않습니다');
+        })
+        .catch(error => {
+            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            else{alert('내 정보 조회 중 문제가 생겼습니다.')}})
+    }
+
     const sendNewMessage = () => {
         while(chatroomid === -1) initializePage();
-        api.chatSend(user_id, location.state.chatroom_id.toString(), newMessage, time)
+        api.chatSend(user_id, chatroomid.toString(), newMessage, time)
         .then(() =>{
-            getMessages(location.state.chatroom_id)            
+            getMessageCount()        
         })
-        .then(
-            scrollToBottom()
-        )
     }
     
-    const getMessages = (chatid) => {
-        api.chatList(user_id, chatid)
+    const getMessageCount = () =>{
+        api.messageCount(user_id, chatroomid)
         .then(response =>{
+            setMessageCount(response.data.message_count);
+            console.log(messageCount);
+        })
+        .catch(error => {
+            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            else{alert('친구 정보 조회 중 문제가 생겼습니다.')};
+        })
+    }
+    const getMessages = () => {
+        api.chatList(user_id, chatroomid)
+        .then(response =>{
+            console.log(response.data.messages);
+            if(messageCount!=response.data.messages.length){
+                setMessageCount(response.data.messages.length)
+            }
             setMessageList(response.data.messages);
             if(response.data.success){setLoading((isloading)=>(isloading-1));} 
             else alert('요청한 사용자가 존재하지 않습니다');
@@ -69,21 +84,16 @@ function ChattingPage(props) {
             else{alert('친구 정보 조회 중 문제가 생겼습니다.')};
         })
     }
-
-    var chat_id;
+    
     const initializePage = () =>{
-        
+        console.log(chatroomid);
         api.chatroomEnter(user_id, opponent)
         .then(response =>{
-            chat_id = response.data.chatroom_id;
             setChatroomid(response.data.chatroom_id);
             if(response.data.chatroom_id>=0){
                 setLoading((isloading)=>(isloading-1));
             } 
             else alert('요청한 채팅방이 존재하지 않습니다');
-        })
-        .then(() => {
-            getMessages(chat_id);              
         })
         .catch(error => {
             if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
@@ -93,10 +103,19 @@ function ChattingPage(props) {
     }
     
     const goChatList = () => props.history.push(`/chat/${user_id}`);
+    useEffect(() => {
+      if (refreshInterval && refreshInterval > 0) {
+        const interval = setInterval(getMessageCount, refreshInterval);
+        return () => clearInterval(interval);
+      }
+    }, [refreshInterval, chatroomid]);
     useEffect(initializePage, []);
-    
-    
-    
+    useEffect(getOpponentInfo, []);
+    useEffect(getMessageCount, [chatroomid]);
+    useEffect(getMessages, [messageCount]);
+    useEffect(scrollToBottom, [mesasgeList]);
+
+
     if(isloading>0){
         return(
             <>
@@ -105,9 +124,10 @@ function ChattingPage(props) {
         );
     }
     
+
     return (
         <>
-            <Header back title={location.state.opponent_name} function={goChatList}>
+            <Header back title={opponentInfo.name} friendAddDel user_id={user_id} friend_id={opponent} user_function={goChatList}>
             </Header>
             <ContainerSpace paddingBottom="200px">
                 <ContainerContentG minHeight="calc(100vh - 250px)">
@@ -117,15 +137,15 @@ function ChattingPage(props) {
                         if(message.sender_id == user_id){
                             if(message.rendezvous_flag == true){
                                 return(
-                                    <Message receive readOrNot={message.read_time} rendezvous={message.rendezvous_location +", "+ message.rendezvous_time.substring(11,19)}
-                                        date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
+                                    <Message receive readOrNot={message.read_time} rendezvous={message.rendezvous_location +", "+ message.rendezvous_time.substr(11,8)}
+                                        date={message.send_time.substr(0,10)} time={message.send_time.substr(11,8)}>
                                         {message.content}
                                     </Message>
                                 )
                             }
                             else{
                                 return (
-                                <Message receive readOrNot={message.read_time} date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}> 
+                                <Message receive readOrNot={message.read_time} date={message.send_time.substring(0,10)} time={message.send_time.substr(11,8)}> 
                                     {message.content}
                                 </Message>
                                 )
@@ -134,15 +154,15 @@ function ChattingPage(props) {
                         else{
                             if(message.rendezvous_flag == true){
                                 return(
-                                    <Message send readOrNot={message.read_time} rendezvous={message.rendezvous_location+", "+ message.rendezvous_time.substring(11,19)}
-                                        date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
+                                    <Message send readOrNot={message.read_time} rendezvous={message.rendezvous_location+", "+ message.rendezvous_time.substr(11,8)}
+                                        date={message.send_time.substr(0,10)} time={message.send_time.substr(11,8)}>
                                         {message.content}
                                     </Message>
                                 )
                             }
                             else{
                                 return(
-                                <Message send readOrNot={message.read_time} date={message.send_time.substring(0,9)} time={message.send_time.substring(11,19)}>
+                                <Message send readOrNot={message.read_time} date={message.send_time.substring(0,10)} time={message.send_time.substr(11,8)}>
                                     {message.content}
                                 </Message>
                                 )

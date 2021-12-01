@@ -36,7 +36,8 @@ function ChatBox(props) {
                 <Right>
                     <Data {...props}>{props.date}</Data>
                     <Data {...props}>{props.time}</Data>
-                    <Data>{props.to && 'to.'}{props.from && 'from.'}{props.opponent}</Data>
+                    {/* <Data>{props.to && 'to.'}{props.from && 'from.'}{props.opponent}</Data> */}
+                    <Data>{props.to && ''}{props.from && 'from.'}{props.opponent}</Data>
                 </Right>
             </BoxContainer>
         </OutBox>
