@@ -15,8 +15,9 @@ function MainPage(props) {
     const [isloading, setLoading] = useState(2);
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [offlineFriends, setOfflineFriends] = useState([]);
+    const [refreshInterval, setRefreshInterval] = useState(5000);
 
-    useEffect(() => {
+    const getMyInfo = () =>{
         api.user(user_id)
         .then(response => {
             setMyInfo(response.data.user);
@@ -27,10 +28,8 @@ function MainPage(props) {
             if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
             else{alert('내 정보 조회 중 문제가 생겼습니다.')}
         })
-    }, []);
-
-    
-    useEffect(() => {
+    }
+    const getFriendList = () =>{
         api.friendList(user_id)
           .then(response =>{
             setOfflineFriends(response.data.offline);
@@ -43,8 +42,18 @@ function MainPage(props) {
             else{alert('친구 정보 조회 중 문제가 생겼습니다.')}
             
         })
-    }, []);
-    
+    }
+
+    useEffect(getMyInfo, []);
+    useEffect(getFriendList, []);
+    useEffect(()=> {
+        if(refreshInterval && refreshInterval > 0){
+            const interval = setInterval(getFriendList, refreshInterval);
+            return () => {
+                clearInterval(interval);
+            }
+        }
+    })
     onlineFriends.sort(function(a, b) {return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;});
     offlineFriends.sort(function(a, b) {return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;});
 
