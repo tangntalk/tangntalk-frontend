@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 
 import styled from "styled-components";
+import FriendAddDelButton from "./FriendAddDelButton";
 import BackIcon from "./icon/Back";
 import SearchIcon from "./icon/Search";
 
@@ -20,6 +21,11 @@ function Header(props) {
                     <Wrapper>
                         {props.search && <SearchIcon id={props.id}></SearchIcon>}
                     </Wrapper>
+                    {props.friendAddDel &&
+                        <Wrapper>
+                            <FriendAddDelButton user_id={props.user_id} friend_id={props.friend_id}/>
+                        </Wrapper>
+                    }
                 </HeaderContent>
             </HeaderSpace>
         </>

@@ -11,6 +11,7 @@ function Message(props) {
                 <TextSpace {...props}>
                 <Text {...props}>{props.date}</Text>
                 <Text {...props}>{props.time}</Text>
+                <Text {...props}>{props.readOrNot}</Text>
                 </TextSpace>
                 }
 
@@ -29,6 +30,7 @@ function Message(props) {
                 <TextSpace {...props}>
                 <Text {...props}>{props.date}</Text>
                 <Text {...props}>{props.time}</Text>
+                <Text {...props}>{props.readOrNot}</Text>
                 </TextSpace>
                 }
             </Space>

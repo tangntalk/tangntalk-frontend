@@ -19,8 +19,6 @@ function AroundPage(props) {
     useEffect(() => {
         api.friendNearby(user_id)
         .then(response => {
-            console.log(response);
-
             if(!response.data.success) {
                 alert('조회 중 문제가 생겼습니다.');
             } 
@@ -30,8 +28,6 @@ function AroundPage(props) {
             }
         })
         .catch(error => {
-            console.log(error);
-
             if (error.request) {
                 alert('서버에서 응답이 오지 않습니다.');
             }
@@ -53,13 +49,13 @@ function AroundPage(props) {
                         <Title>근처 접속 중 친구</Title>
                     </White>
                     {onlineFriends.map((friend) => (
-                        <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
+                        <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
                             {friend.status_message}
                         </Box>
                     ))}
                     <Title>근처 미접속 친구</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
+                        <Box off key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
                             {friend.status_message}
                         </Box>
                     ))}

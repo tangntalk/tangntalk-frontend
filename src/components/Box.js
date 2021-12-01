@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { withRouter, useParams } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -10,7 +10,14 @@ function Box(props) {
     const [add, setAdd] = useState(props.add);
     const [del, setDel] = useState(props.delete);
 
-    const goChatting = () =>{props.history.push(`/chatting/${props.user_id[0]}/${props.user_id[1]}`);}
+    const goChatting = () =>{
+        
+        props.history.push({
+            pathname: `/chatting/${props.user_id[0]}/${props.user_id[1]}`,
+            state: {opponent_name: props.name,
+                    chatroom_id: props.chatroom_id}
+        });}
+    
     const goSetting = () =>{props.history.push(`/setting/${props.user_id}`);}
     const addFriend = () => {
         api.friendAdd(user_id, props.friend_id)
@@ -21,9 +28,7 @@ function Box(props) {
                     setAdd(false);
                     setDel(true);            
                 }
-            }).catch(error => {
-                console.log(error);
-    
+            }).catch(error => {  
                 if (error.request) {
                     alert('서버에서 응답이 오지 않습니다.');
                 }
@@ -43,8 +48,6 @@ function Box(props) {
                     setDel(false);     
                 }   
             }).catch(error => {
-                console.log(error);
-    
                 if (error.request) {
                     alert('서버에서 응답이 오지 않습니다.');
                 }

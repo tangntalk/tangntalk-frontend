@@ -33,4 +33,12 @@ app.js는 react-router-dom 라이브러리을 사용하여 페이지 path별로 
 
 style 파일은 styled-components 라이브러리를 사용하여 페이지/컴포넌트에서 사용할 태그를 만듭니다.
 
- 
+ ### 배포
+
+서버의 yonseitalk/client 디렉토리에서 다음과 같이 빌드와 serve를 수행합니다.
+
+production 환경 빌드: npm run build
+- production 환경에 맞춰지고 파일이 최적화 된 빌드 파일을 build 디렉토리에 생성합니다.
+
+프론트엔드 파일 serve: serve -s build -l 8200
+- 이 프로그램이 실행 중일 때만 8200 포트로 프론트엔드 파일을 serve할 수 있습니다.
