@@ -15,19 +15,23 @@ function ChattingPage(props) {
     const { user_id, opponent } = useParams();
     const [chatroomid, setChatroomid] = useState(-1);
     const [mesasgeList, setMessageList] = useState([]);
-    const [isloading, setLoading] = useState(2);
+    const [isloading, setLoading] = useState(3);
     const [newMessage, setNewMessage] = useState('');
     const [time, setTime] = useState(-1);
     const [customTime, setCustomTime] = useState(false);
     const [messageCount, setMessageCount] = useState(0);
     const [opponentInfo, setOpponentInfo] = useState([]);
-    const [refreshInterval, setRefreshInterval] = useState(10000);
-    const [isFriend, setIsFriend] = useState(false);
+    const [countRefreshInterval, setcountRefreshInterval] = useState(1000);
+    const [messageRefreshInterval, setMessageRefreshInterval] = useState(10000);
+    const [doScroll, setDoScroll] = useState(false);
     var messagesEnd = React.createRef();
     
     
     const scrollToBottom = () => {
-        window.scrollTo({top: document.documentElement.scrollHeight, behavior: "smooth"});
+        if(doScroll===true){
+            window.scrollTo({top: document.documentElement.scrollHeight, behavior: "smooth"});
+            setDoScroll(false);
+        }
     }
 
     const handleTime = (event) => {
@@ -42,7 +46,8 @@ function ChattingPage(props) {
         .then(response => {
             console.log(response);
             setOpponentInfo(response.data.user);
-            if(!response.data.success) alert('요청한 사용자가 존재하지 않습니다');
+            if(response.data.success){setLoading((isloading)=>(isloading-1));} 
+            else alert('요청한 사용자가 존재하지 않습니다');
         })
         .catch(error => {
             if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
@@ -104,15 +109,22 @@ function ChattingPage(props) {
     
     const goChatList = () => props.history.push(`/chat/${user_id}`);
     useEffect(() => {
-      if (refreshInterval && refreshInterval > 0) {
-        const interval = setInterval(getMessageCount, refreshInterval);
-        return () => clearInterval(interval);
+      if (countRefreshInterval && countRefreshInterval > 0 && messageRefreshInterval &&  messageRefreshInterval > 0) {
+        const interval = setInterval(getMessageCount, countRefreshInterval);
+        const interval2 = setInterval(getMessages, messageRefreshInterval);
+        return () => {
+            clearInterval(interval);
+            clearInterval(interval2);
+        };
       }
-    }, [refreshInterval, chatroomid]);
+    }, [countRefreshInterval, messageRefreshInterval, chatroomid]);
     useEffect(initializePage, []);
     useEffect(getOpponentInfo, []);
     useEffect(getMessageCount, [chatroomid]);
-    useEffect(getMessages, [messageCount]);
+    useEffect(() =>{
+        getMessages();
+        setDoScroll(true);
+    }, [messageCount]);
     useEffect(scrollToBottom, [mesasgeList]);
 
 
@@ -129,7 +141,7 @@ function ChattingPage(props) {
         <>
             <Header back title={opponentInfo.name} friendAddDel user_id={user_id} friend_id={opponent} user_function={goChatList}>
             </Header>
-            <ContainerSpace paddingBottom="200px">
+            <ContainerSpace paddingBottom="240px">
                 <ContainerContentG minHeight="calc(100vh - 250px)">
                     <div></div>
                     {mesasgeList.map((message) => {
@@ -203,7 +215,7 @@ export default ChattingPage;
 
 export const NaviSpace = styled.div`
     width:100%;
-    height:200px;
+    height:240;
     box-sizing: border-box;
 
     position:fixed;
@@ -221,7 +233,7 @@ export const NaviSpace = styled.div`
 export const NaviContent = styled.div`
     width:100%;
     max-width:800px;
-    height:200px;
+    height:240px;
     box-sizing: border-box;
     padding:20px 0;
 
