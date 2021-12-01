@@ -48,17 +48,8 @@ function LoginPage(props) {
         api.login(id, password)
             .then((response) => {
                 console.log(response.data.jwt);
-                cookies.set("accessToken", response.data.jwt, {path:'/'});
-                //cookies.set("accessToken", response.data.jwt, {path:'/', httpOnly:'true'});
-                // console.log(response.headers['set-cookie']);
-                // console.log(localStorage.getItem('JSESSIONID'));
-                // console.log(sessionStorage.getItem('JSESSIONID'));
-                // console.log(document.cookie);
-                // console.log(request.getCookies());
-                // cookies.set("JSESSIONID", "8A7EC7F5A0732379540C6815ECF3760F", {path:'/'});
-                // console.log(document.cookie);
-                
-                // goUser(id);
+                cookies.set("accessToken", response.data.jwt, {path:'/', httpOnly:'true'});                
+                goUser(id);
             })
             .catch(error => {
                 if (error.response) {
