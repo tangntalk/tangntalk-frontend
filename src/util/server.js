@@ -5,6 +5,8 @@ const cookies= new Cookies();
 
 const server = axios.create();
 
+const accessToken=cookies.get("accessToken");
+
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     server.defaults.baseURL = "http://localhost:8080";
 } else {

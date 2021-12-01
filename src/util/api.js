@@ -14,7 +14,7 @@ export const friendList = (user_id) => server.get(`/users/${user_id}/friends`);
 export const friendAdd = (user_id, friend_id) => server.post(`/users/${user_id}/friends`, { friend_id: friend_id });
 export const friendSearch = (user_id, search) => server.get(`/users/${user_id}/friends/search?query=${search}`);
 export const friendDelete = (user_id, friend_id) => server.delete(`/users/${user_id}/friends/${friend_id}`);
-export const friendNearby = (user_id) => server.get(`/users/${user_id}/nearby`);
+export const friendNearby = (user_id, location) => server.get(`/users/${user_id}/nearby/${location}`);
 export const friendCheck = (user_id, friend_id) => server.get(`/users/${user_id}/friends/${friend_id}`);
 
 // Chat

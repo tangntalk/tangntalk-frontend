@@ -16,7 +16,6 @@ function LoginPage(props) {
     const goUser = (user_id) => props.history.push(`/user/${user_id}`);
 
     const cookies= new Cookies();
-    //console.log(cookies.get("JSESSIONID"));
 
     const [inputs, setInputs] = useState({
         id: '',
