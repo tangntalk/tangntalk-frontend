@@ -13,6 +13,7 @@ function ChatListPage(props) {
     const { user_id } = useParams();
     const [chatList, setChatList] = useState([]);
     const [isloading, setLoading] = useState(1);
+    const [refreshInterval, setRefreshInterval] = useState(5000);
 
     const getChatroom = () => {
         api.chatroomList(user_id)
@@ -26,6 +27,14 @@ function ChatListPage(props) {
             else{alert('채팅목록 조회 중 문제가 생겼습니다.')}})
     }
     useEffect(getChatroom, []);
+    useEffect(()=> {
+        if(refreshInterval && refreshInterval > 0){
+            const interval = setInterval(getChatroom, refreshInterval);
+            return () => {
+                clearInterval(interval);
+            }
+        }
+    })
     return (
         <>
             <Header title="채팅 목록">
@@ -35,7 +44,8 @@ function ChatListPage(props) {
                     <Title>진행 중인 채팅</Title>
                     {
                         chatList.map((chat)=>(
-                            <ChatBox off={!chat.connection_status} on={chat.connection_status} date={chat.last_send_time.substr(0,10)} to opponent={chat.opponent_name} time={chat.last_send_time.substr(11,8)}
+
+                            <ChatBox on={chat.connection_status?1:0} date={chat.last_send_time.substr(0,10)} to opponent={chat.opponent_name} time={chat.last_send_time.substr(11,8)}
                                             id={user_id} opponent_id={chat.opponent_id}>
                                 {chat.last_message}
                             </ChatBox>

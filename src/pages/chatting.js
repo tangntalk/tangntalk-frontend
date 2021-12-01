@@ -73,6 +73,7 @@ function ChattingPage(props) {
             else{alert('친구 정보 조회 중 문제가 생겼습니다.')};
         })
     }
+
     const getMessages = () => {
         api.chatList(user_id, chatroomid)
         .then(response =>{
@@ -118,6 +119,7 @@ function ChattingPage(props) {
         };
       }
     }, [countRefreshInterval, messageRefreshInterval, chatroomid]);
+    
     useEffect(initializePage, []);
     useEffect(getOpponentInfo, []);
     useEffect(getMessageCount, [chatroomid]);
@@ -142,7 +144,7 @@ function ChattingPage(props) {
             <Header back title={opponentInfo.name} friendAddDel user_id={user_id} friend_id={opponent} user_function={goChatList}>
             </Header>
             <ContainerSpace paddingBottom="240px">
-                <ContainerContentG minHeight="calc(100vh - 250px)">
+                <ContainerContentG minHeight="calc(100vh - 290px)">
                     <div></div>
                     {mesasgeList.map((message) => {
                       
