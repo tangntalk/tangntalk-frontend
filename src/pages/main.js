@@ -66,13 +66,13 @@ function MainPage(props) {
                     <Box me user_location={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message}></Box>
                     <Title>접속한 친구</Title>
                     {onlineFriends.map((friend) => (
-                        <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
+                        <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
                             {friend.status_message}
                         </Box>
                     ))}
                     <Title>미접속 친구</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
+                        <Box off key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
                             {friend.status_message}
                         </Box>
                     ))}
