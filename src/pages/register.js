@@ -53,7 +53,6 @@ function RegisterPage(props) {
                 break;
             case 'name':
                 reg.checkName(value) ? setAlerts({ ...alerts, nameAlert: '' }) : setAlerts({ ...alerts, nameAlert: '공백 문자는 입력이 불가능합니다' });
-                console.log(alerts.nameAlert);
                 break;
             default:
         }

@@ -3,7 +3,13 @@ import { withRouter } from 'react-router-dom';
 import styled from "styled-components";
 
 function ChatBox(props) {
-    const goChattingRoom= () => props.history.push(`/chatting/${props.id}/${props.oppenent_id}`);
+    const goChattingRoom= () => props.history.push({
+        pathname: `/chatting/${props.id}/${props.opponent_id}`,
+        state: {
+            opponent_name: props.opponent,
+            chatroom_id: props.chatroom_id
+        }
+    });
     return (
         <OutBox>
             <BoxContainer>
@@ -30,7 +36,8 @@ function ChatBox(props) {
                 <Right>
                     <Data {...props}>{props.date}</Data>
                     <Data {...props}>{props.time}</Data>
-                    <Data>{props.to && 'to.'}{props.from && 'from.'}{props.oppenent}</Data>
+                    {/* <Data>{props.to && 'to.'}{props.from && 'from.'}{props.opponent}</Data> */}
+                    <Data>{props.to && ''}{props.from && 'from.'}{props.opponent}</Data>
                 </Right>
             </BoxContainer>
         </OutBox>

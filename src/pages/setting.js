@@ -27,7 +27,6 @@ function SettingPage(props) {
         api.user(user_id)
         .then(response => {
             setMyInfo(response.data.user);
-            console.log(response.data.user);
             if(response.data.success) setLoading((isloading)=>(isLoading-1));
             else alert('요청한 사용자가 존재하지 않습니다');})
         .catch(error => {
@@ -48,9 +47,7 @@ function SettingPage(props) {
     const postStatus = () =>{
         api.userStatus(user_id, newStatus)
         .then(response => {
-            console.log(response);
             setMyInfo({...myInfo, status_message: newStatus});
-            console.log(myInfo);
             if(response.data.success){alert('상태 메시지가 성공적으로 바뀌었습니다.')}
         })
         .catch(error => {
