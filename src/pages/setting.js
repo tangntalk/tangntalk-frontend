@@ -59,7 +59,7 @@ function SettingPage(props) {
     useEffect(getMyInfo, []);
 
     const logout = () =>{
-        api.logout()
+        api.logout(user_id)
         .then(() => {
             alert('로그아웃 되었습니다.');
             props.history.push('/login');
