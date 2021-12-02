@@ -59,14 +59,14 @@ function AroundPage(props) {
                             <RadioButton onClick={() => setLocation('학생회관')} selected={location === '학생회관'}>학생회관</RadioButton>
                             <RadioButton onClick={() => setLocation('신촌역')} selected={location === '신촌역'}>신촌역</RadioButton>
                         </SpaceAround>
-                        <Title>근처 접속 중 친구</Title>
+                        <Title>접속 중인 사용자</Title>
                     </White>
                     {onlineFriends.map((friend) => (
                         <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
                             {friend.status_message}
                         </Box>
                     ))}
-                    <Title>근처 미접속 친구</Title>
+                    <Title>미접속인 사용자</Title>
                     {offlineFriends.map((friend) => (
                         <Box off key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
                             {friend.status_message}
