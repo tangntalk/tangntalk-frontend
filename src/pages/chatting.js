@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router";
 import { useParams } from "react-router-dom";
 
 import Header from "../components/Header";
@@ -78,10 +77,11 @@ function ChattingPage(props) {
         api.chatList(user_id, chatroomid)
         .then(response =>{
             console.log(response.data.messages);
-            if(messageCount!=response.data.messages.length){
+            if(messageCount!==response.data.messages.length){
                 setMessageCount(response.data.messages.length)
             }
             setMessageList(response.data.messages);
+            setDoScroll(true);
             if(response.data.success){setLoading((isloading)=>(isloading-1));} 
             else alert('요청한 사용자가 존재하지 않습니다');
         })
@@ -120,14 +120,11 @@ function ChattingPage(props) {
       }
     }, [countRefreshInterval, messageRefreshInterval, chatroomid]);
     
-    useEffect(initializePage, []);
-    useEffect(getOpponentInfo, []);
-    useEffect(getMessageCount, [chatroomid]);
-    useEffect(() =>{
-        getMessages();
-        setDoScroll(true);
-    }, [messageCount]);
-    useEffect(scrollToBottom, [mesasgeList]);
+    useEffect(initializePage, [chatroomid, user_id, opponent]);
+    useEffect(getOpponentInfo, [opponent]);
+    useEffect(getMessageCount, [messageCount, chatroomid, user_id]);
+    useEffect(getMessages, [messageCount, chatroomid, user_id]);
+    useEffect(scrollToBottom, [mesasgeList, doScroll]);
 
 
     if(isloading>0){
@@ -148,8 +145,8 @@ function ChattingPage(props) {
                     <div></div>
                     {mesasgeList.map((message) => {
                       
-                        if(message.sender_id == user_id){
-                            if(message.rendezvous_flag == true){
+                        if(message.sender_id === user_id){
+                            if(message.rendezvous_flag === true){
                                 return(
                                     <Message receive readOrNot={message.read_time} rendezvous={message.rendezvous_location +", "+ message.rendezvous_time.substr(11,8)}
                                         date={message.send_time.substr(0,10)} time={message.send_time.substr(11,8)}>
@@ -166,7 +163,7 @@ function ChattingPage(props) {
                             }
                         }
                         else{
-                            if(message.rendezvous_flag == true){
+                            if(message.rendezvous_flag === true){
                                 return(
                                     <Message send readOrNot={message.read_time} rendezvous={message.rendezvous_location+", "+ message.rendezvous_time.substr(11,8)}
                                         date={message.send_time.substr(0,10)} time={message.send_time.substr(11,8)}>

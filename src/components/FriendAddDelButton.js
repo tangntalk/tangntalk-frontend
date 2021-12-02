@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom';
 
 
 import styled from "styled-components";
-import BackIcon from "./icon/Back";
-import SearchIcon from "./icon/Search";
 
 import * as api from "../util/api";
 function FriendAddDelButton(props) {

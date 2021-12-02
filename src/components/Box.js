@@ -95,8 +95,8 @@ function Box(props) {
                 {del &&
                     <Button onClick={deleteFriend}>
                         <div
-                            style={{'height':'5em', 'width': '5em', 'display': 'flex', 'justify-content': 'center', 'align-items': 'center',
-                                'font-size': '0.6em', 'font-weight': 'bold', 'background-color': '#948EA5', 'color': 'white', 'border-radius': '0.3em'
+                            style={{'height':'2.5em', 'width': '5em', 'display': 'flex', 'justify-content': 'center', 'align-items': 'center',
+                                'font-size': '0.6em', 'font-weight': 'bold', 'background-color': '#ECEBED', 'border-radius': '0.3em'
                             }}
                         >친구 삭제</div>
                     </Button>
