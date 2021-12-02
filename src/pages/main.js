@@ -1,4 +1,4 @@
-import React, { state, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Header from "../components/Header";
@@ -15,7 +15,7 @@ function MainPage(props) {
     const [isloading, setLoading] = useState(2);
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [offlineFriends, setOfflineFriends] = useState([]);
-    const [refreshInterval, setRefreshInterval] = useState(5000);
+
 
     const getMyInfo = () =>{
         api.user(user_id)
@@ -44,16 +44,9 @@ function MainPage(props) {
         })
     }
 
-    useEffect(getMyInfo, []);
-    useEffect(getFriendList, []);
-    useEffect(()=> {
-        if(refreshInterval && refreshInterval > 0){
-            const interval = setInterval(getFriendList, refreshInterval);
-            return () => {
-                clearInterval(interval);
-            }
-        }
-    })
+    useEffect(getMyInfo, [user_id]);
+    useEffect(getFriendList, [user_id]);
+
     onlineFriends.sort(function(a, b) {return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;});
     offlineFriends.sort(function(a, b) {return a.name > b.name ? -1 : a.name < b.name ? 1 : 0;});
 
@@ -75,13 +68,13 @@ function MainPage(props) {
                     <Box me user_location={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message}></Box>
                     <Title>접속한 친구</Title>
                     {onlineFriends.map((friend) => (
-                        <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
+                        <Box on delete friend_id={friend.user_id} key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
                             {friend.status_message}
                         </Box>
                     ))}
                     <Title>미접속 친구</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
+                        <Box off delete friend_id={friend.user_id} key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
                             {friend.status_message}
                         </Box>
                     ))}

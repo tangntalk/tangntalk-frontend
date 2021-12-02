@@ -4,6 +4,7 @@ import { withRouter, useParams } from 'react-router-dom';
 import styled from "styled-components";
 
 import * as api from "../util/api";
+import BlueButton from "./BlueButton";
 
 function Box(props) {
     const { user_id } = useParams();
@@ -93,9 +94,11 @@ function Box(props) {
             <Right>
                 {del &&
                     <Button onClick={deleteFriend}>
-                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.59 0L5 3.59L1.41 0L0 1.41L3.59 5L0 8.59L1.41 10L5 6.41L8.59 10L10 8.59L6.41 5L10 1.41L8.59 0Z" fill="black" />
-                        </svg>
+                        <div
+                            style={{'height':'2.5em', 'width': '5em', 'display': 'flex', 'justify-content': 'center', 'align-items': 'center',
+                                'font-size': '0.6em', 'font-weight': 'bold', 'background-color': '#ECEBED', 'border-radius': '0.3em'
+                            }}
+                        >친구 삭제</div>
                     </Button>
                 }
                 {props.me &&

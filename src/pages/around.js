@@ -15,10 +15,10 @@ function AroundPage(props) {
     const { user_id } = useParams();
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [offlineFriends, setOfflineFriends] = useState([]);
-
+    const [refreshInterval, setRefreshInterval] = useState(5000);
     const [location, setLocation] = useState('공학관');
 
-    useEffect(() => {
+    const getFriendNearby = () =>{
         api.friendNearby(user_id, location)
             .then(response => {
                 console.log(response);
@@ -40,8 +40,19 @@ function AroundPage(props) {
                 else {
                     alert('조회 중 문제가 생겼습니다.');
                 }
-            });
-    }, [user_id, location]);
+        });
+    }
+    
+    useEffect(getFriendNearby, [user_id, location]);
+
+    useEffect(()=> {
+        if(refreshInterval && refreshInterval > 0){
+            const interval = setInterval(getFriendNearby, refreshInterval);
+            return () => {
+                clearInterval(interval);
+            }
+        }
+    })
 
     return (
         <>

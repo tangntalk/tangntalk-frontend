@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { withRouter } from 'react-router-dom';
 import styled from "styled-components";
 import BlueButton from "../components/BlueButton";

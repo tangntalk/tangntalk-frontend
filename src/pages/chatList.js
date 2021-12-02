@@ -26,7 +26,7 @@ function ChatListPage(props) {
             if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
             else{alert('채팅목록 조회 중 문제가 생겼습니다.')}})
     }
-    useEffect(getChatroom, []);
+    useEffect(getChatroom, [user_id]);
     useEffect(()=> {
         if(refreshInterval && refreshInterval > 0){
             const interval = setInterval(getChatroom, refreshInterval);
