@@ -13,7 +13,7 @@ import * as api from "../util/api";
 
 function LoginPage(props) {
     const goRegister = () => props.history.push('/register');
-    const goUser = (user_id) => props.history.push(`/user/${user_id}`);
+    const goUser = (user_id) => props.history.push(`/users/${user_id}`);
 
     const cookies= new Cookies();
 

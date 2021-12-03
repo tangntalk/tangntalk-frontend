@@ -21,7 +21,7 @@ function App() {
       <Route exact path="/" component={withRouter(LoginPage)} />
         <Route exact path="/register" component={withRouter(RegisterPage)} />
 
-        <Route exact path="/user/:user_id" component={withRouter(MainPage)} />
+        <Route exact path="/users/:user_id" component={withRouter(MainPage)} />
         <Route exact path="/search/:user_id" component={withRouter(SearchPage)} />
 
         <Route exact path="/around/:user_id" component={withRouter(AroundPage)} />
