@@ -7,7 +7,7 @@ export const user = (user_id) => server.get(`/users/${user_id}`);
 export const userDelete = (user_id) => server.delete(`/users/${user_id}`);
 export const userLocation = (user_id, location_name) => server.post(`/users/${user_id}/location`, { location_name: location_name});
 export const userStatus = (user_id, status_message) => server.post(`/users/${user_id}/status`, { status_message: status_message });
-export const logout = () => server.post(`/logout`);
+export const logout = (user_id) => server.post(`${user_id}/logout`);
 
 // Friend
 export const friendList = (user_id) => server.get(`/users/${user_id}/friends`);
