@@ -8,8 +8,8 @@ export const isWhitespace = (string) => {
 };
 
 export const isSpecial = (string) => {
-    const regExp = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-    return regExp.test(string);
+    const regExp = /^[1-9a-zA-Z]+$/;
+    return !regExp.test(string);
 };
 
 export const checkId = (id) => {
