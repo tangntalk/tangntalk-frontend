@@ -68,7 +68,7 @@ function MainPage(props) {
                     <Box me user_location={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message}></Box>
                     <Title>접속한 친구</Title>
                     {onlineFriends.map((friend) => (
-                        <Box on delete friend_id={friend.user_id} key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
+                        <Box on delete user_location={friend.user_location} friend_id={friend.user_id} key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
                             {friend.status_message}
                         </Box>
                     ))}

@@ -113,26 +113,29 @@ function Box(props) {
                             :
                             <div></div>
                         }
-                        <Button>
-                            <Round>
-                                <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <circle cx="3.5" cy="3.5" r="3.5" fill="#1949D8" />
-                                </svg>
-                            </Round>
-                            <Round>
-                                {props.user_location}
-                            </Round>
-                        </Button>
                     </>
                 }
                 {add &&
-                    <Button onClick={addFriend}>
-                        <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="49" height="48" rx="4" fill="#1949D8" />
-                            <path d="M25.25 21.25V28.75H22.75V21.25H15.25V18.75H22.75V11.25H25.25V18.75H32.75V21.25H25.25Z" fill="white" />
-                            <path d="M13.272 33.485H12.075V39.551H13.272V33.485ZM11.553 37.625C10.203 37.256 9.6 36.329 9.6 35.42V35.375H11.265V34.439H9.6V33.53H8.412V34.439H6.738V35.375H8.412V35.42C8.412 36.392 7.818 37.364 6.468 37.76L7.026 38.687C7.989 38.408 8.655 37.805 9.024 37.049C9.411 37.742 10.059 38.291 11.004 38.552L11.553 37.625ZM8.943 40.685V39.02H7.755V41.63H13.479V40.685H8.943ZM22.1633 37.49H21.0743C21.2813 36.329 21.2813 35.483 21.2813 34.709V33.962H15.5303V34.916H20.1203C20.1203 35.627 20.1023 36.437 19.8953 37.49H14.6753V38.444H17.7713V41.774H18.9773V38.444H22.1633V37.49ZM25.7767 38.021C27.1987 37.85 28.1977 37.283 28.7287 36.536C29.2597 37.283 30.2587 37.85 31.6627 38.021L32.0857 37.085C30.3847 36.896 29.4847 36.077 29.3407 35.375H31.7977V34.43H29.3137V33.503H28.1257V34.43H25.6597V35.375H28.1077C27.9727 36.095 27.0907 36.896 25.3627 37.085L25.7767 38.021ZM32.4817 38.444H24.9937V39.407H28.1257V41.792H29.3137V39.407H32.4817V38.444ZM33.642 34.331V35.294H36.351C36.135 37.13 35.109 38.444 33.183 39.434L33.849 40.343C36.603 38.948 37.548 36.815 37.548 34.331H33.642ZM40.914 36.644H39.753V33.476H38.565V41.756H39.753V37.625H40.914V36.644Z" fill="white" />
-                        </svg>
-                    </Button>}
+                    <TextSpace>
+                        <Button onClick={addFriend}>
+                            <div
+                            style={{'height':'2.5em', 'width': '5em', 'display': 'flex', 'justify-content': 'center', 'align-items': 'center',
+                                'font-size': '0.6em', 'font-weight': 'bold', 'background-color': '#1949D8', 'border-radius': '0.3em', 'color': 'white'
+                            }}
+                            >친구 추가</div>
+                        </Button>
+                    </TextSpace>
+                }
+                <Button>
+                    <Round>
+                            <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="3.5" cy="3.5" r="3.5" fill="#1949D8" />
+                            </svg>
+                    </Round>
+                    <Round>
+                        {props.user_location}
+                    </Round>
+                </Button>
             </Right>
 
         </BoxContainer>
