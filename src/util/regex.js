@@ -8,7 +8,7 @@ export const isWhitespace = (string) => {
 };
 
 export const isSpecial = (string) => {
-    const regExp = /^[1-9a-zA-Z]+$/;
+    const regExp = /^[0-9a-zA-Z]+$/;
     return !regExp.test(string);
 };
 
