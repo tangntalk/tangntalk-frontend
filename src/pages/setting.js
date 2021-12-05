@@ -26,8 +26,8 @@ function SettingPage(props) {
         api.user(user_id)
         .then(response => {
             setMyInfo(response.data.user);
-            if(response.data.success) setLoading((isloading)=>(isLoading-1));
-            else alert('요청한 사용자가 존재하지 않습니다');})
+            if(response.data.success && isLoading > 0) setLoading((isloading)=>(isLoading-1));
+            else if(isLoading!==0)alert('요청한 사용자가 존재하지 않습니다');})
         .catch(error => {
             if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
             else{alert('내 정보 조회 중 문제가 생겼습니다.')}})
@@ -39,7 +39,7 @@ function SettingPage(props) {
 
     const handleLocationChange = (location) => {
         setMyInfo({...myInfo, location_name: location});
-        // console.log("changing");
+        console.log("changing");
 
     }
 
