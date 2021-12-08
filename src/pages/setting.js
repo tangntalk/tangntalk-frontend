@@ -77,7 +77,7 @@ function SettingPage(props) {
         })
         .catch(error => {
             if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
-            else{alert('로그아웃 중 문제가 생겼습니다.')}
+            else{alert('회원 탈퇴 중 문제가 생겼습니다.')}
         })
     }
 
