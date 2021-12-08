@@ -74,7 +74,7 @@ function MainPage(props) {
                     ))}
                     <Title>미접속 친구</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off delete friend_id={friend.user_id} key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
+                        <Box off delete user_location={friend.user_location} friend_id={friend.user_id} key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
                             {friend.status_message}
                         </Box>
                     ))}
