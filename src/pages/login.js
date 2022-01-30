@@ -47,7 +47,7 @@ function LoginPage(props) {
         api.login(id, password)
             .then((response) => {
                 console.log(response.data.jwt);
-                cookies.set("accessToken", response.data.jwt, {path:'/', httpOnly:'true'});                
+                cookies.set("accessToken", response.data.jwt, {path:'/'});                
                 goUser(id);
             })
             .catch(error => {
