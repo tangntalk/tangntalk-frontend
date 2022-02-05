@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from 'react-router-dom';
 
-
 import styled from "styled-components";
+import colors from "../util/colors"
 
 import * as api from "../util/api";
 function FriendAddDelButton(props) {
@@ -63,8 +63,8 @@ function FriendAddDelButton(props) {
 
     var style = {
         whenFriend:{
-            color:"#ffffff", 
-            backgroundColor:"#1949D8"
+            color:colors.WHITE, 
+            backgroundColor:colors.MAIN
         },
         whenNotFriend:{
 
@@ -78,7 +78,7 @@ function FriendAddDelButton(props) {
                 </Button>
             }
             {isFriend===true &&
-                <Button fill="#ECEBED" onClick={deleteFriend}>
+                <Button fill={colors.LIGHT} onClick={deleteFriend}>
                     친구 삭제
                 </Button>
             }

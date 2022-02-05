@@ -4,7 +4,9 @@ import Header from "../components/Header";
 import BoxInput from "../components/BoxInput";
 import BlueButton from "../components/BlueButton";
 import Title from "../components/Title";
-import { ContainerSpace2, ContainerContent, Space, ButtonLink} from "../styles/style";
+import Wrapper from "../components/container/Wrapper"
+import Content from "../components/container/Content"
+import {Space, ButtonLink} from "../styles/style";
 
 import { Cookies } from "react-cookie";
 
@@ -73,8 +75,8 @@ function LoginPage(props) {
         <>
             <Header title="연세톡 로그인">
             </Header>
-            <ContainerSpace2>
-                <ContainerContent>
+            <Wrapper>
+                <Content>
                     <Title>ID</Title>
                     <BoxInput placeholder="아이디" name="id" value={id} onInput={onChange}></BoxInput>
                     <Title>Password</Title>
@@ -84,8 +86,8 @@ function LoginPage(props) {
                     <Space></Space>
                     <BlueButton onClick={detectInput}>로그인</BlueButton>
                     <ButtonLink onClick={goRegister}>회원가입하기</ButtonLink>
-                </ContainerContent>
-            </ContainerSpace2>
+                </Content>
+            </Wrapper>
         </>
     );
 }

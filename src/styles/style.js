@@ -21,64 +21,6 @@ export const NaviText = styled.div`
     overflow:hidden;
 `
 
-export const ContainerSpace = styled.div`
-    width:100%;
-    height:100%;
-    box-sizing: border-box;
-    padding-top:50px;
-    padding-bottom:${props => props.paddingBottom || "100px"};
-
-    display: flex;
-    align-items: center;
-    flex-flow: column nowrap;
-    
-    background-color:#ffffff;
-`
-export const ContainerSpace2 = styled.div`
-    width:100%;
-    height:100%;
-    box-sizing: border-box;
-    padding-top:50px;
-
-    display: flex;
-    align-items: center;
-    flex-flow: column nowrap;
-
-    background-color:#ffffff;
-`
-export const ContainerContent = styled.div`
-    width:100%;
-    max-width:800px;
-    min-height:calc(100vh - 50px);
-    box-sizing: border-box;
-    padding:0 10px;
-
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-
-    overflow-x:hidden;
-
-    word-break:keep-all;
-`
-export const ContainerContentG = styled.div`
-    width:100%;
-    max-width:800px;
-    min-height:${props => props.minHeight || "calc(100vh - 150px)"};
-
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-
-    word-break:keep-all;
-
-    background-color:#ECEBED;
-
-    overflow-x:hidden;
-
-    gap:10px;
-`
-
 export const WhiteSpace = styled.div`
     width:100%;
     background-color:#ffffff;

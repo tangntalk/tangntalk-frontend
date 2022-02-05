@@ -6,7 +6,10 @@ import RadioButton from "../components/RadioButton";
 import BlueButton from "../components/BlueButton";
 import Message from "../components/Message";
 import styled from "styled-components";
-import { ContainerSpace, ContainerContentG, Space } from "../styles/style";
+import colors from "../util/colors"
+import Wrapper from "../components/container/Wrapper";
+import Content from "../components/container/Content";
+import { Space } from "../styles/style";
 
 import * as api from "../util/api";
 
@@ -20,8 +23,8 @@ function ChattingPage(props) {
     const [customTime, setCustomTime] = useState(false);
     const [messageCount, setMessageCount] = useState(0);
     const [opponentInfo, setOpponentInfo] = useState([]);
-    const [countRefreshInterval, setcountRefreshInterval] = useState(1000);
-    const [messageRefreshInterval, setMessageRefreshInterval] = useState(10000);
+    const [countRefreshInterval] = useState(1000);
+    const [messageRefreshInterval] = useState(10000);
     const [doScroll, setDoScroll] = useState(false);
     var messagesEnd = React.createRef();
     
@@ -140,11 +143,10 @@ function ChattingPage(props) {
         <>
             <Header back title={opponentInfo.name} friendAddDel user_id={user_id} friend_id={opponent} user_function={goChatList}>
             </Header>
-            <ContainerSpace paddingBottom="240px">
-                <ContainerContentG minHeight="calc(100vh - 290px)">
+            <Wrapper paddingBottom="240px">
+                <Content minHeight="calc(100vh - 290px)" gray>
                     <div></div>
                     {mesasgeList.map((message) => {
-                      
                         if(message.sender_id === user_id){
                             if(message.rendezvous_flag === true){
                                 return(
@@ -181,8 +183,8 @@ function ChattingPage(props) {
                         }
                     })}
                     <div ref={messagesEnd}></div>
-                </ContainerContentG>
-            </ContainerSpace>
+                </Content>
+            </Wrapper>
             <NaviSpace>
                 <NaviContent>
                     <div>
@@ -226,7 +228,7 @@ export const NaviSpace = styled.div`
 
     background-color:white;
 
-    border-top:1px solid #ECEBED;
+    border-top:1px solid ${colors.LIGHT};
 `
 
 export const NaviContent = styled.div`
@@ -240,7 +242,7 @@ export const NaviContent = styled.div`
     align-items:center;
     justify-content:space-around;
 
-    background-color:#ffffff;
+    background-color:${colors.WHITE};
 
     @media only screen and (max-width: 768px) {
         width:100%;
@@ -250,7 +252,7 @@ export const NaviContent = styled.div`
 
 export const TimeInput = styled.input`
     width:40px;
-    border:1px solid #948EA5;
+    border:1px solid ${colors.DARK};
     border-radius:5px;
     &:focus {
         outline: none;
@@ -260,7 +262,7 @@ export const ChatInput = styled.textarea`
     width:600px;
     padding:10px;
     height:150px;
-    border:1px solid #ECEBED;
+    border:1px solid ${colors.LIGHT};
     font-size:1.2em;
     border-radius:5px;
     &:focus {

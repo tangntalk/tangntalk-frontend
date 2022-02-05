@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
 import styled from "styled-components";
+import colors from "../util/colors"
 
 function BlueButton(props) {
     return (
@@ -20,8 +21,8 @@ const Button = styled.button`
     border: none;
     border-radius: 5px;
 
-    background-color: #1949D8;
-    color: #ffffff;
+    background-color: ${colors.MAIN};
+    color: ${colors.WHITE};
 
     font-weight: bold;
     font-size:${props => props.size || "1em"};

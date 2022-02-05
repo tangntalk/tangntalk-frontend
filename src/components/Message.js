@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 
 import styled from "styled-components";
+import colors from "../util/colors"
 
 
 function Message(props) {
@@ -40,7 +41,7 @@ export default withRouter(Message);
 
 export const Text= styled.div`
     font-size:0.6em;
-    color:#948EA5;
+    color:${colors.DARK};
     ${(props) =>
         props.send &&
         `
@@ -75,13 +76,13 @@ export const Chat = styled.div`
     position:relative;
     width:180px;
     min-height:20px;
-    background-color:${props=>props.rendezvous?"#1949D8":"#ffffff"};
-    color:${props=>props.rendezvous?"#ffffff":"#000000"};
+    background-color:${props=>props.rendezvous?colors.MAIN:colors.WHITE};
+    color:${props=>props.rendezvous?colors.WHITE:colors.BLACK};
     border:none;
     border-radius: 5px;
 
     :before {
-    border-top:15px solid ${props=>props.rendezvous?"#1949D8":"#ffffff"};
+    border-top:15px solid ${props=>props.rendezvous?colors.MAIN:colors.WHITE};
 
     content:"";
 

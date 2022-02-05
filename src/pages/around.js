@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import styled from "styled-components";
+import colors from "../util/colors"
 import Header from "../components/Header";
 import NaviBar from "../components/NaviBar";
 import Box from "../components/Box";
 import RadioButton from "../components/RadioButton";
 import Title from "../components/Title";
-import styled from "styled-components";
-import { ContainerSpace, ContainerContentG, SpaceAround, Space } from "../styles/style";
+import Wrapper from "../components/container/Wrapper";
+import Content from "../components/container/Content";
+
+import { SpaceAround, Space } from "../styles/style";
 
 import * as api from "../util/api";
 
@@ -15,7 +19,7 @@ function AroundPage(props) {
     const { user_id } = useParams();
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [offlineFriends, setOfflineFriends] = useState([]);
-    const [refreshInterval, setRefreshInterval] = useState(5000);
+    const [refreshInterval] = useState(5000);
     const [location, setLocation] = useState('공학관');
 
     const getFriendNearby = () =>{
@@ -58,8 +62,8 @@ function AroundPage(props) {
         <>
             <Header search title="내 주변" id={user_id}>
             </Header>
-            <ContainerSpace>
-                <ContainerContentG>
+            <Wrapper navi>
+                <Content gray>
                     <White>
                         <Title>위치</Title>
                         <SpaceAround height="80px">
@@ -84,8 +88,8 @@ function AroundPage(props) {
                         </Box>
                     ))}
                     <Space></Space>
-                </ContainerContentG>
-            </ContainerSpace>
+                </Content>
+            </Wrapper>
             <NaviBar around id={user_id}>
             </NaviBar>
         </>
@@ -99,7 +103,7 @@ export const White = styled.div`
     max-width:800px;
     
     height:100%;
-    background-color:#ffffff;
+    background-color:${colors.WHITE};
 
     display: flex;
     flex-flow: column nowrap;

@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import styled from "styled-components";
+import colors from "../util/colors"
 
 import Header from "../components/Header";
 import Box from "../components/Box";
 import { Icon } from "../styles/style";
 
-
-import { ContainerSpace2, ContainerContentG } from "../styles/style";
+import Wrapper from "../components/container/Wrapper"
+import Content from "../components/container/Content"
 
 import * as api from "../util/api";
 
@@ -75,8 +76,8 @@ function SearchPage(props) {
                 </SearchContent>
             </SearchSpace>
             <Margin></Margin>
-            <ContainerSpace2>
-                <ContainerContentG id="friend-search">
+            <Wrapper>
+                <Content gray id="friend-search">
                     <div></div>
                     {friends.map((friend) => (
                         <Box add={!friend.is_friend} delete={friend.is_friend} name={friend.name} friend_id={friend.user_id} key={friend.user_id}>
@@ -84,8 +85,8 @@ function SearchPage(props) {
                         </Box>
                     ))}
                     <div></div>
-                </ContainerContentG>
-            </ContainerSpace2>
+                </Content>
+            </Wrapper>
 
         </>
     );
@@ -108,9 +109,9 @@ export const SearchSpace = styled.div`
     align-items: center;
     justify-content: center;
 
-    background-color:#ffffff;
+    background-color:${colors.WHITE};
 
-    border-bottom:1px solid #ECEBED;
+    border-bottom:1px solid ${colors.LIGHT};
 `
 
 export const SearchContent = styled.div`
@@ -137,7 +138,7 @@ export const Input = styled.input`
     border: none;
     border-radius: 5px;
     font-size:18px;
-    background-color: #F2F4F8;
+    background-color: ${colors.LIGHT};
     &:focus {
         outline: none;
     }

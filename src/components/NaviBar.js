@@ -1,6 +1,7 @@
 import { withRouter } from 'react-router-dom';
 
 import styled from "styled-components";
+import colors from "../util/colors"
 
 import UserIcon from "./icon/User"
 import AroundIcon from "./icon/Around"
@@ -36,7 +37,7 @@ export const NaviSpace = styled.div`
 
     background-color:white;
 
-    border-top:1px solid #ECEBED;
+    border-top:1px solid ${colors.LIGHT};
 `
 
 export const NaviContent = styled.div`
@@ -50,7 +51,7 @@ export const NaviContent = styled.div`
     align-items: center;
     justify-content:space-around;
 
-    background-color:#ffffff;
+    background-color:${colors.WHITE};
 
     @media only screen and (max-width: 768px) {
         width:100%;

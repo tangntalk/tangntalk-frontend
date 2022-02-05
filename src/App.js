@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from "react-router-dom";
 
 import LoginPage from "../src/pages/login";
@@ -8,11 +8,13 @@ import RegisterPage from "../src/pages/register";
 import MainPage from "../src/pages/main";
 import SearchPage from "../src/pages/search";
 
-import ChatListPage from "../src/pages/chatList";
+import ChatListPage from "../src/pages/chat";
 import ChattingPage from "../src/pages/chatting";
 
 import AroundPage from "../src/pages/around";
 import SettingPage from "../src/pages/setting";
+
+import TestPage from "../src/pages/test";
 
 function App() {
   return (
@@ -29,6 +31,9 @@ function App() {
 
         <Route exact path="/chat/:user_id" component={withRouter(ChatListPage)} />
         <Route exact path="/chatting/:user_id/:opponent" component={withRouter(ChattingPage)} />
+
+        <Route exact path="/test" component={withRouter(TestPage)} />
+
         <Route component={() => <Redirect to="/"/>}/>
       </Switch>
     </Router>

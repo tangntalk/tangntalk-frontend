@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { withRouter } from 'react-router-dom';
+import * as api from "../util/api";
+
 import styled from "styled-components";
 import BlueButton from "../components/BlueButton";
 import { Space } from "../styles/style";
-import * as api from "../util/api";
+import colors from "../util/colors"
+
 
 function LocationBox(props) {
 
@@ -79,6 +82,7 @@ export const BlankButton = styled.button`
     width : -moz-${props => props.width || "calc(80% + 30px)"};
     max-width:${props => props.maxwidth || "530px"};
     border: none;
+    border-radius:5px;
     font-weight: bold;
     font-size:${props => props.size || "1em"};
 
@@ -89,7 +93,7 @@ export const BlankButton = styled.button`
     cursor: pointer;
 
     &:hover {
-        box-shadow: 0 1px 8px rgb(0 0 0 / 30%);
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     }
 
     &:active {
@@ -117,14 +121,13 @@ export const MenuLi = styled.li`
     font-weight: bold;
     font-size:${props => props.size || "1em"};
     text-decoration: none;
-    color: #33333;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 1
     box-sizing: border-box;
     cursor: pointer;
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid ${colors.LIGHT};
 `
 export const MenuHolder = styled.ul`
     width: ${props => props.width || "calc(100%)"};
@@ -133,7 +136,7 @@ export const MenuHolder = styled.ul`
     max-width:${props => props.maxwidth || "530px"};
     
     box-sizing: border-box;
-    border-radius: 25px;
+    border-radius: 5px;
     font-weight: bold;
     text-decoration: none;
     display: flex;
@@ -142,8 +145,8 @@ export const MenuHolder = styled.ul`
     justify-content: center;
     list-style: none;
     
-    background-color: #EFEFEF;
-    box-shadow: 0 1px 8px rgb(0 0 0 / 30%);
+    background-color: ${colors.WHITE};
+    border: 1px solid ${colors.LIGHT};
 
     padding: 0;
     margin: 0;

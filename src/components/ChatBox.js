@@ -1,6 +1,7 @@
 import { withRouter } from 'react-router-dom';
 
 import styled from "styled-components";
+import colors from "../util/colors"
 
 function ChatBox(props) {
     const goChattingRoom= () => props.history.push({
@@ -17,15 +18,15 @@ function ChatBox(props) {
                     {props.on===1 &&
                         <Button onClick={goChattingRoom}>
                             <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect width="49" height="48" rx="4" fill="#1949D8" />
+                                <rect width="49" height="48" rx="4" fill={colors.MAIN} />
                                 <path d="M16 33V17C16 15.8954 16.8954 15 18 15H32C33.1046 15 34 15.8954 34 17V27C34 28.1046 33.1046 29 32 29H22C21.5671 28.9992 21.1458 29.1396 20.8 29.4L16 33ZM18 17V29L20.134 27.4C20.4796 27.1393 20.9011 26.9988 21.334 27H32V17H18Z" fill="white" />
                             </svg>
                         </Button>}
                     {props.on===0 &&
                         <Button>
                         <svg width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={goChattingRoom}>
-                            <rect width="49" height="48" rx="4" fill="#ECEBED" />
-                            <path d="M16 33V17C16 15.8954 16.8954 15 18 15H32C33.1046 15 34 15.8954 34 17V27C34 28.1046 33.1046 29 32 29H22C21.5671 28.9992 21.1458 29.1396 20.8 29.4L16 33ZM18 17V29L20.134 27.4C20.4796 27.1393 20.9011 26.9988 21.334 27H32V17H18Z" fill="#948EA5" />
+                            <rect width="49" height="48" rx="4" fill={colors.LIGHT} />
+                            <path d="M16 33V17C16 15.8954 16.8954 15 18 15H32C33.1046 15 34 15.8954 34 17V27C34 28.1046 33.1046 29 32 29H22C21.5671 28.9992 21.1458 29.1396 20.8 29.4L16 33ZM18 17V29L20.134 27.4C20.4796 27.1393 20.9011 26.9988 21.334 27H32V17H18Z" fill={colors.DARK} />
                         </svg>
                         </Button>
                     }
@@ -50,7 +51,7 @@ export const OutBox = styled.div`
     height:80px;
     display: flex;
     justify-content: center;
-    background-color:#ffffff;
+    background-color:${colors.WHITE};
 `
 
 export const BoxContainer = styled.div`
@@ -104,12 +105,12 @@ export const Text = styled.div`
     word-break: keep-all;
     -webkit-line-clamp: 2;
 
-    color: ${props => props.rendezvous ? "#1949D8" : "#000000"};
+    color: ${props => props.rendezvous ? colors.MAIN : colors.BLACK};
 `
 export const Data = styled.div`
     font-size:0.8em;
 
-    color: ${props => props.rendezvous ? "#1949D8" : "#948EA5"};
+    color: ${props => props.rendezvous ? colors.MAIN : colors.DARK};
 
     display: -webkit-box;
     line-height: 1.5;

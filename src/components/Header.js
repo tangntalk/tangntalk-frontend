@@ -6,6 +6,8 @@ import styled from "styled-components";
 import FriendAddDelButton from "./FriendAddDelButton";
 import BackIcon from "./icon/Back";
 import SearchIcon from "./icon/Search";
+import colors from "../util/colors"
+
 
 function Header(props) {
     return (
@@ -45,9 +47,9 @@ export const HeaderSpace = styled.div`
     align-items: center;
     justify-content: center;
 
-    background-color:#ffffff;
+    background-color:${colors.WHITE};
 
-    border-bottom:1px solid #ECEBED;
+    border-bottom:1px solid ${colors.LIGHT};
 
     z-index:10;
 `

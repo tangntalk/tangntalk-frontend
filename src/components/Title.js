@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
+
 import styled from "styled-components";
+import colors from "../util/colors"
 
 function Title(props) {
     return (
@@ -18,7 +20,7 @@ export const TitleBox = styled.div`
 
     padding:30px 10px 10px 10px;
 
-    background-color:#ffffff;
+    background-color:${colors.WHITE};
 
     display:flex;
     align-items:center;

@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
+
 import styled from "styled-components";
+import colors from "../util/colors"
 
 function RadioButton(props) {
     return (
@@ -29,7 +31,7 @@ const Round = styled.div`
     height: 18px;
     border-radius: 50%;
     box-sizing: border-box;
-    border:1px solid #948EA5;
+    border:1px solid ${colors.DARK};
     display:flex;
     align-items: center;
     justify-content: center;  
@@ -40,7 +42,7 @@ const SelectRound = styled.div`
     height: 10px;
     border-radius: 50%;
     box-sizing: border-box;
-    background-color:#1949D8;
+    background-color:${colors.MAIN};
 `
 
 const Text = styled.div`

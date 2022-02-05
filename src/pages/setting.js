@@ -8,8 +8,10 @@ import Title from "../components/Title";
 import Text from "../components/Text";
 import Box from "../components/Box";
 import LocationBox from "../components/LocationBox";
+import Wrapper from "../components/container/Wrapper"
+import Content from "../components/container/Content"
 
-import { ContainerSpace2, ContainerContent, Space, InputLink, Line} from "../styles/style";
+import { Space, InputLink, Line } from "../styles/style";
 
 import * as api from "../util/api";
 
@@ -94,8 +96,8 @@ function SettingPage(props) {
         <>
             <Header back title="내 정보 수정">
             </Header>
-            <ContainerSpace2>
-                <ContainerContent>
+            <Wrapper>
+                <Content>
                     <Space></Space>
                     <Title> 내 정보</Title>
                     <Box me user_location={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message} profile></Box>
@@ -114,8 +116,8 @@ function SettingPage(props) {
                     <Text children="로그아웃" onClick={logout}></Text>
                     <Line></Line>
                     <Text children="회원 탈퇴" onClick={userDelete}></Text>
-                </ContainerContent>
-            </ContainerSpace2>
+                </Content>
+            </Wrapper>
         </>
     );
 }

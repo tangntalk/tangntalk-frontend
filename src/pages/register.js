@@ -5,7 +5,9 @@ import BoxInput from "../components/BoxInput";
 import BlueButton from "../components/BlueButton";
 import Title from "../components/Title";
 import RadioButton from "../components/RadioButton";
-import { ContainerSpace2, ContainerContent, Space, InputLink, ButtonLink, SpaceAround } from "../styles/style";
+import Wrapper from "../components/container/Wrapper"
+import Content from "../components/container/Content"
+import { Space, InputLink, ButtonLink, SpaceAround } from "../styles/style";
 
 import * as api from "../util/api";
 import * as reg from "../util/regex";
@@ -124,8 +126,8 @@ function RegisterPage(props) {
         <>
             <Header title="연세톡 회원가입">
             </Header>
-            <ContainerSpace2>
-                <ContainerContent>
+            <Wrapper>
+                <Content>
                     <Title>ID</Title>
                     <BoxInput placeholder="아이디" name="id" value={id} onInput={onChange} onChange={inputCheck} onBlur={inputCheck}></BoxInput>
                     <InputLink>{idAlert}</InputLink>
@@ -153,8 +155,8 @@ function RegisterPage(props) {
                     <Space></Space>
                     <BlueButton onClick={submitCheck}>회원가입</BlueButton>
                     <ButtonLink onClick={goLogin}>로그인하기</ButtonLink>
-                </ContainerContent>
-            </ContainerSpace2>
+                </Content>
+            </Wrapper>
         </>
     );
 }
