@@ -107,14 +107,11 @@ function RegisterPage(props) {
             })
             .catch(error => {
                 if (error.response) {
-                    if (error.response && error.response.status === 401) {
+                    if (error.response || error.response.status === 401) {
                         alert('가입에 실패했습니다');
-                    } else {
-                        alert('알 수 없는 에러가 발생했습니다.');
+                    } else if (error.response || error.response.status === 500) {
+                        alert('서버에서 응답이 오지 않습니다');
                     }
-                }
-                else if (error.request) {
-                    alert('서버에서 응답이 오지 않습니다.');
                 }
                 else {
                     alert('가입 요청에 문제가 발생했습니다.');
