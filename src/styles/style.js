@@ -27,8 +27,8 @@ export const WhiteSpace = styled.div`
 `
 
 export const Space = styled.div`
+    height:${props => props.loop? props.loop*10+"px":"10px"};
     width:100%;
-    height:10px;
 `
 
 export const Gray = styled.div`

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Header from "../components/Header";
 import BoxInput from "../components/BoxInput";
 import BlueButton from "../components/BlueButton";
+import OauthButton from "../components/OauthButton";
 import Title from "../components/Title";
 import Wrapper from "../components/container/Wrapper"
 import Content from "../components/container/Content"
@@ -75,11 +76,13 @@ function LoginPage(props) {
                     <BoxInput placeholder="아이디" name="id" value={id} onInput={onChange}></BoxInput>
                     <Title>Password</Title>
                     <BoxInput placeholder="비밀번호" name="password" value={password} onInput={onChange} type="password"></BoxInput>
-                    <Space></Space>
-                    <Space></Space>
-                    <Space></Space>
+                    <Space loop={3}></Space>
                     <BlueButton onClick={detectInput}>로그인</BlueButton>
                     <ButtonLink onClick={goRegister}>회원가입하기</ButtonLink>
+                    <Space loop={3}></Space>
+                    <OauthButton google></OauthButton>
+                    <Space loop={2}></Space>
+                    <OauthButton kakao></OauthButton>
                 </Content>
             </Wrapper>
         </>
