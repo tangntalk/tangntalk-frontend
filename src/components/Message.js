@@ -7,6 +7,7 @@ import colors from "../util/colors"
 
 function Message(props) {
     return (
+        !props.hide&&
             <Space {...props}>
                 {props.receive&&
                 <TextSpace {...props}>

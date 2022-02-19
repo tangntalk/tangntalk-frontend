@@ -18,6 +18,13 @@ function TestPage(props) {
         console.log("changing");
     }
 
+    const nowDate=new Date();
+    const rendezvousDate=new Date("2021-10-13 22:22:20");
+    console.log(rendezvousDate);
+    console.log(nowDate);
+    console.log(rendezvousDate>nowDate);
+    
+
     return (
         <>
             <Header title="연세톡 회원가입">

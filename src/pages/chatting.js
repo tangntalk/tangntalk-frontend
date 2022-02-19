@@ -27,11 +27,11 @@ function ChattingPage(props) {
     const [messageRefreshInterval] = useState(10000);
     const [doScroll, setDoScroll] = useState(false);
     var messagesEnd = React.createRef();
-    
-    
+
+
     const scrollToBottom = () => {
-        if(doScroll===true){
-            window.scrollTo({top: document.documentElement.scrollHeight, behavior: "smooth"});
+        if (doScroll === true) {
+            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
             setDoScroll(false);
         }
     }
@@ -45,84 +45,85 @@ function ChattingPage(props) {
 
     const getOpponentInfo = () => {
         api.user(opponent)
-        .then(response => {
-            console.log(response);
-            setOpponentInfo(response.data.user);
-            if(response.data.success){setLoading((isloading)=>(isloading-1));} 
-            else alert('요청한 사용자가 존재하지 않습니다');
-        })
-        .catch(error => {
-            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
-            else{alert('내 정보 조회 중 문제가 생겼습니다.')}})
+            .then(response => {
+                console.log(response);
+                setOpponentInfo(response.data.user);
+                if (response.data.success) { setLoading((isloading) => (isloading - 1)); }
+                else alert('요청한 사용자가 존재하지 않습니다');
+            })
+            .catch(error => {
+                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
+                else { alert('내 정보 조회 중 문제가 생겼습니다.') }
+            })
     }
 
     const sendNewMessage = () => {
-        while(chatroomid === -1) initializePage();
+        while (chatroomid === -1) initializePage();
         api.chatSend(user_id, chatroomid.toString(), newMessage, time)
-        .then(() =>{
-            getMessageCount()        
-        })
+            .then(() => {
+                getMessageCount()
+            })
     }
-    
-    const getMessageCount = () =>{
+
+    const getMessageCount = () => {
         api.messageCount(user_id, chatroomid)
-        .then(response =>{
-            setMessageCount(response.data.message_count);
-            console.log(messageCount);
-        })
-        .catch(error => {
-            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
-            else{alert('친구 정보 조회 중 문제가 생겼습니다.')};
-        })
+            .then(response => {
+                setMessageCount(response.data.message_count);
+                console.log(messageCount);
+            })
+            .catch(error => {
+                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
+                else { alert('친구 정보 조회 중 문제가 생겼습니다.') };
+            })
     }
 
     const getMessages = () => {
         api.chatList(user_id, chatroomid)
-        .then(response =>{
-            console.log(response.data.messages);
-            if(messageCount!==response.data.messages.length){
-                setMessageCount(response.data.messages.length)
-            }
-            setMessageList(response.data.messages);
-            setDoScroll(true);
-            if(response.data.success){setLoading((isloading)=>(isloading-1));} 
-            else alert('요청한 사용자가 존재하지 않습니다');
-        })
-        .catch(error => {
-            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
-            else{alert('친구 정보 조회 중 문제가 생겼습니다.')};
-        })
+            .then(response => {
+                console.log(response.data.messages);
+                if (messageCount !== response.data.messages.length) {
+                    setMessageCount(response.data.messages.length)
+                }
+                setMessageList(response.data.messages);
+                setDoScroll(true);
+                if (response.data.success) { setLoading((isloading) => (isloading - 1)); }
+                else alert('요청한 사용자가 존재하지 않습니다');
+            })
+            .catch(error => {
+                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
+                else { alert('친구 정보 조회 중 문제가 생겼습니다.') };
+            })
     }
-    
-    const initializePage = () =>{
+
+    const initializePage = () => {
         console.log(chatroomid);
         api.chatroomEnter(user_id, opponent)
-        .then(response =>{
-            setChatroomid(response.data.chatroom_id);
-            if(response.data.chatroom_id>=0){
-                setLoading((isloading)=>(isloading-1));
-            } 
-            else alert('요청한 채팅방이 존재하지 않습니다');
-        })
-        .catch(error => {
-            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
-            else{alert('채팅방 조회 중 문제가 생겼습니다.')}
-            
-        })
+            .then(response => {
+                setChatroomid(response.data.chatroom_id);
+                if (response.data.chatroom_id >= 0) {
+                    setLoading((isloading) => (isloading - 1));
+                }
+                else alert('요청한 채팅방이 존재하지 않습니다');
+            })
+            .catch(error => {
+                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
+                else { alert('채팅방 조회 중 문제가 생겼습니다.') }
+
+            })
     }
-    
+
     const goChatList = () => props.history.push(`/chat/${user_id}`);
     useEffect(() => {
-      if (countRefreshInterval && countRefreshInterval > 0 && messageRefreshInterval &&  messageRefreshInterval > 0) {
-        const interval = setInterval(getMessageCount, countRefreshInterval);
-        const interval2 = setInterval(getMessages, messageRefreshInterval);
-        return () => {
-            clearInterval(interval);
-            clearInterval(interval2);
-        };
-      }
+        if (countRefreshInterval && countRefreshInterval > 0 && messageRefreshInterval && messageRefreshInterval > 0) {
+            const interval = setInterval(getMessageCount, countRefreshInterval);
+            const interval2 = setInterval(getMessages, messageRefreshInterval);
+            return () => {
+                clearInterval(interval);
+                clearInterval(interval2);
+            };
+        }
     }, [countRefreshInterval, messageRefreshInterval, chatroomid]);
-    
+
     useEffect(initializePage, [chatroomid, user_id, opponent]);
     useEffect(getOpponentInfo, [opponent]);
     useEffect(getMessageCount, [messageCount, chatroomid, user_id]);
@@ -130,14 +131,14 @@ function ChattingPage(props) {
     useEffect(scrollToBottom, [mesasgeList, doScroll]);
 
 
-    if(isloading>0){
-        return(
+    if (isloading > 0) {
+        return (
             <>
-            <Header back search title="로딩중입니다"></Header>
+                <Header back search title="로딩중입니다"></Header>
             </>
         );
     }
-    
+
 
     return (
         <>
@@ -147,37 +148,41 @@ function ChattingPage(props) {
                 <Content minHeight="calc(100vh - 290px)" gray>
                     <div></div>
                     {mesasgeList.map((message) => {
-                        if(message.sender_id === user_id){
-                            if(message.rendezvous_flag === true){
-                                return(
-                                    <Message receive readOrNot={message.read_time} rendezvous={message.rendezvous_location +", "+ message.rendezvous_time.substr(11,8)}
-                                        date={message.send_time.substr(0,10)} time={message.send_time.substr(11,8)}>
+                        if (message.sender_id === user_id) {
+                            if (message.rendezvous_flag === true) {
+                                const nowDate = new Date();
+                                const rendezvousDate = new Date(message.rendezvous_time);
+                                if (rendezvousDate > nowDate) {
+                                    return (
+                                        <Message receive readOrNot={message.read_time} rendezvous={message.rendezvous_location + ", " + message.rendezvous_time.substr(11, 8)}
+                                            date={message.send_time.substr(0, 10)} time={message.send_time.substr(11, 8)}>
+                                            {message.content}
+                                        </Message>
+                                    )
+                                }
+                            }
+                            else {
+                                return (
+                                    <Message receive readOrNot={message.read_time} date={message.send_time.substring(0, 10)} time={message.send_time.substr(11, 8)}>
                                         {message.content}
                                     </Message>
-                                )
-                            }
-                            else{
-                                return (
-                                <Message receive readOrNot={message.read_time} date={message.send_time.substring(0,10)} time={message.send_time.substr(11,8)}> 
-                                    {message.content}
-                                </Message>
                                 )
                             }
                         }
-                        else{
-                            if(message.rendezvous_flag === true){
-                                return(
-                                    <Message send readOrNot={message.read_time} rendezvous={message.rendezvous_location+", "+ message.rendezvous_time.substr(11,8)}
-                                        date={message.send_time.substr(0,10)} time={message.send_time.substr(11,8)}>
+                        else {
+                            if (message.rendezvous_flag === true) {
+                                return (
+                                    <Message send readOrNot={message.read_time} rendezvous={message.rendezvous_location + ", " + message.rendezvous_time.substr(11, 8)}
+                                        date={message.send_time.substr(0, 10)} time={message.send_time.substr(11, 8)}>
                                         {message.content}
                                     </Message>
                                 )
                             }
-                            else{
-                                return(
-                                <Message send readOrNot={message.read_time} date={message.send_time.substring(0,10)} time={message.send_time.substr(11,8)}>
-                                    {message.content}
-                                </Message>
+                            else {
+                                return (
+                                    <Message send readOrNot={message.read_time} date={message.send_time.substring(0, 10)} time={message.send_time.substr(11, 8)}>
+                                        {message.content}
+                                    </Message>
                                 )
                             }
                         }
@@ -193,15 +198,15 @@ function ChattingPage(props) {
                     <div>
                         <BlueButton width="90px" height="40px" onClick={sendNewMessage}>전송</BlueButton>
                         <Space></Space>
-                        <RadioButton onClick={() => {setTime(-1);setCustomTime(false);}} selected={time === -1}>일반</RadioButton>
+                        <RadioButton onClick={() => { setTime(-1); setCustomTime(false); }} selected={time === -1}>일반</RadioButton>
                         <Space></Space>
-                        <RadioButton onClick={() => {setTime(3);setCustomTime(false);}} selected={time === 3}>3분</RadioButton>
+                        <RadioButton onClick={() => { setTime(3); setCustomTime(false); }} selected={time === 3}>3분</RadioButton>
                         <Space></Space>
-                        <RadioButton onClick={() => {setTime(30);setCustomTime(false);}} selected={time === 30}>30분</RadioButton>
+                        <RadioButton onClick={() => { setTime(30); setCustomTime(false); }} selected={time === 30}>30분</RadioButton>
                         <Space></Space>
-                        <RadioButton onClick={() => {setTime(60);setCustomTime(false);}} selected={time === 60}>60분</RadioButton>
+                        <RadioButton onClick={() => { setTime(60); setCustomTime(false); }} selected={time === 60}>60분</RadioButton>
                         <Space></Space>
-                        <RadioButton onClick={()=>{setTime(0);setCustomTime(true);}} selected={customTime === true}>
+                        <RadioButton onClick={() => { setTime(0); setCustomTime(true); }} selected={customTime === true}>
                             <TimeInput onChange={handleTime}></TimeInput> 분
                         </RadioButton>
                     </div>
