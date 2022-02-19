@@ -106,8 +106,7 @@ function SettingPage(props) {
                     <Title> 상태 메시지</Title>
                     <BoxInput maxLength="20" placeholder="상태 메세지" onChange={handleChange} ></BoxInput>
                     <InputLink>공백 포함 20자 이하여야 합니다</InputLink>
-                    <Space></Space>
-                    <Space></Space>
+                    <Space loop={2}></Space>
                     <BlueButton onClick={postStatus}>변경하기</BlueButton>
                     <Line></Line>
                     <Title >위치</Title>

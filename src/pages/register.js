@@ -147,9 +147,7 @@ function RegisterPage(props) {
                         <RadioButton onClick={() => setType('강사')} selected={type === '강사'}>강사</RadioButton>
                     </SpaceAround>
 
-                    <Space></Space>
-                    <Space></Space>
-                    <Space></Space>
+                    <Space loop={3}></Space>
                     <BlueButton onClick={submitCheck}>회원가입</BlueButton>
                     <ButtonLink onClick={goLogin}>로그인하기</ButtonLink>
                 </Content>
