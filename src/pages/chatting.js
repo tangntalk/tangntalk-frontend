@@ -112,6 +112,23 @@ function ChattingPage(props) {
             })
     }
 
+    const [rendezvous, setRendezvous] = useState({});
+    const addRendezvous = (time) => {
+        setRendezvous(list => ({ ...list, [time]: true }));
+    };
+    const checkRendezvous = () => {
+        const nowDate = new Date();
+        if (!(Object.keys(rendezvous).length === 0)) {
+            for (let time of Object.keys(rendezvous)) {
+                if (time < nowDate) {
+                    setRendezvous(list => ({ ...list, [time]: false }));
+                }
+            }
+        }
+    }
+    setInterval(checkRendezvous, 1000);
+
+
     const goChatList = () => props.history.push(`/chat/${user_id}`);
     useEffect(() => {
         if (countRefreshInterval && countRefreshInterval > 0 && messageRefreshInterval && messageRefreshInterval > 0) {
@@ -150,16 +167,12 @@ function ChattingPage(props) {
                     {mesasgeList.map((message) => {
                         if (message.sender_id === user_id) {
                             if (message.rendezvous_flag === true) {
-                                const nowDate = new Date();
-                                const rendezvousDate = new Date(message.rendezvous_time);
-                                if (rendezvousDate > nowDate) {
-                                    return (
-                                        <Message receive readOrNot={message.read_time} rendezvous={message.rendezvous_location + ", " + message.rendezvous_time.substr(11, 8)}
-                                            date={message.send_time.substr(0, 10)} time={message.send_time.substr(11, 8)}>
-                                            {message.content}
-                                        </Message>
-                                    )
-                                }
+                                return (
+                                    <Message receive readOrNot={message.read_time} rendezvous={message.rendezvous_location + ", " + message.rendezvous_time.substr(11, 8)}
+                                        date={message.send_time.substr(0, 10)} time={message.send_time.substr(11, 8)}>
+                                        {message.content}
+                                    </Message>
+                                )
                             }
                             else {
                                 return (
@@ -171,12 +184,17 @@ function ChattingPage(props) {
                         }
                         else {
                             if (message.rendezvous_flag === true) {
-                                return (
-                                    <Message send readOrNot={message.read_time} rendezvous={message.rendezvous_location + ", " + message.rendezvous_time.substr(11, 8)}
-                                        date={message.send_time.substr(0, 10)} time={message.send_time.substr(11, 8)}>
-                                        {message.content}
-                                    </Message>
-                                )
+                                const nowDate = new Date();
+                                const rendezvousDate = new Date(message.rendezvous_time);
+                                addRendezvous(rendezvousDate);
+                                if (rendezvousDate > nowDate) {
+                                    return (
+                                        <Message hide={rendezvous[rendezvousDate]} send readOrNot={message.read_time} rendezvous={message.rendezvous_location + ", " + message.rendezvous_time.substr(11, 8)}
+                                            date={message.send_time.substr(0, 10)} time={message.send_time.substr(11, 8)}>
+                                            {message.content}
+                                        </Message>
+                                    )
+                                }
                             }
                             else {
                                 return (

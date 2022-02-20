@@ -8,6 +8,7 @@ import Wrapper from "../components/container/Wrapper";
 import Content from "../components/container/Content";
 
 import Box from "../components/Box";
+import BlueButton from "../components/BlueButton";
 
 import { ContainerSpace2, ContainerContent } from "../styles/style";
 
@@ -23,6 +24,17 @@ function TestPage(props) {
     console.log(rendezvousDate);
     console.log(nowDate);
     console.log(rendezvousDate>nowDate);
+
+    const [rendezvous, setRendezvous] = useState({});
+    const addRendezvous=()=>{
+        setRendezvous(list=>({...list, "newname":true}));
+    };
+    const what="newname";
+
+    const add=()=>{
+        console.log(rendezvous);
+        console.log(rendezvous[what]);
+    };
     
 
     return (
@@ -31,6 +43,8 @@ function TestPage(props) {
             </Header>
             <Wrapper navi>
                 <Content gray>
+                        <BlueButton onClick={addRendezvous}></BlueButton>
+                        <BlueButton onClick={add}></BlueButton>
                         <Box on key={"1234"} name={"1234"} user_id={"1234"} type={"1234"} chatroom_id={"1234"}>
                             {"1234"}
                         </Box>
