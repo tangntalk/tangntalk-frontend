@@ -16,27 +16,27 @@ import { SpaceAround, Space } from "../styles/style";
 import * as api from "../util/api";
 
 function AroundPage(props) {
-    const { user_id } = useParams();
+    const { account_id } = useParams();
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [offlineFriends, setOfflineFriends] = useState([]);
     const [refreshInterval] = useState(5000);
     const [location, setLocation] = useState('공학관');
 
     const getFriendNearby = () =>{
-        api.friendNearby(user_id, location)
+        api.friendNearby(account_id, location)
             .then(response => {
-                console.log(response);
+
+                const {data} = response.data;
 
                 if (!response.data.success) {
                     alert('조회 중 문제가 생겼습니다.');
                 }
                 else {
-                    setOfflineFriends(response.data.offline);
-                    setOnlineFriends(response.data.online);
+                    setOfflineFriends(data.offline);
+                    setOnlineFriends(data.online);
                 }
             })
             .catch(error => {
-                console.log(error);
 
                 if (error.request) {
                     alert('서버에서 응답이 오지 않습니다.');
@@ -47,7 +47,7 @@ function AroundPage(props) {
         });
     }
     
-    useEffect(getFriendNearby, [user_id, location]);
+    useEffect(getFriendNearby, [account_id, location]);
 
     useEffect(()=> {
         if(refreshInterval && refreshInterval > 0){
@@ -60,7 +60,7 @@ function AroundPage(props) {
 
     return (
         <>
-            <Header search title="내 주변" id={user_id}>
+            <Header search title="내 주변" id={account_id}>
             </Header>
             <Wrapper navi>
                 <Content gray>
@@ -77,20 +77,20 @@ function AroundPage(props) {
                         <Title>접속 중인 사용자</Title>
                     </White>
                     {onlineFriends.map((friend) => (
-                        <Box on key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
+                        <Box on key={friend.account_id} name={friend.name} account_id={[account_id, friend.account_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
                             {friend.status_message}
                         </Box>
                     ))}
                     <Title>미접속인 사용자</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
+                        <Box off key={friend.account_id} name={friend.name} account_id={[account_id, friend.account_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
                             {friend.status_message}
                         </Box>
                     ))}
                     <Space></Space>
                 </Content>
             </Wrapper>
-            <NaviBar around id={user_id}>
+            <NaviBar around id={account_id}>
             </NaviBar>
         </>
     );

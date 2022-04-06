@@ -14,7 +14,7 @@ import Content from "../components/container/Content"
 import * as api from "../util/api";
 
 function SearchPage(props) {
-    const { user_id } = useParams();
+    const { account_id } = useParams();
     const [friends, setFriends] = useState([]);
     const [query, setQuery] = useState('');
 
@@ -23,20 +23,20 @@ function SearchPage(props) {
     }
 
     const search = () => {
-        api.friendSearch(user_id, query)
+        api.friendSearch(account_id, query)
             .then((response) => {
-                var users = response.data.user;
-                var filtered_users = [];
+                var accounts = response.data.user;
+                var filtered_accounts = [];
 
                 var i;
 
-                for (i = 0; i < users.length; i++) {
-                    if (users[i].user_id !== user_id) {
-                        filtered_users.push(users[i]);
+                for (i = 0; i < accounts.length; i++) {
+                    if (accounts[i].account_id !== account_id) {
+                        filtered_accounts.push(accounts[i]);
                     }
                 }
 
-                filtered_users.sort(function(a, b) {
+                filtered_accounts.sort(function(a, b) {
                     if (a.name < b.name) {
                         return -1;
                     } else if (a.name > b.name) {
@@ -46,7 +46,7 @@ function SearchPage(props) {
                     }
                 });
 
-                setFriends(filtered_users);
+                setFriends(filtered_accounts);
             })
             .catch(error => {
                 if (error.response) {
@@ -80,7 +80,7 @@ function SearchPage(props) {
                 <Content gray id="friend-search">
                     <div></div>
                     {friends.map((friend) => (
-                        <Box add={!friend.is_friend} delete={friend.is_friend} name={friend.name} friend_id={friend.user_id} key={friend.user_id}>
+                        <Box add={!friend.is_friend} delete={friend.is_friend} name={friend.name} friend_id={friend.account_id} key={friend.account_id}>
                             {friend.status_message}
                         </Box>
                     ))}

@@ -12,11 +12,12 @@ import {Space, ButtonLink} from "../styles/style";
 import { Cookies } from "react-cookie";
 
 import * as api from "../util/api";
+import * as util from "../util/utility"
 
 
 function LoginPage(props) {
     const goRegister = () => props.history.push('/register');
-    const goUser = (user_id) => props.history.push(`/users/${user_id}`);
+    const goUser = (account_id) => props.history.push(`/accounts/${account_id}`);
 
     const cookies= new Cookies();
 
@@ -49,7 +50,6 @@ function LoginPage(props) {
     const login = () => {
         api.login(id, password)
             .then((response) => {
-                console.log(response.data.jwt);
                 cookies.set("accessToken", response.data.jwt, {path:'/'});                
                 goUser(id);
             })
@@ -66,6 +66,7 @@ function LoginPage(props) {
                 }
             });
     }
+
     return (
         <>
             <Header title="연세톡 로그인">
@@ -73,9 +74,9 @@ function LoginPage(props) {
             <Wrapper>
                 <Content>
                     <Title>ID</Title>
-                    <BoxInput placeholder="아이디" name="id" value={id} onInput={onChange}></BoxInput>
+                    <BoxInput placeholder="아이디" name="id" value={id} onInput={onChange} onKeyDown={(e)=>{util.OnEnterKeyDown(e, 'Enter', login)}}></BoxInput>
                     <Title>Password</Title>
-                    <BoxInput placeholder="비밀번호" name="password" value={password} onInput={onChange} type="password"></BoxInput>
+                    <BoxInput placeholder="비밀번호" name="password" value={password} onInput={onChange} type="password" onKeyDown={(e)=>{util.OnEnterKeyDown(e, 'Enter', login)}}></BoxInput>
                     <Space loop={3}></Space>
                     <BlueButton onClick={detectInput}>로그인</BlueButton>
                     <ButtonLink onClick={goRegister}>회원가입하기</ButtonLink>
