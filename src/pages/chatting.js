@@ -14,7 +14,7 @@ import { Space } from "../styles/style";
 import * as api from "../util/api";
 
 function ChattingPage(props) {
-    const { account_id, opponent } = useParams();
+    const { accountId, opponent } = useParams();
     const [chatroomid, setChatroomid] = useState(-1);
     const [mesasgeList, setMessageList] = useState([]);
     const [isloading, setLoading] = useState(3);
@@ -57,16 +57,16 @@ function ChattingPage(props) {
 
     const sendNewMessage = () => {
         while (chatroomid === -1) initializePage();
-        api.chatSend(account_id, chatroomid.toString(), newMessage, time)
+        api.chatSend(accountId, chatroomid.toString(), newMessage, time)
             .then(() => {
                 getMessageCount()
             })
     }
 
     const getMessageCount = () => {
-        api.messageCount(account_id, chatroomid)
+        api.messageCount(accountId, chatroomid)
             .then(response => {
-                setMessageCount(response.data.data.message_count);
+                setMessageCount(response.data.data.messageCount);
             })
             .catch(error => {
                 if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
@@ -75,13 +75,13 @@ function ChattingPage(props) {
     }
 
     const getMessages = () => {
-        api.chatList(account_id, chatroomid)
+        api.chatList(accountId, chatroomid)
             .then(response => {
                 const {data} = response.data
-                if (messageCount !== data.message_list.length) {
-                    setMessageCount(data.message_list.length)
+                if (messageCount !== data.messageList.length) {
+                    setMessageCount(data.messageList.length)
                 }
-                setMessageList(data.message_list);
+                setMessageList(data.messageList);
                 setDoScroll(true);
                 if (response.data.success) { setLoading((isloading) => (isloading - 1)); }
                 else alert('요청한 사용자가 존재하지 않습니다');
@@ -93,7 +93,7 @@ function ChattingPage(props) {
     }
 
     const initializePage = () => {
-        api.chatroomEnter(account_id, opponent)
+        api.chatroomEnter(accountId, opponent)
             .then(response => {
                 setChatroomid(response.data.data);
                 if (response.data.data >= 0) {
@@ -125,7 +125,7 @@ function ChattingPage(props) {
     setInterval(checkRendezvous, 1000);
 
 
-    const goChatList = () => props.history.push(`/chat/${account_id}`);
+    const goChatList = () => props.history.push(`/chat/${accountId}`);
     useEffect(() => {
         if (countRefreshInterval && countRefreshInterval > 0 && messageRefreshInterval && messageRefreshInterval > 0) {
             const interval = setInterval(getMessageCount, countRefreshInterval);
@@ -137,10 +137,10 @@ function ChattingPage(props) {
         }
     }, [countRefreshInterval, messageRefreshInterval, chatroomid]);
 
-    useEffect(initializePage, [chatroomid, account_id, opponent]);
+    useEffect(initializePage, [chatroomid, accountId, opponent]);
     useEffect(getOpponentInfo, [opponent]);
-    useEffect(getMessageCount, [messageCount, chatroomid, account_id]);
-    useEffect(getMessages, [messageCount, chatroomid, account_id]);
+    useEffect(getMessageCount, [messageCount, chatroomid, accountId]);
+    useEffect(getMessages, [messageCount, chatroomid, accountId]);
     useEffect(scrollToBottom, [mesasgeList, doScroll]);
 
 
@@ -155,38 +155,38 @@ function ChattingPage(props) {
 
     return (
         <>
-            <Header back title={opponentInfo.name} friendAddDel account_id={account_id} friend_id={opponent} user_function={goChatList}>
+            <Header back title={opponentInfo.name} friendAddDel accountId={accountId} friendId={opponent} userFunction={goChatList}>
             </Header>
             <Wrapper paddingBottom="240px">
                 <Content minHeight="calc(100vh - 290px)" gray>
                     <div></div>
                     {mesasgeList.map((message) => {
-                        if (message.sender_id === account_id) {
-                            if (message.rendezvous_flag === true) {
+                        if (message.senderId === accountId) {
+                            if (message.rendezvousFlag === true) {
                                 return (
-                                    <Message receive readOrNot={message.read_time} rendezvous={message.rendezvous_location + ", " + message.rendezvous_time.substr(11, 8)}
-                                        date={message.send_time.substr(0, 10)} time={message.send_time.substr(11, 8)}>
+                                    <Message receive readOrNot={message.readTime} rendezvous={message.rendezvousLocation + ", " + message.rendezvousTime.substr(11, 8)}
+                                        date={message.sendTime.substr(0, 10)} time={message.sendTime.substr(11, 8)}>
                                         {message.content}
                                     </Message>
                                 )
                             }
                             else {
                                 return (
-                                    <Message receive readOrNot={message.read_time} date={message.send_time.substring(0, 10)} time={message.send_time.substr(11, 8)}>
+                                    <Message receive readOrNot={message.readTime} date={message.sendTime.substring(0, 10)} time={message.sendTime.substr(11, 8)}>
                                         {message.content}
                                     </Message>
                                 )
                             }
                         }
                         else {
-                            if (message.rendezvous_flag === true) {
+                            if (message.rendezvousFlag === true) {
                                 const nowDate = new Date();
-                                const rendezvousDate = new Date(message.rendezvous_time);
+                                const rendezvousDate = new Date(message.rendezvousTime);
                                 addRendezvous(rendezvousDate);
                                 if (rendezvousDate > nowDate) {
                                     return (
-                                        <Message hide={rendezvous[rendezvousDate]} send readOrNot={message.read_time} rendezvous={message.rendezvous_location + ", " + message.rendezvous_time.substr(11, 8)}
-                                            date={message.send_time.substr(0, 10)} time={message.send_time.substr(11, 8)}>
+                                        <Message hide={rendezvous[rendezvousDate]} send readOrNot={message.readTime} rendezvous={message.rendezvousLocation + ", " + message.rendezvousTime.substr(11, 8)}
+                                            date={message.sendTime.substr(0, 10)} time={message.sendTime.substr(11, 8)}>
                                             {message.content}
                                         </Message>
                                     )
@@ -194,7 +194,7 @@ function ChattingPage(props) {
                             }
                             else {
                                 return (
-                                    <Message send readOrNot={message.read_time} date={message.send_time.substring(0, 10)} time={message.send_time.substr(11, 8)}>
+                                    <Message send readOrNot={message.readTime} date={message.sendTime.substring(0, 10)} time={message.sendTime.substr(11, 8)}>
                                         {message.content}
                                     </Message>
                                 )
@@ -238,7 +238,7 @@ export const NaviSpace = styled.div`
     height:240;
     box-sizing: border-box;
 
-    position:fixed;
+    position:sticky;
     bottom:0;
 
     display: flex;

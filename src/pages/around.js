@@ -16,14 +16,14 @@ import { SpaceAround, Space } from "../styles/style";
 import * as api from "../util/api";
 
 function AroundPage(props) {
-    const { account_id } = useParams();
+    const { accountId } = useParams();
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [offlineFriends, setOfflineFriends] = useState([]);
     const [refreshInterval] = useState(5000);
     const [location, setLocation] = useState('공학관');
 
     const getFriendNearby = () =>{
-        api.friendNearby(account_id, location)
+        api.friendNearby(accountId, location)
             .then(response => {
 
                 const {data} = response.data;
@@ -47,7 +47,7 @@ function AroundPage(props) {
         });
     }
     
-    useEffect(getFriendNearby, [account_id, location]);
+    useEffect(getFriendNearby, [accountId, location]);
 
     useEffect(()=> {
         if(refreshInterval && refreshInterval > 0){
@@ -60,7 +60,7 @@ function AroundPage(props) {
 
     return (
         <>
-            <Header search title="내 주변" id={account_id}>
+            <Header search title="내 주변" id={accountId}>
             </Header>
             <Wrapper navi>
                 <Content gray>
@@ -77,20 +77,20 @@ function AroundPage(props) {
                         <Title>접속 중인 사용자</Title>
                     </White>
                     {onlineFriends.map((friend) => (
-                        <Box on key={friend.account_id} name={friend.name} account_id={[account_id, friend.account_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
-                            {friend.status_message}
+                        <Box on key={friend.accountId} name={friend.name} accountId={[accountId, friend.accountId]} type={friend.type} chatroomId={friend.chatroomId}>
+                            {friend.statusMessage}
                         </Box>
                     ))}
                     <Title>미접속인 사용자</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off key={friend.account_id} name={friend.name} account_id={[account_id, friend.account_id]} type={friend.type} chatroom_id={friend.chatroom_id}>
-                            {friend.status_message}
+                        <Box off key={friend.accountId} name={friend.name} accountId={[accountId, friend.accountId]} type={friend.type} chatroomId={friend.chatroomId}>
+                            {friend.statusMessage}
                         </Box>
                     ))}
                     <Space></Space>
                 </Content>
             </Wrapper>
-            <NaviBar around id={account_id}>
+            <NaviBar around id={accountId}>
             </NaviBar>
         </>
     );

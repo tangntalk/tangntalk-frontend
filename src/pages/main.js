@@ -12,7 +12,7 @@ import { Space } from "../styles/style";
 import * as api from "../util/api";
 
 function MainPage(props) {
-    const { account_id } = useParams();
+    const { accountId } = useParams();
     const [myInfo, setMyInfo] = useState(null);
     const [isloading, setLoading] = useState(2);
     const [onlineFriends, setOnlineFriends] = useState([]);
@@ -20,7 +20,7 @@ function MainPage(props) {
 
     
     const getMyInfo = () => {
-        api.user(account_id)
+        api.user(accountId)
             .then(response => {
                 const {data} = response.data;
                 setMyInfo(data);
@@ -33,7 +33,7 @@ function MainPage(props) {
             })
     }
     const getFriendList = () => {
-        api.friendList(account_id)
+        api.friendList(accountId)
             .then(response => {
                 const {data} = response.data
                 setOfflineFriends(data.offline);
@@ -48,8 +48,8 @@ function MainPage(props) {
             })
     }
 
-    useEffect(getMyInfo, [account_id]);
-    useEffect(getFriendList, [account_id]);
+    useEffect(getMyInfo, [accountId]);
+    useEffect(getFriendList, [accountId]);
 
     onlineFriends.sort((a, b) => { return a.name < b.name ? -1 : a.name > b.name ? 1 : 0; });
     offlineFriends.sort((a, b) => { return a.name > b.name ? -1 : a.name < b.name ? 1 : 0; });
@@ -57,12 +57,12 @@ function MainPage(props) {
     if (isloading > 0) {
         return (
             <>
-                <Header search title="친구 목록" id={account_id}></Header>
+                <Header search title="친구 목록" id={accountId}></Header>
                 <Wrapper navi>
                         <Content gray>
                         </Content>
                     </Wrapper>
-                <NaviBar user id={account_id}>
+                <NaviBar user id={accountId}>
                 </NaviBar>
             </>
         );
@@ -70,28 +70,28 @@ function MainPage(props) {
 
     return (
         <>
-            <Header search title="친구 목록" id={account_id}>
+            <Header search title="친구 목록" id={accountId}>
             </Header>
             <Wrapper navi>
                 <Content gray>
                     <Title>내 정보</Title>
-                    <Box me user_location={myInfo.location_name} name={myInfo.name} account_id={account_id} children={myInfo.status_message}></Box>
+                    <Box me userLocation={myInfo.locationName} name={myInfo.name} accountId={accountId} children={myInfo.statusMessage}></Box>
                     <Title>접속한 친구</Title>
                     {onlineFriends.map((friend) => (
-                        <Box on delete user_location={friend.user_location} friend_id={friend.account_id} key={friend.account_id} name={friend.name} account_id={[account_id, friend.account_id]} type={friend.type}>
-                            {friend.status_message}
+                        <Box on delete userLocation={friend.userLocation} friendId={friend.accountId} key={friend.accountId} name={friend.name} accountId={[accountId, friend.accountId]} type={friend.type}>
+                            {friend.statusMessage}
                         </Box>
                     ))}
                     <Title>미접속 친구</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off delete user_location={friend.user_location} friend_id={friend.account_id} key={friend.account_id} name={friend.name} account_id={[account_id, friend.account_id]} type={friend.type}>
-                            {friend.status_message}
+                        <Box off delete userLocation={friend.userLocation} friendId={friend.accountId} key={friend.accountId} name={friend.name} accountId={[accountId, friend.accountId]} type={friend.type}>
+                            {friend.statusMessage}
                         </Box>
                     ))}
                     <Space></Space>
                 </Content>
             </Wrapper>
-            <NaviBar user id={account_id}>
+            <NaviBar user id={accountId}>
             </NaviBar>
         </>
     );

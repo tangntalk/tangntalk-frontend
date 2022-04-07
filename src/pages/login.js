@@ -17,7 +17,7 @@ import * as util from "../util/utility"
 
 function LoginPage(props) {
     const goRegister = () => props.history.push('/register');
-    const goUser = (account_id) => props.history.push(`/accounts/${account_id}`);
+    const goUser = (accountId) => props.history.push(`/accounts/${accountId}`);
 
     const cookies= new Cookies();
 
@@ -69,7 +69,7 @@ function LoginPage(props) {
 
     return (
         <>
-            <Header title="연세톡 로그인">
+            <Header title="탕근톡 로그인">
             </Header>
             <Wrapper>
                 <Content>

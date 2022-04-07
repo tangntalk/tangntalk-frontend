@@ -19,7 +19,7 @@ function LocationBox(props) {
         setIsActive(false);
     }
     const postLocation = () => {
-        api.updateUserLocation(props.account_id, currentLocation)
+        api.updateUserLocation(props.accountId, currentLocation)
         .then(response => {
             props.handleLocationChange(currentLocation);
             if(response.data.success)

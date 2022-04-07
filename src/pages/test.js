@@ -15,7 +15,7 @@ import { ContainerSpace2, ContainerContent } from "../styles/style";
 function TestPage(props) {
     const [myInfo, setMyInfo] = useState(null);
     const handleLocationChange = (location) => {
-        setMyInfo({...myInfo, location_name: location});
+        setMyInfo({...myInfo, locationName: location});
     }
 
     const nowDate=new Date();
@@ -33,13 +33,13 @@ function TestPage(props) {
 
     return (
         <>
-            <Header title="연세톡 회원가입">
+            <Header title="탕근톡 회원가입">
             </Header>
             <Wrapper navi>
                 <Content gray>
                         <BlueButton onClick={addRendezvous}></BlueButton>
                         <BlueButton onClick={add}></BlueButton>
-                        <Box on key={"1234"} name={"1234"} account_id={"1234"} type={"1234"} chatroom_id={"1234"}>
+                        <Box on key={"1234"} name={"1234"} accountId={"1234"} type={"1234"} chatroomId={"1234"}>
                             {"1234"}
                         </Box>
                         <LocationBox Options={["공학관", "신촌역", "학생회관", "백양관"]} handleLocationChange={handleLocationChange}></LocationBox>
