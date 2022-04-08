@@ -23,7 +23,7 @@ function AroundPage(props) {
     const [location, setLocation] = useState('공학관');
 
     const getFriendNearby = () =>{
-        api.friendNearby(username, location)
+        api.friendNearby(location)
             .then(response => {
 
                 const {data} = response.data;
@@ -47,7 +47,7 @@ function AroundPage(props) {
         });
     }
     
-    useEffect(getFriendNearby, [username, location]);
+    useEffect(getFriendNearby, [location]);
 
     useEffect(()=> {
         if(refreshInterval && refreshInterval > 0){

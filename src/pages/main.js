@@ -20,7 +20,7 @@ function MainPage(props) {
 
     
     const getMyInfo = () => {
-        api.user(username)
+        api.user()
             .then(response => {
                 const {data} = response.data;
                 setMyInfo(data);
@@ -33,7 +33,7 @@ function MainPage(props) {
             })
     }
     const getFriendList = () => {
-        api.friendList(username)
+        api.friendList()
             .then(response => {
                 const {data} = response.data
                 setOfflineFriends(data.offline);

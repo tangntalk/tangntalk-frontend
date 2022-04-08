@@ -23,7 +23,7 @@ function SearchPage(props) {
     }
 
     const search = () => {
-        api.friendSearch(username, query)
+        api.friendSearch(query)
             .then((response) => {
                 var accounts = response.data.user;
                 var filteredAccounts = [];

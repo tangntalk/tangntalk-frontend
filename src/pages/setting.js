@@ -24,10 +24,9 @@ function SettingPage(props) {
     const [myInfo, setMyInfo] = useState(null);
     const [isLoading, setLoading] = useState(1);
     const [newStatus, setNewStatus] = useState("");
-    const cookies = new Cookies();
 
     const getMyInfo = () => {
-        api.user(username)
+        api.user()
         .then(response => {
             const {data} = response.data
             setMyInfo(data);
@@ -48,7 +47,7 @@ function SettingPage(props) {
     }
 
     const postStatus = () =>{
-        api.updateAccountStatus(username, newStatus)
+        api.updateAccountStatus(newStatus)
         .then(response => {
             setMyInfo({...myInfo, statusMessage: newStatus});
             if(response.data.success){alert('상태 메시지가 성공적으로 바뀌었습니다.')}
@@ -59,14 +58,12 @@ function SettingPage(props) {
         })
     }
 
-    useEffect(getMyInfo, [username, isLoading]);
+    useEffect(getMyInfo, [isLoading]);
 
     const logout = () =>{
-        api.logout(username)
+        api.logout()
         .then(() => {
             alert('로그아웃 되었습니다.');
-            cookies.remove("accessToken",{path:'/'});
-            console.log(cookies.getAll());
             props.history.push('/login');
         })
         .catch(error => {
@@ -76,7 +73,7 @@ function SettingPage(props) {
     }
 
     const userDelete = () =>{
-        api.userDelete(username)
+        api.userDelete()
         .then(() => {
             alert('회원 탈퇴 처리되었습니다.');//비동기 처리
             props.history.push('/login');

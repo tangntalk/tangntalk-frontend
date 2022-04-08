@@ -19,8 +19,6 @@ function LoginPage(props) {
     const goRegister = () => props.history.push('/register');
     const goUser = (username) => props.history.push(`/accounts/${username}`);
 
-    const cookies= new Cookies();
-
     const [inputs, setInputs] = useState({
         id: '',
         password: '',
@@ -50,8 +48,7 @@ function LoginPage(props) {
     const login = () => {
         api.login(id, password)
             .then((response) => {
-                console.log(response.data.data.token);
-                cookies.set("accessToken", response.data.data.token, {path:'/'});                
+                console.log(response.data.data);              
                 goUser(id);
             })
             .catch(error => {

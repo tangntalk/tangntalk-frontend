@@ -17,7 +17,7 @@ function ChatListPage(props) {
     const [refreshInterval, setRefreshInterval] = useState(5000);
 
     const getChatroom = () => {
-        api.chatroomList(username)
+        api.chatroomList()
         .then(response => {
             const {data} = response.data
             setChatList(data.chatrooms);
@@ -30,7 +30,7 @@ function ChatListPage(props) {
             else{alert('채팅목록 조회 중 문제가 생겼습니다.')}
         })
     }
-    useEffect(getChatroom, [username]);
+    useEffect(getChatroom);
     useEffect(()=> {
         if(refreshInterval && refreshInterval > 0){
             const interval = setInterval(getChatroom, refreshInterval);

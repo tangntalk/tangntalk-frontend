@@ -57,14 +57,14 @@ function ChattingPage(props) {
 
     const sendNewMessage = () => {
         while (chatroomid === -1) initializePage();
-        api.chatSend(username, chatroomid.toString(), newMessage, time)
+        api.chatSend(chatroomid.toString(), newMessage, time)
             .then(() => {
                 getMessageCount()
             })
     }
 
     const getMessageCount = () => {
-        api.messageCount(username, chatroomid)
+        api.messageCount(chatroomid)
             .then(response => {
                 setMessageCount(response.data.data.messageCount);
             })
@@ -75,7 +75,7 @@ function ChattingPage(props) {
     }
 
     const getMessages = () => {
-        api.chatList(username, chatroomid)
+        api.chatList(chatroomid)
             .then(response => {
                 const {data} = response.data
                 if (messageCount !== data.messageList.length) {
@@ -93,7 +93,7 @@ function ChattingPage(props) {
     }
 
     const initializePage = () => {
-        api.chatroomEnter(username, opponent)
+        api.chatroomEnter(opponent)
             .then(response => {
                 setChatroomid(response.data.data);
                 if (response.data.data >= 0) {
