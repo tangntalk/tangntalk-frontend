@@ -3,7 +3,9 @@ import { Cookies } from "react-cookie";
 
 const cookies= new Cookies();
 
-const server = axios.create();
+const server = axios.create({
+    withCredentials: true
+});
 
 const accessToken=cookies.get("accessToken");
 

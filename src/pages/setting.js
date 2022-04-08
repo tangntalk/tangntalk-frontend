@@ -14,20 +14,22 @@ import Content from "../components/container/Content"
 import { Space, InputLink, Line } from "../styles/style";
 
 import * as api from "../util/api";
-
+import * as util from "../util/utility"
+import { Cookies } from "react-cookie";
 
 function SettingPage(props) {
 
 
-    const { user_id } = useParams();
+    const { username } = useParams();
     const [myInfo, setMyInfo] = useState(null);
     const [isLoading, setLoading] = useState(1);
     const [newStatus, setNewStatus] = useState("");
 
     const getMyInfo = () => {
-        api.user(user_id)
+        api.user()
         .then(response => {
-            setMyInfo(response.data.user);
+            const {data} = response.data
+            setMyInfo(data);
             if(response.data.success && isLoading > 0) setLoading((isloading)=>(isLoading-1));
             else if(isLoading!==0)alert('요청한 사용자가 존재하지 않습니다');})
         .catch(error => {
@@ -40,15 +42,14 @@ function SettingPage(props) {
     }
 
     const handleLocationChange = (location) => {
-        setMyInfo({...myInfo, location_name: location});
-        console.log("changing");
+        setMyInfo({...myInfo, locationName: location});
 
     }
 
     const postStatus = () =>{
-        api.userStatus(user_id, newStatus)
+        api.updateAccountStatus(newStatus)
         .then(response => {
-            setMyInfo({...myInfo, status_message: newStatus});
+            setMyInfo({...myInfo, statusMessage: newStatus});
             if(response.data.success){alert('상태 메시지가 성공적으로 바뀌었습니다.')}
         })
         .catch(error => {
@@ -57,10 +58,10 @@ function SettingPage(props) {
         })
     }
 
-    useEffect(getMyInfo, [user_id, isLoading]);
+    useEffect(getMyInfo, [isLoading]);
 
     const logout = () =>{
-        api.logout(user_id)
+        api.logout()
         .then(() => {
             alert('로그아웃 되었습니다.');
             props.history.push('/login');
@@ -72,7 +73,7 @@ function SettingPage(props) {
     }
 
     const userDelete = () =>{
-        api.userDelete(user_id)
+        api.userDelete()
         .then(() => {
             alert('회원 탈퇴 처리되었습니다.');//비동기 처리
             props.history.push('/login');
@@ -92,6 +93,7 @@ function SettingPage(props) {
         );
     }
 
+    
     return (
         <>
             <Header back title="내 정보 수정">
@@ -100,17 +102,16 @@ function SettingPage(props) {
                 <Content>
                     <Space></Space>
                     <Title> 내 정보</Title>
-                    <Box me user_location={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message} profile></Box>
+                    <Box me userLocation={myInfo.locationName} name={myInfo.name} username={username} children={myInfo.statusMessage} profile></Box>
                     <Line></Line>
-
                     <Title> 상태 메시지</Title>
-                    <BoxInput maxLength="20" placeholder="상태 메세지" onChange={handleChange} ></BoxInput>
+                    <BoxInput maxLength="20" placeholder="상태 메세지" onChange={handleChange} onKeyDown={(e)=>{util.OnEnterKeyDown(e, 'Enter', postStatus)}}></BoxInput>
                     <InputLink>공백 포함 20자 이하여야 합니다</InputLink>
                     <Space loop={2}></Space>
                     <BlueButton onClick={postStatus}>변경하기</BlueButton>
                     <Line></Line>
                     <Title >위치</Title>
-                    <LocationBox userLocation={myInfo.location_name} user_id={user_id} Options={["공학관", "신촌역", "학생회관", "백양관"]} handleLocationChange={handleLocationChange}></LocationBox>
+                    <LocationBox userLocation={myInfo.locationName} username={username} Options={["공학관", "신촌역", "학생회관", "백양관"]} handleLocationChange={handleLocationChange}></LocationBox>
                     <Line></Line>
                     <Text children="로그아웃" onClick={logout}></Text>
                     <Line></Line>

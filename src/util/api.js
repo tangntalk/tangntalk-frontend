@@ -1,27 +1,25 @@
 import server from "./server";
 
 // User
-export const login = (account_id, password) => server.post('/login', { account_id: account_id, password: password });
-export const register = (account_id, password, name, type) => server.post('/register', { account_id: account_id, password: password, name: name, type: type });
-export const user = (account_id) => server.get(`/accounts/${account_id}`);
-export const userDelete = (account_id) => server.delete(`/accounts/${account_id}`);
-export const userLocation = (account_id, location_name) => server.post(`/accounts/${account_id}`, { location_name: location_name});
-export const userStatus = (account_id, status_message) => server.post(`/accounts/${account_id}`, { status_message: status_message });
-export const logout = (account_id) => server.post(`${account_id}/logout`);
+export const login = (username, password) => server.post('/login', {username:username,  password: password });
+export const register = (username, password, name, type) => server.post('/register', {username: username, password: password, name: name, type: type });
+export const user = () => server.get(`/accounts`);
+export const userDelete = () => server.delete(`/accounts`);
+export const updateUserLocation = (locationName) => server.patch(`/accounts/myinfo`, { locationName: locationName});
+export const updateAccountStatus = (statusMessage) => server.patch(`/accounts/myinfo`, { statusMessage: statusMessage });
+export const logout = () => server.post(`/logout`);
 
 // Friend
-export const friendCheck = (account_id, friend_id) => server.get(`/accounts/${account_id}/friends/${friend_id}`);
-
-export const friendList = (account_id) => server.get(`/accounts/${account_id}/friends`);
-export const friendAdd = (account_id, friend_id) => server.post(`/accounts/${account_id}/friends`, { friend_id: friend_id });
-export const friendSearch = (account_id, search) => server.get(`/accounts/${account_id}/friends/search?query=${search}`);
-export const friendDelete = (account_id, friend_id) => server.delete(`/accounts/${account_id}/friends/${friend_id}`);
-export const friendNearby = (account_id, location) => server.get(`/accounts/${account_id}/nearby/${location}`);
-
+export const friendList = () => server.get(`/accounts/friends`);
+export const friendAdd = (friendUsername) => server.post(`/accounts/friends`, { friendUsername: friendUsername });
+export const friendSearch = (search) => server.get(`/accounts/friends/search?query=${search}`);
+export const friendDelete = (friendUsername) => server.delete(`/accounts/friends/${friendUsername}`);
+export const friendNearby = (location) => server.get(`/accounts/nearby/${location}`);
+export const friendCheck = (friendUsername) => server.get(`/accounts/friends/${friendUsername}`);
 
 // Chat
-export const chatroomList = (account_id) => server.get(`/users/${account_id}/chatrooms`);
-export const chatroomEnter = (account_id, chatroom_id) => server.get(`/users/${account_id}/chatrooms/${chatroom_id}`);
-export const chatList = (account_id) => server.get(`/users/${account_id}/chatrooms`);
-export const chatSend = (account_id, chatroom_id, content, rendezvous_time) => server.post(`/users/${account_id}/chatrooms/${chatroom_id}`, {content: content, rendezvous_time: rendezvous_time});
-export const messageCount = (account_id, chatroom_id) => server.get(`/${account_id}/chatrooms/${chatroom_id}/count`);
+export const chatroomList = () => server.get(`/accounts/chatrooms`);
+export const chatroomEnter = (opponentUsername) => server.post(`/accounts/chatrooms`, { opponentUsername: opponentUsername});
+export const chatList = (chatroomId) => server.get(`/accounts/chatrooms/${chatroomId}`);
+export const chatSend = (chatroomId, content, rendezvousTime) => server.post(`/accounts/chatrooms/${chatroomId}`, {content: content, rendezvousTime: rendezvousTime});
+export const messageCount = (chatroomId) => server.get(`accounts/chatrooms/${chatroomId}/count`);

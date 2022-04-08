@@ -7,21 +7,21 @@ import colors from "../util/colors"
 import * as api from "../util/api";
 
 function Box(props) {
-    const { user_id } = useParams();
+    const { username } = useParams();
     const [add, setAdd] = useState(props.add);
     const [del, setDel] = useState(props.delete);
 
     const goChatting = () =>{
         
         props.history.push({
-            pathname: `/chatting/${props.user_id[0]}/${props.user_id[1]}`,
-            state: {opponent_name: props.name,
-                    chatroom_id: props.chatroom_id}
+            pathname: `/chatting/${props.username[0]}/${props.username[1]}`,
+            state: {opponentName: props.name,
+                    chatroomId: props.chatroomId}
         });}
     
-    const goSetting = () =>{props.history.push(`/setting/${props.user_id}`);}
+    const goSetting = () =>{props.history.push(`/setting/${props.username}`);}
     const addFriend = () => {
-        api.friendAdd(user_id, props.friend_id)
+        api.friendAdd(username, props.friendId)
             .then((response) => {
                 if(!response.data.success) {
                     alert('변경 중 문제가 생겼습니다.');
@@ -40,7 +40,7 @@ function Box(props) {
     };
 
     const deleteFriend = () => {
-        api.friendDelete(user_id, props.friend_id)
+        api.friendDelete(username, props.friendId)
             .then((response) => {
                 if(!response.data.success) {
                     alert('변경 중 문제가 생겼습니다.');
@@ -126,7 +126,7 @@ function Box(props) {
                         </Button>
                     </TextSpace>
                 }
-                {props.user_location &&
+                {props.userLocation &&
                     <Button>
                         <Round>
                                 <svg width="7" height="7" viewBox="0 0 7 7" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +134,7 @@ function Box(props) {
                                 </svg>
                         </Round>
                         <Round>
-                            {props.user_location}
+                            {props.userLocation}
                         </Round>
                     </Button>
                 }

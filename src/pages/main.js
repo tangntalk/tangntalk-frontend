@@ -12,17 +12,18 @@ import { Space } from "../styles/style";
 import * as api from "../util/api";
 
 function MainPage(props) {
-    const { user_id } = useParams();
+    const { username } = useParams();
     const [myInfo, setMyInfo] = useState(null);
     const [isloading, setLoading] = useState(2);
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [offlineFriends, setOfflineFriends] = useState([]);
 
-
+    
     const getMyInfo = () => {
-        api.user(user_id)
+        api.user()
             .then(response => {
-                setMyInfo(response.data.user);
+                const {data} = response.data;
+                setMyInfo(data);
                 if (response.data.success) setLoading((isloading) => (isloading - 1));
                 else alert('요청한 사용자가 존재하지 않습니다');
             })
@@ -32,10 +33,11 @@ function MainPage(props) {
             })
     }
     const getFriendList = () => {
-        api.friendList(user_id)
+        api.friendList()
             .then(response => {
-                setOfflineFriends(response.data.offline);
-                setOnlineFriends(response.data.online);
+                const {data} = response.data
+                setOfflineFriends(data.offline);
+                setOnlineFriends(data.online);
                 if (response.data.success) { setLoading((isloading) => (isloading - 1)); }
                 else alert('요청한 사용자가 존재하지 않습니다');
             })
@@ -46,21 +48,21 @@ function MainPage(props) {
             })
     }
 
-    useEffect(getMyInfo, [user_id]);
-    useEffect(getFriendList, [user_id]);
+    useEffect(getMyInfo, [username]);
+    useEffect(getFriendList, [username]);
 
-    onlineFriends.sort(function (a, b) { return a.name < b.name ? -1 : a.name > b.name ? 1 : 0; });
-    offlineFriends.sort(function (a, b) { return a.name > b.name ? -1 : a.name < b.name ? 1 : 0; });
+    onlineFriends.sort((a, b) => { return a.name < b.name ? -1 : a.name > b.name ? 1 : 0; });
+    offlineFriends.sort((a, b) => { return a.name > b.name ? -1 : a.name < b.name ? 1 : 0; });
 
     if (isloading > 0) {
         return (
             <>
-                <Header search title="친구 목록" id={user_id}></Header>
+                <Header search title="친구 목록" id={username}></Header>
                 <Wrapper navi>
                         <Content gray>
                         </Content>
                     </Wrapper>
-                <NaviBar user id={user_id}>
+                <NaviBar user id={username}>
                 </NaviBar>
             </>
         );
@@ -68,28 +70,28 @@ function MainPage(props) {
 
     return (
         <>
-            <Header search title="친구 목록" id={user_id}>
+            <Header search title="친구 목록" id={username}>
             </Header>
             <Wrapper navi>
                 <Content gray>
                     <Title>내 정보</Title>
-                    <Box me user_location={myInfo.location_name} name={myInfo.name} user_id={user_id} children={myInfo.status_message}></Box>
+                    <Box me userLocation={myInfo.locationName} name={myInfo.name} username={username} children={myInfo.statusMessage}></Box>
                     <Title>접속한 친구</Title>
                     {onlineFriends.map((friend) => (
-                        <Box on delete user_location={friend.user_location} friend_id={friend.user_id} key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
-                            {friend.status_message}
+                        <Box on delete userLocation={friend.userLocation} friendId={friend.username} key={friend.username} name={friend.name} username={[username, friend.username]} type={friend.type}>
+                            {friend.statusMessage}
                         </Box>
                     ))}
                     <Title>미접속 친구</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off delete user_location={friend.user_location} friend_id={friend.user_id} key={friend.user_id} name={friend.name} user_id={[user_id, friend.user_id]} type={friend.type}>
-                            {friend.status_message}
+                        <Box off delete userLocation={friend.userLocation} friendId={friend.username} key={friend.username} name={friend.name} username={[username, friend.username]} type={friend.type}>
+                            {friend.statusMessage}
                         </Box>
                     ))}
                     <Space></Space>
                 </Content>
             </Wrapper>
-            <NaviBar user id={user_id}>
+            <NaviBar user id={username}>
             </NaviBar>
         </>
     );

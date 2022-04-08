@@ -121,7 +121,7 @@ function RegisterPage(props) {
 
     return (
         <>
-            <Header title="연세톡 회원가입">
+            <Header title="탕근톡 회원가입">
             </Header>
             <Wrapper>
                 <Content>

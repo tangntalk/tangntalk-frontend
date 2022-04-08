@@ -23,14 +23,14 @@ function App() {
       <Route exact path="/" component={withRouter(LoginPage)} />
         <Route exact path="/register" component={withRouter(RegisterPage)} />
 
-        <Route exact path="/users/:user_id" component={withRouter(MainPage)} />
-        <Route exact path="/search/:user_id" component={withRouter(SearchPage)} />
+        <Route exact path="/accounts/:username" component={withRouter(MainPage)} />
+        <Route exact path="/search/:username" component={withRouter(SearchPage)} />
 
-        <Route exact path="/around/:user_id" component={withRouter(AroundPage)} />
-        <Route exact path="/setting/:user_id" component={withRouter(SettingPage)} />
+        <Route exact path="/around/:username" component={withRouter(AroundPage)} />
+        <Route exact path="/setting/:username" component={withRouter(SettingPage)} />
 
-        <Route exact path="/chat/:user_id" component={withRouter(ChatListPage)} />
-        <Route exact path="/chatting/:user_id/:opponent" component={withRouter(ChattingPage)} />
+        <Route exact path="/chat/:username" component={withRouter(ChatListPage)} />
+        <Route exact path="/chatting/:username/:opponent" component={withRouter(ChattingPage)} />
 
         <Route exact path="/test" component={withRouter(TestPage)} />
 
