@@ -12,7 +12,7 @@ import { Space } from "../styles/style";
 import * as api from "../util/api";
 
 function MainPage(props) {
-    const { accountId } = useParams();
+    const { username } = useParams();
     const [myInfo, setMyInfo] = useState(null);
     const [isloading, setLoading] = useState(2);
     const [onlineFriends, setOnlineFriends] = useState([]);
@@ -20,7 +20,7 @@ function MainPage(props) {
 
     
     const getMyInfo = () => {
-        api.user(accountId)
+        api.user(username)
             .then(response => {
                 const {data} = response.data;
                 setMyInfo(data);
@@ -33,7 +33,7 @@ function MainPage(props) {
             })
     }
     const getFriendList = () => {
-        api.friendList(accountId)
+        api.friendList(username)
             .then(response => {
                 const {data} = response.data
                 setOfflineFriends(data.offline);
@@ -48,8 +48,8 @@ function MainPage(props) {
             })
     }
 
-    useEffect(getMyInfo, [accountId]);
-    useEffect(getFriendList, [accountId]);
+    useEffect(getMyInfo, [username]);
+    useEffect(getFriendList, [username]);
 
     onlineFriends.sort((a, b) => { return a.name < b.name ? -1 : a.name > b.name ? 1 : 0; });
     offlineFriends.sort((a, b) => { return a.name > b.name ? -1 : a.name < b.name ? 1 : 0; });
@@ -57,12 +57,12 @@ function MainPage(props) {
     if (isloading > 0) {
         return (
             <>
-                <Header search title="친구 목록" id={accountId}></Header>
+                <Header search title="친구 목록" id={username}></Header>
                 <Wrapper navi>
                         <Content gray>
                         </Content>
                     </Wrapper>
-                <NaviBar user id={accountId}>
+                <NaviBar user id={username}>
                 </NaviBar>
             </>
         );
@@ -70,28 +70,28 @@ function MainPage(props) {
 
     return (
         <>
-            <Header search title="친구 목록" id={accountId}>
+            <Header search title="친구 목록" id={username}>
             </Header>
             <Wrapper navi>
                 <Content gray>
                     <Title>내 정보</Title>
-                    <Box me userLocation={myInfo.locationName} name={myInfo.name} accountId={accountId} children={myInfo.statusMessage}></Box>
+                    <Box me userLocation={myInfo.locationName} name={myInfo.name} username={username} children={myInfo.statusMessage}></Box>
                     <Title>접속한 친구</Title>
                     {onlineFriends.map((friend) => (
-                        <Box on delete userLocation={friend.userLocation} friendId={friend.accountId} key={friend.accountId} name={friend.name} accountId={[accountId, friend.accountId]} type={friend.type}>
+                        <Box on delete userLocation={friend.userLocation} friendId={friend.username} key={friend.username} name={friend.name} username={[username, friend.username]} type={friend.type}>
                             {friend.statusMessage}
                         </Box>
                     ))}
                     <Title>미접속 친구</Title>
                     {offlineFriends.map((friend) => (
-                        <Box off delete userLocation={friend.userLocation} friendId={friend.accountId} key={friend.accountId} name={friend.name} accountId={[accountId, friend.accountId]} type={friend.type}>
+                        <Box off delete userLocation={friend.userLocation} friendId={friend.username} key={friend.username} name={friend.name} username={[username, friend.username]} type={friend.type}>
                             {friend.statusMessage}
                         </Box>
                     ))}
                     <Space></Space>
                 </Content>
             </Wrapper>
-            <NaviBar user id={accountId}>
+            <NaviBar user id={username}>
             </NaviBar>
         </>
     );

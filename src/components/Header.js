@@ -25,7 +25,7 @@ function Header(props) {
                     </Wrapper>
                     {props.friendAddDel &&
                         <Wrapper>
-                            <FriendAddDelButton accountId={props.accountId} friendId={props.friendId}/>
+                            <FriendAddDelButton username={props.username} friendId={props.friendId}/>
                         </Wrapper>
                     }
                 </HeaderContent>

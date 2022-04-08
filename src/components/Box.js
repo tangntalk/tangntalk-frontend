@@ -7,21 +7,21 @@ import colors from "../util/colors"
 import * as api from "../util/api";
 
 function Box(props) {
-    const { accountId } = useParams();
+    const { username } = useParams();
     const [add, setAdd] = useState(props.add);
     const [del, setDel] = useState(props.delete);
 
     const goChatting = () =>{
         
         props.history.push({
-            pathname: `/chatting/${props.accountId[0]}/${props.accountId[1]}`,
+            pathname: `/chatting/${props.username[0]}/${props.username[1]}`,
             state: {opponentName: props.name,
                     chatroomId: props.chatroomId}
         });}
     
-    const goSetting = () =>{props.history.push(`/setting/${props.accountId}`);}
+    const goSetting = () =>{props.history.push(`/setting/${props.username}`);}
     const addFriend = () => {
-        api.friendAdd(accountId, props.friendId)
+        api.friendAdd(username, props.friendId)
             .then((response) => {
                 if(!response.data.success) {
                     alert('변경 중 문제가 생겼습니다.');
@@ -40,7 +40,7 @@ function Box(props) {
     };
 
     const deleteFriend = () => {
-        api.friendDelete(accountId, props.friendId)
+        api.friendDelete(username, props.friendId)
             .then((response) => {
                 if(!response.data.success) {
                     alert('변경 중 문제가 생겼습니다.');

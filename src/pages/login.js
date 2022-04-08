@@ -17,7 +17,7 @@ import * as util from "../util/utility"
 
 function LoginPage(props) {
     const goRegister = () => props.history.push('/register');
-    const goUser = (accountId) => props.history.push(`/accounts/${accountId}`);
+    const goUser = (username) => props.history.push(`/accounts/${username}`);
 
     const cookies= new Cookies();
 
@@ -50,7 +50,8 @@ function LoginPage(props) {
     const login = () => {
         api.login(id, password)
             .then((response) => {
-                cookies.set("accessToken", response.data.jwt, {path:'/'});                
+                console.log(response.data.data.token);
+                cookies.set("accessToken", response.data.data.token, {path:'/'});                
                 goUser(id);
             })
             .catch(error => {

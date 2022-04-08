@@ -39,7 +39,7 @@ function TestPage(props) {
                 <Content gray>
                         <BlueButton onClick={addRendezvous}></BlueButton>
                         <BlueButton onClick={add}></BlueButton>
-                        <Box on key={"1234"} name={"1234"} accountId={"1234"} type={"1234"} chatroomId={"1234"}>
+                        <Box on key={"1234"} name={"1234"} username={"1234"} type={"1234"} chatroomId={"1234"}>
                             {"1234"}
                         </Box>
                         <LocationBox Options={["공학관", "신촌역", "학생회관", "백양관"]} handleLocationChange={handleLocationChange}></LocationBox>

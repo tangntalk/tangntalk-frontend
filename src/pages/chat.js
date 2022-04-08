@@ -11,13 +11,13 @@ import Content from "../components/container/Content";
 import * as api from "../util/api";
 
 function ChatListPage(props) {
-    const { accountId } = useParams();
+    const { username } = useParams();
     const [chatList, setChatList] = useState([]);
     const [isloading, setLoading] = useState(1);
     const [refreshInterval, setRefreshInterval] = useState(5000);
 
     const getChatroom = () => {
-        api.chatroomList(accountId)
+        api.chatroomList(username)
         .then(response => {
             const {data} = response.data
             setChatList(data.chatrooms);
@@ -30,7 +30,7 @@ function ChatListPage(props) {
             else{alert('채팅목록 조회 중 문제가 생겼습니다.')}
         })
     }
-    useEffect(getChatroom, [accountId]);
+    useEffect(getChatroom, [username]);
     useEffect(()=> {
         if(refreshInterval && refreshInterval > 0){
             const interval = setInterval(getChatroom, refreshInterval);
@@ -50,13 +50,13 @@ function ChatListPage(props) {
                         chatList.map((chat)=>(
 
                             <ChatBox on={chat.connectionStatus?1:0} date={chat.lastSendTime.substr(0,10)} to opponent={chat.opponentName} time={chat.lastSendTime.substr(11,8)}
-                                            id={accountId} opponentId={chat.opponentId}>
+                                            id={username} opponentId={chat.opponentId}>
                                 {chat.lastMessage}
                             </ChatBox>
                     ))}
                 </Content>
             </Wrapper>
-            <NaviBar chat id={accountId}>
+            <NaviBar chat id={username}>
             </NaviBar>
         </>
     );

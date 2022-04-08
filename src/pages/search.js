@@ -14,7 +14,7 @@ import Content from "../components/container/Content"
 import * as api from "../util/api";
 
 function SearchPage(props) {
-    const { accountId } = useParams();
+    const { username } = useParams();
     const [friends, setFriends] = useState([]);
     const [query, setQuery] = useState('');
 
@@ -23,7 +23,7 @@ function SearchPage(props) {
     }
 
     const search = () => {
-        api.friendSearch(accountId, query)
+        api.friendSearch(username, query)
             .then((response) => {
                 var accounts = response.data.user;
                 var filteredAccounts = [];
@@ -31,7 +31,7 @@ function SearchPage(props) {
                 var i;
 
                 for (i = 0; i < accounts.length; i++) {
-                    if (accounts[i].accountId !== accountId) {
+                    if (accounts[i].username !== username) {
                         filteredAccounts.push(accounts[i]);
                     }
                 }
@@ -80,7 +80,7 @@ function SearchPage(props) {
                 <Content gray id="friend-search">
                     <div></div>
                     {friends.map((friend) => (
-                        <Box add={!friend.isFriend} delete={friend.isFriend} name={friend.name} friendId={friend.accountId} key={friend.accountId}>
+                        <Box add={!friend.isFriend} delete={friend.isFriend} name={friend.name} friendId={friend.username} key={friend.username}>
                             {friend.statusMessage}
                         </Box>
                     ))}

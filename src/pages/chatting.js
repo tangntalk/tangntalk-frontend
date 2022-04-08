@@ -14,7 +14,7 @@ import { Space } from "../styles/style";
 import * as api from "../util/api";
 
 function ChattingPage(props) {
-    const { accountId, opponent } = useParams();
+    const { username, opponent } = useParams();
     const [chatroomid, setChatroomid] = useState(-1);
     const [mesasgeList, setMessageList] = useState([]);
     const [isloading, setLoading] = useState(3);
@@ -57,14 +57,14 @@ function ChattingPage(props) {
 
     const sendNewMessage = () => {
         while (chatroomid === -1) initializePage();
-        api.chatSend(accountId, chatroomid.toString(), newMessage, time)
+        api.chatSend(username, chatroomid.toString(), newMessage, time)
             .then(() => {
                 getMessageCount()
             })
     }
 
     const getMessageCount = () => {
-        api.messageCount(accountId, chatroomid)
+        api.messageCount(username, chatroomid)
             .then(response => {
                 setMessageCount(response.data.data.messageCount);
             })
@@ -75,7 +75,7 @@ function ChattingPage(props) {
     }
 
     const getMessages = () => {
-        api.chatList(accountId, chatroomid)
+        api.chatList(username, chatroomid)
             .then(response => {
                 const {data} = response.data
                 if (messageCount !== data.messageList.length) {
@@ -93,7 +93,7 @@ function ChattingPage(props) {
     }
 
     const initializePage = () => {
-        api.chatroomEnter(accountId, opponent)
+        api.chatroomEnter(username, opponent)
             .then(response => {
                 setChatroomid(response.data.data);
                 if (response.data.data >= 0) {
@@ -125,7 +125,7 @@ function ChattingPage(props) {
     setInterval(checkRendezvous, 1000);
 
 
-    const goChatList = () => props.history.push(`/chat/${accountId}`);
+    const goChatList = () => props.history.push(`/chat/${username}`);
     useEffect(() => {
         if (countRefreshInterval && countRefreshInterval > 0 && messageRefreshInterval && messageRefreshInterval > 0) {
             const interval = setInterval(getMessageCount, countRefreshInterval);
@@ -137,10 +137,10 @@ function ChattingPage(props) {
         }
     }, [countRefreshInterval, messageRefreshInterval, chatroomid]);
 
-    useEffect(initializePage, [chatroomid, accountId, opponent]);
+    useEffect(initializePage, [chatroomid, username, opponent]);
     useEffect(getOpponentInfo, [opponent]);
-    useEffect(getMessageCount, [messageCount, chatroomid, accountId]);
-    useEffect(getMessages, [messageCount, chatroomid, accountId]);
+    useEffect(getMessageCount, [messageCount, chatroomid, username]);
+    useEffect(getMessages, [messageCount, chatroomid, username]);
     useEffect(scrollToBottom, [mesasgeList, doScroll]);
 
 
@@ -155,13 +155,13 @@ function ChattingPage(props) {
 
     return (
         <>
-            <Header back title={opponentInfo.name} friendAddDel accountId={accountId} friendId={opponent} userFunction={goChatList}>
+            <Header back title={opponentInfo.name} friendAddDel username={username} friendId={opponent} userFunction={goChatList}>
             </Header>
             <Wrapper paddingBottom="240px">
                 <Content minHeight="calc(100vh - 290px)" gray>
                     <div></div>
                     {mesasgeList.map((message) => {
-                        if (message.senderId === accountId) {
+                        if (message.senderId === username) {
                             if (message.rendezvousFlag === true) {
                                 return (
                                     <Message receive readOrNot={message.readTime} rendezvous={message.rendezvousLocation + ", " + message.rendezvousTime.substr(11, 8)}

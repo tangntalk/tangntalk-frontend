@@ -15,17 +15,19 @@ import { Space, InputLink, Line } from "../styles/style";
 
 import * as api from "../util/api";
 import * as util from "../util/utility"
+import { Cookies } from "react-cookie";
 
 function SettingPage(props) {
 
 
-    const { accountId } = useParams();
+    const { username } = useParams();
     const [myInfo, setMyInfo] = useState(null);
     const [isLoading, setLoading] = useState(1);
     const [newStatus, setNewStatus] = useState("");
+    const cookies = new Cookies();
 
     const getMyInfo = () => {
-        api.user(accountId)
+        api.user(username)
         .then(response => {
             const {data} = response.data
             setMyInfo(data);
@@ -46,7 +48,7 @@ function SettingPage(props) {
     }
 
     const postStatus = () =>{
-        api.updateAccountStatus(accountId, newStatus)
+        api.updateAccountStatus(username, newStatus)
         .then(response => {
             setMyInfo({...myInfo, statusMessage: newStatus});
             if(response.data.success){alert('상태 메시지가 성공적으로 바뀌었습니다.')}
@@ -57,12 +59,14 @@ function SettingPage(props) {
         })
     }
 
-    useEffect(getMyInfo, [accountId, isLoading]);
+    useEffect(getMyInfo, [username, isLoading]);
 
     const logout = () =>{
-        api.logout(accountId)
+        api.logout(username)
         .then(() => {
             alert('로그아웃 되었습니다.');
+            cookies.remove("accessToken",{path:'/'});
+            console.log(cookies.getAll());
             props.history.push('/login');
         })
         .catch(error => {
@@ -72,7 +76,7 @@ function SettingPage(props) {
     }
 
     const userDelete = () =>{
-        api.userDelete(accountId)
+        api.userDelete(username)
         .then(() => {
             alert('회원 탈퇴 처리되었습니다.');//비동기 처리
             props.history.push('/login');
@@ -101,7 +105,7 @@ function SettingPage(props) {
                 <Content>
                     <Space></Space>
                     <Title> 내 정보</Title>
-                    <Box me userLocation={myInfo.locationName} name={myInfo.name} accountId={accountId} children={myInfo.statusMessage} profile></Box>
+                    <Box me userLocation={myInfo.locationName} name={myInfo.name} username={username} children={myInfo.statusMessage} profile></Box>
                     <Line></Line>
                     <Title> 상태 메시지</Title>
                     <BoxInput maxLength="20" placeholder="상태 메세지" onChange={handleChange} onKeyDown={(e)=>{util.OnEnterKeyDown(e, 'Enter', postStatus)}}></BoxInput>
@@ -110,7 +114,7 @@ function SettingPage(props) {
                     <BlueButton onClick={postStatus}>변경하기</BlueButton>
                     <Line></Line>
                     <Title >위치</Title>
-                    <LocationBox userLocation={myInfo.locationName} accountId={accountId} Options={["공학관", "신촌역", "학생회관", "백양관"]} handleLocationChange={handleLocationChange}></LocationBox>
+                    <LocationBox userLocation={myInfo.locationName} username={username} Options={["공학관", "신촌역", "학생회관", "백양관"]} handleLocationChange={handleLocationChange}></LocationBox>
                     <Line></Line>
                     <Text children="로그아웃" onClick={logout}></Text>
                     <Line></Line>
