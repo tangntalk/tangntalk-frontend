@@ -7,7 +7,6 @@ export const user = () => server.get(`/accounts`);
 export const userDelete = () => server.delete(`/accounts`);
 export const updateUserLocation = (locationName) => server.patch(`/accounts/myinfo`, { locationName: locationName});
 export const updateAccountStatus = (statusMessage) => server.patch(`/accounts/myinfo`, { statusMessage: statusMessage });
-// export const logout = () => server.post(`/logout`);
 export const logout = () => server.post(`/logout`);
 
 // Friend
