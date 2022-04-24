@@ -13,13 +13,18 @@ function Box(props) {
 
     const goChatting = () =>{
         
+        // props.history.push({
+        //     pathname: `/chatting/${props.username[0]}/${props.username[1]}`,
+        //     state: {opponentName: props.name,
+        //             chatroomId: props.chatroomId}
+        // });}
         props.history.push({
-            pathname: `/chatting/${props.username[0]}/${props.username[1]}`,
+            pathname: `/chatting/${props.username[1]}`,
             state: {opponentName: props.name,
                     chatroomId: props.chatroomId}
         });}
     
-    const goSetting = () =>{props.history.push(`/setting/${props.username}`);}
+    const goSetting = () =>{props.history.push(`/setting`);}
     const addFriend = () => {
         api.friendAdd(username, props.friendId)
             .then((response) => {

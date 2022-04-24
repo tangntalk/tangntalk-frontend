@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSetRecoilState } from 'recoil';
+import { authorized } from '../recoil/atom';
 
 import Header from "../components/Header";
 import BoxInput from "../components/BoxInput";
@@ -13,6 +15,8 @@ import * as api from "../util/api";
 import * as reg from "../util/regex";
 
 function RegisterPage(props) {
+    const setAuthorized=useSetRecoilState(authorized);
+    
     const goLogin = () => props.history.push('/');
 
     const [inputs, setInputs] = useState({
@@ -107,8 +111,8 @@ function RegisterPage(props) {
             })
             .catch(error => {
                 if (error.response) {
-                    if (error.response || error.response.status === 401) {
-                        alert('가입에 실패했습니다');
+                    if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {
+                        setAuthorized(false);
                     } else if (error.response || error.response.status === 500) {
                         alert('서버에서 응답이 오지 않습니다');
                     }

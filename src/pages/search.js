@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSetRecoilState } from 'recoil';
+import { authorized } from '../recoil/atom';
 
 import styled from "styled-components";
 import colors from "../util/colors"
@@ -14,6 +16,8 @@ import Content from "../components/container/Content"
 import * as api from "../util/api";
 
 function SearchPage(props) {
+    const setAuthorized=useSetRecoilState(authorized);
+    
     const { username } = useParams();
     const [friends, setFriends] = useState([]);
     const [query, setQuery] = useState('');
@@ -49,7 +53,10 @@ function SearchPage(props) {
                 setFriends(filteredAccounts);
             })
             .catch(error => {
-                if (error.response) {
+                if((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){
+                    setAuthorized(false);
+                }
+                else if (error.response) {
                     alert('알 수 없는 에러가 발생했습니다.');
                 }
                 else if (error.request) {

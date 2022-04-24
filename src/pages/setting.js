@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSetRecoilState } from 'recoil';
+import { authorized } from '../recoil/atom';
 
 import Header from "../components/Header";
 import BoxInput from "../components/BoxInput";
@@ -18,7 +20,7 @@ import * as util from "../util/utility"
 import { Cookies } from "react-cookie";
 
 function SettingPage(props) {
-
+    const setAuthorized=useSetRecoilState(authorized);
 
     const { username } = useParams();
     const [myInfo, setMyInfo] = useState(null);
@@ -33,7 +35,8 @@ function SettingPage(props) {
             if(response.data.success && isLoading > 0) setLoading((isloading)=>(isLoading-1));
             else if(isLoading!==0)alert('요청한 사용자가 존재하지 않습니다');})
         .catch(error => {
-            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {setAuthorized(false);}
+            else if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
             else{alert('내 정보 조회 중 문제가 생겼습니다.')}})
     }
 
@@ -53,7 +56,8 @@ function SettingPage(props) {
             if(response.data.success){alert('상태 메시지가 성공적으로 바뀌었습니다.')}
         })
         .catch(error => {
-            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            if (error.response || error.response.status === 401) {setAuthorized(false);}
+            else if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
             else{alert('상태 메시지 업데이트 중 문제가 생겼습니다.')}
         })
     }
@@ -64,7 +68,7 @@ function SettingPage(props) {
         api.logout()
         .then(() => {
             alert('로그아웃 되었습니다.');
-            props.history.push('/login');
+            props.history.push('/');
         })
         .catch(error => {
             if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
@@ -75,11 +79,13 @@ function SettingPage(props) {
     const userDelete = () =>{
         api.userDelete()
         .then(() => {
+            setAuthorized(false);
             alert('회원 탈퇴 처리되었습니다.');//비동기 처리
             props.history.push('/login');
         })
         .catch(error => {
-            if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
+            if((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){setAuthorized(false)}
+            else if (error.request) {alert('서버에서 응답이 오지 않습니다.');}
             else{alert('회원 탈퇴 중 문제가 생겼습니다.')}
         })
     }

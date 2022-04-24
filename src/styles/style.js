@@ -1,5 +1,18 @@
 import styled from "styled-components";
 
+export const InputSpace = styled.div`
+    width: ${props => props.width || "calc(80% + 30px)"};
+    width : -webkit-${props => props.width || "calc(80% + 30px)"};
+    width :    -moz-${props => props.width || "calc(80% + 30px)"};
+    max-width:${props => props.maxWidth || "530px"};
+
+    box-sizing:border-box;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:start;
+`
+
 export const Icon = styled.div`
     cursor:pointer;
     margin:0 10px;

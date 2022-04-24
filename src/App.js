@@ -1,5 +1,8 @@
 import './App.css';
-import React from "react";
+import React, {useState} from "react";
+import { useRecoilValue } from 'recoil';
+import { authorized } from './recoil/atom';
+
 import { BrowserRouter as Router, Switch, Route, Redirect, withRouter } from "react-router-dom";
 
 import LoginPage from "../src/pages/login";
@@ -16,28 +19,41 @@ import SettingPage from "../src/pages/setting";
 
 import TestPage from "../src/pages/test";
 
+import Alert from "../src/components/Alert";
+
 function App() {
+  const authorization=useRecoilValue(authorized);
+  const [alertOpen, setAlertOpen]=useState(!authorization);
+
   return (
-    <Router>
-      <Switch>
-      <Route exact path="/" component={withRouter(LoginPage)} />
-        <Route exact path="/register" component={withRouter(RegisterPage)} />
+      <>
+      {/* <Alert isOpen={alertOpen} setOpen={setAlertOpen}>로그인이 만료되었습니다</Alert> */}
+      <Router>
+        <Switch>
+          <Route exact path="/" component={withRouter(LoginPage)} />
+          <Route exact path="/register" component={withRouter(RegisterPage)} />
 
-        <Route exact path="/accounts/:username" component={withRouter(MainPage)} />
-        <Route exact path="/search/:username" component={withRouter(SearchPage)} />
+          {authorization&&
+          <>
+          <Route exact path="/accounts" component={withRouter(MainPage)} />
+          <Route exact path="/search" component={withRouter(SearchPage)} />
 
-        <Route exact path="/around/:username" component={withRouter(AroundPage)} />
-        <Route exact path="/setting/:username" component={withRouter(SettingPage)} />
+          <Route exact path="/around" component={withRouter(AroundPage)} />
+          <Route exact path="/setting" component={withRouter(SettingPage)} />
 
-        <Route exact path="/chat/:username" component={withRouter(ChatListPage)} />
-        <Route exact path="/chatting/:username/:opponent" component={withRouter(ChattingPage)} />
+          <Route exact path="/chat" component={withRouter(ChatListPage)} />
+          <Route exact path="/chatting/:opponent" component={withRouter(ChattingPage)} />
 
-        <Route exact path="/test" component={withRouter(TestPage)} />
+          <Route exact path="/test" component={withRouter(TestPage)} />
 
-        <Route component={() => <Redirect to="/"/>}/>
-      </Switch>
-    </Router>
-
+          <Route component={() => <Redirect to="/accounts"/>}/>
+          </>
+          }
+          
+          <Route component={() => <Redirect to="/"/>}/>
+        </Switch>
+      </Router>
+      </>
   );
 }
 

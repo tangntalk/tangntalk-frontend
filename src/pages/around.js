@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSetRecoilState } from 'recoil';
+import { authorized } from '../recoil/atom';
 
 import styled from "styled-components";
 import colors from "../util/colors"
@@ -16,6 +18,8 @@ import { SpaceAround, Space } from "../styles/style";
 import * as api from "../util/api";
 
 function AroundPage(props) {
+    const setAuthorized=useSetRecoilState(authorized);
+
     const { username } = useParams();
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [offlineFriends, setOfflineFriends] = useState([]);
@@ -37,8 +41,10 @@ function AroundPage(props) {
                 }
             })
             .catch(error => {
-
-                if (error.request) {
+                if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){
+                    setAuthorized(false);
+                }
+                else if (error.request) {
                     alert('서버에서 응답이 오지 않습니다.');
                 }
                 else {
@@ -90,7 +96,7 @@ function AroundPage(props) {
                     <Space></Space>
                 </Content>
             </Wrapper>
-            <NaviBar around id={username}>
+            <NaviBar around>
             </NaviBar>
         </>
     );
