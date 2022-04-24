@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSetRecoilState } from 'recoil';
+import { authorized } from '../recoil/atom';
 
 import Header from "../components/Header";
 import NaviBar from "../components/NaviBar";
@@ -12,6 +14,8 @@ import { Space } from "../styles/style";
 import * as api from "../util/api";
 
 function MainPage(props) {
+    const setAuthorized=useSetRecoilState(authorized);
+    
     const { username } = useParams();
     const [myInfo, setMyInfo] = useState(null);
     const [isloading, setLoading] = useState(2);
@@ -28,8 +32,15 @@ function MainPage(props) {
                 else alert('요청한 사용자가 존재하지 않습니다');
             })
             .catch(error => {
-                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
-                else { alert('내 정보 조회 중 문제가 생겼습니다.') }
+                if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){
+                    setAuthorized('unauthorized');
+                }
+                else if (error.request) {
+                    alert('서버에서 응답이 오지 않습니다.');
+                }
+                else {
+                    alert('조회 중 문제가 생겼습니다.');
+                }
             })
     }
     const getFriendList = () => {
@@ -42,9 +53,15 @@ function MainPage(props) {
                 else alert('요청한 사용자가 존재하지 않습니다');
             })
             .catch(error => {
-                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
-                else { alert('친구 정보 조회 중 문제가 생겼습니다.') }
-
+                if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){
+                    setAuthorized('unauthorized');
+                }
+                else if (error.request) {
+                    alert('서버에서 응답이 오지 않습니다.');
+                }
+                else {
+                    alert('조회 중 문제가 생겼습니다.');
+                }
             })
     }
 

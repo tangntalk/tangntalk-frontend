@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSetRecoilState } from 'recoil';
+import { authorized } from '../recoil/atom';
 
 import Header from "../components/Header";
 import BoxInput from "../components/BoxInput";
@@ -9,15 +11,15 @@ import Wrapper from "../components/container/Wrapper"
 import Content from "../components/container/Content"
 import {Space, ButtonLink} from "../styles/style";
 
-import { Cookies } from "react-cookie";
-
 import * as api from "../util/api";
 import * as util from "../util/utility"
 
 
 function LoginPage(props) {
+    const setAuthorized=useSetRecoilState(authorized);
+
     const goRegister = () => props.history.push('/register');
-    const goUser = (username) => props.history.push(`/accounts/${username}`);
+    const goUser = () => props.history.push(`/accounts`);
 
     const [inputs, setInputs] = useState({
         id: '',
@@ -48,13 +50,13 @@ function LoginPage(props) {
     const login = () => {
         api.login(id, password)
             .then((response) => {
-                console.log(response.data.data);              
-                goUser(id);
+                setAuthorized('true');            
+                goUser();
             })
             .catch(error => {
                 if (error.response) {
-                    if (error.response || error.response.status === 401) {
-                        alert('잘못된 형식입니다');
+                    if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {
+                        setAuthorized('false');
                     } else if (error.response || error.response.status === 500) {
                         alert('서버에서 응답이 오지 않습니다');
                     }

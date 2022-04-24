@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { NaviIcon, NaviText} from "../../styles/style";
 
 function ChattingIcon(props) {
-    const goChat = () => props.history.push(`/chat/${props.id}`);
+    const goChat = () => props.history.push(`/chat`);
     if (props.selected) {
         return (
             <NaviIcon onClick={goChat} selected>

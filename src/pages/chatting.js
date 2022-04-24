@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useSetRecoilState } from 'recoil';
+import { authorized } from '../recoil/atom';
 
 import Header from "../components/Header";
 import RadioButton from "../components/RadioButton";
@@ -14,6 +16,8 @@ import { Space } from "../styles/style";
 import * as api from "../util/api";
 
 function ChattingPage(props) {
+    const setAuthorized=useSetRecoilState(authorized);
+    
     const { username, opponent } = useParams();
     const [chatroomid, setChatroomid] = useState(-1);
     const [mesasgeList, setMessageList] = useState([]);
@@ -50,8 +54,15 @@ function ChattingPage(props) {
                 else alert('요청한 사용자가 존재하지 않습니다');
             })
             .catch(error => {
-                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
-                else { alert('내 정보 조회 중 문제가 생겼습니다.') }
+                if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){
+                    setAuthorized('unauthorized');
+                }
+                else if (error.request) {
+                    alert('서버에서 응답이 오지 않습니다.');
+                }
+                else {
+                    alert('조회 중 문제가 생겼습니다.');
+                }
             })
     }
 
@@ -61,6 +72,11 @@ function ChattingPage(props) {
             .then(() => {
                 getMessageCount()
             })
+            .catch(error => {
+                if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {setAuthorized(false)}
+                else if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
+                else { alert('메시지 수 확인이 되지 않습니다.') };
+            })
     }
 
     const getMessageCount = () => {
@@ -69,7 +85,8 @@ function ChattingPage(props) {
                 setMessageCount(response.data.data.messageCount);
             })
             .catch(error => {
-                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
+                if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {setAuthorized('false')}
+                else if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
                 else { alert('메시지 수 확인이 되지 않습니다.') };
             })
     }
@@ -87,7 +104,8 @@ function ChattingPage(props) {
                 else alert('요청한 사용자가 존재하지 않습니다');
             })
             .catch(error => {
-                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
+                if((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){setAuthorized('false')}
+                else if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
                 else { alert('메시지 조회 중에 문제가 생겼습니다.') };
             })
     }
@@ -125,7 +143,7 @@ function ChattingPage(props) {
     setInterval(checkRendezvous, 1000);
 
 
-    const goChatList = () => props.history.push(`/chat/${username}`);
+    const goChatList = () => props.history.push(`/chat`);
     useEffect(() => {
         if (countRefreshInterval && countRefreshInterval > 0 && messageRefreshInterval && messageRefreshInterval > 0) {
             const interval = setInterval(getMessageCount, countRefreshInterval);

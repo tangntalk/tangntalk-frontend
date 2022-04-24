@@ -5,7 +5,7 @@ import colors from "../util/colors"
 
 function ChatBox(props) {
     const goChattingRoom= () => props.history.push({
-        pathname: `/chatting/${props.id}/${props.opponentId}`,
+        pathname: `/chatting/${props.opponentId}`,
         state: {
             opponentName: props.opponent,
             chatroomId: props.chatroomId

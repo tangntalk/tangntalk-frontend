@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { NaviIcon , NaviText} from "../../styles/style";
 
 function AroundIcon(props) {
-    const goAround = () => props.history.push(`/around/${props.id}`);
+    const goAround = () => props.history.push(`/around`);
     if (props.selected) {
         return (
             <NaviIcon onClick={goAround} selected>
