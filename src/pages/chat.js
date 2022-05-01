@@ -31,7 +31,11 @@ function ChatListPage(props) {
         })
         .catch(error => {
             if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){
+<<<<<<< HEAD
                 setAuthorized('unauthorized');
+=======
+                setAuthorized(false);
+>>>>>>> 4254231925713efe0a8fc4542ea7129c338762a4
             }
             else if (error.request) {
                 alert('서버에서 응답이 오지 않습니다.');

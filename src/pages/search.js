@@ -54,7 +54,11 @@ function SearchPage(props) {
             })
             .catch(error => {
                 if((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){
+<<<<<<< HEAD
                     setAuthorized('unauthorized');
+=======
+                    setAuthorized(false);
+>>>>>>> 4254231925713efe0a8fc4542ea7129c338762a4
                 }
                 else if (error.response) {
                     alert('알 수 없는 에러가 발생했습니다.');

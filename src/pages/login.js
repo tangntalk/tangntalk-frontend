@@ -50,13 +50,22 @@ function LoginPage(props) {
     const login = () => {
         api.login(id, password)
             .then((response) => {
+<<<<<<< HEAD
                 setAuthorized('true');            
+=======
+                setAuthorized(true);
+                console.log('로그인 못 잡고 있나본데');              
+>>>>>>> 4254231925713efe0a8fc4542ea7129c338762a4
                 goUser();
             })
             .catch(error => {
                 if (error.response) {
                     if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {
+<<<<<<< HEAD
                         setAuthorized('false');
+=======
+                        setAuthorized(false);
+>>>>>>> 4254231925713efe0a8fc4542ea7129c338762a4
                     } else if (error.response || error.response.status === 500) {
                         alert('서버에서 응답이 오지 않습니다');
                     }

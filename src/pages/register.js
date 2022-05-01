@@ -111,7 +111,13 @@ function RegisterPage(props) {
             })
             .catch(error => {
                 if (error.response) {
+<<<<<<< HEAD
                     if (error.response || error.response.status === 500) {
+=======
+                    if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {
+                        setAuthorized(false);
+                    } else if (error.response || error.response.status === 500) {
+>>>>>>> 4254231925713efe0a8fc4542ea7129c338762a4
                         alert('서버에서 응답이 오지 않습니다');
                     }
                 }

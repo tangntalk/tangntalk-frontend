@@ -55,7 +55,11 @@ function ChattingPage(props) {
             })
             .catch(error => {
                 if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){
+<<<<<<< HEAD
                     setAuthorized('unauthorized');
+=======
+                    setAuthorized(false);
+>>>>>>> 4254231925713efe0a8fc4542ea7129c338762a4
                 }
                 else if (error.request) {
                     alert('서버에서 응답이 오지 않습니다.');
@@ -85,7 +89,11 @@ function ChattingPage(props) {
                 setMessageCount(response.data.data.messageCount);
             })
             .catch(error => {
+<<<<<<< HEAD
                 if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {setAuthorized('false')}
+=======
+                if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {setAuthorized(false)}
+>>>>>>> 4254231925713efe0a8fc4542ea7129c338762a4
                 else if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
                 else { alert('메시지 수 확인이 되지 않습니다.') };
             })
@@ -104,7 +112,11 @@ function ChattingPage(props) {
                 else alert('요청한 사용자가 존재하지 않습니다');
             })
             .catch(error => {
+<<<<<<< HEAD
                 if((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){setAuthorized('false')}
+=======
+                if((error.response && error.response.status === 401)||(error.response && error.response.status === 403)){setAuthorized(false)}
+>>>>>>> 4254231925713efe0a8fc4542ea7129c338762a4
                 else if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
                 else { alert('메시지 조회 중에 문제가 생겼습니다.') };
             })
