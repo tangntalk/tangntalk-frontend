@@ -1,4 +1,5 @@
 import './App.css';
+
 import React from "react";
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { authorized, isModal, modalComment } from './recoil/atom';
@@ -61,7 +62,6 @@ function App() {
           <Route component={() => <Redirect to="/accounts"/>}/>
           </>
           }
-          
         </Switch>
       </Router>
       </>
