@@ -73,7 +73,7 @@ function ChattingPage(props) {
                 getMessageCount()
             })
             .catch(error => {
-                if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {setAuthorized(false)}
+                if ((error.response && error.response.status === 401)||(error.response && error.response.status === 403)) {setAuthorized('false')}
                 else if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
                 else { alert('메시지 수 확인이 되지 않습니다.') };
             })

@@ -1,4 +1,11 @@
 import React from "react";
+import ErrorPage from "./Error";
+
+import Header from "./Header";
+import NaviBar from "./NaviBar";
+import Title from "./Title";
+import Wrapper from "./container/Wrapper";
+import Content from "./container/Content";
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -8,6 +15,7 @@ class ErrorBoundary extends React.Component {
 
     static getDerivedStateFromError(error) {
       // Update state so the next render will show the fallback UI.
+        console.log(error);
         return { hasError: true };
     }
 
@@ -19,9 +27,11 @@ class ErrorBoundary extends React.Component {
     render() {
         if (this.state.hasError) {
         // You can render any custom fallback UI
-            return <h1>에러가 발생했습니다.</h1>;
+            return(<h3>에러가 발생했습니다</h3>);
         }
 
         return this.props.children; 
     }
 }
+
+export default ErrorBoundary;
