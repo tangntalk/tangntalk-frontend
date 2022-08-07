@@ -15,11 +15,12 @@ export const friendAdd = (friendUsername) => server.post(`/accounts/friends`, { 
 export const friendSearch = (search) => server.get(`/accounts/friends/search?query=${search}`);
 export const friendDelete = (friendUsername) => server.delete(`/accounts/friends/${friendUsername}`);
 export const friendNearby = (location) => server.get(`/accounts/nearby/${location}`);
-export const friendCheck = (friendUsername) => server.get(`/accounts/friends/${friendUsername}`);
+export const friendCheck = (friendUsername) => server.get(`/accounts/friends/isFriend/${friendUsername}`);
+export const friendInfo = (friendUsername) => server.get(`/accounts/friends/${friendUsername}`)
 
 // Chat
 export const chatroomList = () => server.get(`/accounts/chatrooms`);
 export const chatroomEnter = (opponentUsername) => server.post(`/accounts/chatrooms`, { opponentUsername: opponentUsername});
-export const chatList = (chatroomId) => server.get(`/accounts/chatrooms/${chatroomId}`);
+export const chatList = (chatroomId, page) => server.get(`/accounts/chatrooms/${chatroomId}?page=${page}`);
 export const chatSend = (chatroomId, content, rendezvousTime) => server.post(`/accounts/chatrooms/${chatroomId}`, {content: content, rendezvousTime: rendezvousTime});
 export const messageCount = (chatroomId) => server.get(`accounts/chatrooms/${chatroomId}/count`);

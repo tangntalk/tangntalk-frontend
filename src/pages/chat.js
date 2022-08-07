@@ -22,7 +22,7 @@ function ChatListPage(props) {
             const {data} = response.data
             setChatList(data.chatrooms);
             if(response.data.success) setLoading((isloading)=>(isloading-1));
-            //if(response.data.success) setLoading(isloading-1); 이러면 작동 안하나? 무한루프도나....
+            // if(response.data.success) setLoading(isloading-1); //이러면 작동 안하나? 무한루프도나....
             else alert('요청한 사용자가 존재하지 않습니다');
         })
         .catch(error => {
@@ -30,7 +30,7 @@ function ChatListPage(props) {
             else{alert('채팅목록 조회 중 문제가 생겼습니다.')}
         })
     }
-    useEffect(getChatroom);
+    useEffect(()=> getChatroom(), []);
     useEffect(()=> {
         if(refreshInterval && refreshInterval > 0){
             const interval = setInterval(getChatroom, refreshInterval);
@@ -39,6 +39,7 @@ function ChatListPage(props) {
             }
         }
     })
+
     return (
         <>
             <Header title="채팅 목록">

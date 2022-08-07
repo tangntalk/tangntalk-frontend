@@ -10,9 +10,10 @@ function FriendAddDelButton(props) {
     const [isFriend, setIsFriend] = useState(false);
 
     useEffect(() => {
-        api.friendCheck(props.username, props.friendId)
+        api.friendCheck(props.friendId)
         .then(response => {
-            setIsFriend(response.data.friend);
+            console.log("is friend", response);
+            setIsFriend(response.data.data.friend);
         })
         .catch(error => {  
             if (error.request) {
@@ -25,7 +26,7 @@ function FriendAddDelButton(props) {
     },[]);
 
     const addFriend = () => {
-        api.friendAdd(props.username, props.friendId)
+        api.friendAdd(props.friendId)
             .then((response) => {
                 if(!response.data.success) {
                     alert('변경 중 문제가 생겼습니다.');
@@ -43,7 +44,7 @@ function FriendAddDelButton(props) {
     };
 
     const deleteFriend = () => {
-        api.friendDelete(props.username, props.friendId)
+        api.friendDelete(props.friendId)
             .then((response) => {
                 if(!response.data.success) {
                     alert('변경 중 문제가 생겼습니다.');

@@ -21,7 +21,7 @@ function Box(props) {
     
     const goSetting = () =>{props.history.push(`/setting/${props.username}`);}
     const addFriend = () => {
-        api.friendAdd(username, props.friendId)
+        api.friendAdd(props.friendId)
             .then((response) => {
                 if(!response.data.success) {
                     alert('변경 중 문제가 생겼습니다.');
@@ -40,7 +40,7 @@ function Box(props) {
     };
 
     const deleteFriend = () => {
-        api.friendDelete(username, props.friendId)
+        api.friendDelete(props.friendId)
             .then((response) => {
                 if(!response.data.success) {
                     alert('변경 중 문제가 생겼습니다.');
