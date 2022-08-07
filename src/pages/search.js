@@ -25,16 +25,17 @@ function SearchPage(props) {
     const search = () => {
         api.friendSearch(query)
             .then((response) => {
-                var accounts = response.data.user;
-                var filteredAccounts = [];
-
-                var i;
-
-                for (i = 0; i < accounts.length; i++) {
-                    if (accounts[i].username !== username) {
-                        filteredAccounts.push(accounts[i]);
-                    }
-                }
+                console.log("response data", response.data.data);
+                var filteredAccounts = response.data.data.filter(account => account.username!=username);
+                // var filteredAccounts = [];
+                
+                // var i;
+                
+                // for (i = 0; i < accounts.length; i++) {
+                //     if (accounts[i].username !== username) {
+                //         filteredAccounts.push(accounts[i]);
+                //     }
+                // }
 
                 filteredAccounts.sort(function(a, b) {
                     if (a.name < b.name) {
@@ -56,6 +57,7 @@ function SearchPage(props) {
                     alert('서버에서 응답이 오지 않습니다.');
                 }
                 else {
+                    console.log(error);
                     alert('요청에 문제가 발생했습니다.');
                 }
             });

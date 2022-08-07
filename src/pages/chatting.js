@@ -10,40 +10,49 @@ import colors from "../util/colors"
 import Wrapper from "../components/container/Wrapper";
 import Content from "../components/container/Content";
 import { Space } from "../styles/style";
+import {webSocket, alerts} from "../util/stomp"
 
 import * as api from "../util/api";
 
 function ChattingPage(props) {
     const { username, opponent } = useParams();
     const [chatroomid, setChatroomid] = useState(-1);
-    const [mesasgeList, setMessageList] = useState([]);
+    const [messageList, setMessageList] = useState([]);
     const [isloading, setLoading] = useState(3);
     const [newMessage, setNewMessage] = useState('');
     const [time, setTime] = useState(-1);
     const [customTime, setCustomTime] = useState(false);
-    const [messageCount, setMessageCount] = useState(0);
+    // const [messageCount, setMessageCount] = useState(0);
     const [opponentInfo, setOpponentInfo] = useState([]);
-    const [countRefreshInterval] = useState(1000);
-    const [messageRefreshInterval] = useState(10000);
     const [doScroll, setDoScroll] = useState(false);
+    const [refreshInterval, setRefreshInterval] = useState(10000);
     var messagesEnd = React.createRef();
+    const socket = webSocket(username);
+    const [rendezvous, setRendezvous] = useState({});
 
-    const scrollToBottom = () => {
-        if (doScroll === true) {
-            window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
-            setDoScroll(false);
-        }
-    }
+    // 채팅 목록 뒤로 가기
+    const goChatList = () => props.history.push(`/chat/${username}`);
 
+    // // 가장 최근 메시지로 스크롤링
+    // const scrollToBottom = () => {
+    //     if (doScroll === true) {
+    //         window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+    //         setDoScroll(false);
+    //     }
+    // }
+
+    // 랑데뷰 시간 이벤트 핸들러
     const handleTime = (event) => {
         setTime(parseInt(event.target.value));
     }
+    // 메시지 이벤트 핸들러
     const handleMessage = (event) => {
         setNewMessage(event.target.value);
     }
 
+    // 상대방 정보 조회 
     const getOpponentInfo = () => {
-        api.user(opponent)
+        api.friendInfo(opponent)
             .then(response => {
                 setOpponentInfo(response.data.data);
                 if (response.data.success) { setLoading((isloading) => (isloading - 1)); }
@@ -55,40 +64,42 @@ function ChattingPage(props) {
             })
     }
 
+    // 메시지 전송 기능
     const sendNewMessage = () => {
         while (chatroomid === -1) initializePage();
-        api.chatSend(chatroomid.toString(), newMessage, time)
-            .then(() => {
-                getMessageCount()
-            })
-    }
-
-    const getMessageCount = () => {
-        api.messageCount(chatroomid)
-            .then(response => {
-                setMessageCount(response.data.data.messageCount);
-            })
-            .catch(error => {
-                if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
-                else { alert('메시지 수 확인이 되지 않습니다.') };
-            })
+        socket.publish({
+            destination: '/pub/chat/message',
+            body: JSON.stringify({
+                chatroomId: chatroomid,
+                senderId: username,
+                receiverId: opponent,
+                content: newMessage,
+                rendezvousTime: time
+            }), 
+            headers: {
+                'content-type': 'application/json'
+            }
+        });
     }
 
     const getMessages = () => {
-        api.chatList(chatroomid)
+        api.chatList(chatroomid, 0)
             .then(response => {
                 const {data} = response.data
-                if (messageCount !== data.messageList.length) {
-                    setMessageCount(data.messageList.length)
-                }
                 setMessageList(data.messageList);
+                const currentTime = new Date();
+                data.messageList.filter(message => new Date(message.rendezvousTime) > currentTime && message.rendezvousFlag==true)
+                    .forEach(message => {addRendezvous(new Date(message.rendezvousTime))});                 
                 setDoScroll(true);
                 if (response.data.success) { setLoading((isloading) => (isloading - 1)); }
                 else alert('요청한 사용자가 존재하지 않습니다');
             })
             .catch(error => {
                 if (error.request) { alert('서버에서 응답이 오지 않습니다.'); }
-                else { alert('메시지 조회 중에 문제가 생겼습니다.') };
+                else { 
+                    console.log("message request failed with error", error);
+                    alert('메시지 조회 중에 문제가 생겼습니다.') 
+                };
             })
     }
 
@@ -108,42 +119,45 @@ function ChattingPage(props) {
             })
     }
 
-    const [rendezvous, setRendezvous] = useState({});
     const addRendezvous = (time) => {
-        setRendezvous(list => ({ ...list, [time]: true }));
+        setRendezvous(list => ({ ...list, [time]: false }));
     };
     const checkRendezvous = () => {
         const nowDate = new Date();
         if (!(Object.keys(rendezvous).length === 0)) {
             for (let time of Object.keys(rendezvous)) {
-                if (time < nowDate) {
-                    setRendezvous(list => ({ ...list, [time]: false }));
+                if (Date.parse(time) < nowDate) {
+                    setRendezvous(list => ({ ...list, [time]: true }));
                 }
             }
         }
     }
-    setInterval(checkRendezvous, 1000);
 
-
-    const goChatList = () => props.history.push(`/chat/${username}`);
-    useEffect(() => {
-        if (countRefreshInterval && countRefreshInterval > 0 && messageRefreshInterval && messageRefreshInterval > 0) {
-            const interval = setInterval(getMessageCount, countRefreshInterval);
-            const interval2 = setInterval(getMessages, messageRefreshInterval);
-            return () => {
-                clearInterval(interval);
-                clearInterval(interval2);
-            };
-        }
-    }, [countRefreshInterval, messageRefreshInterval, chatroomid]);
+    useEffect(()=> {
+        alerts.onMessage().subscribe((message)=> {
+            addMessage(message);
+        });
+    }, []);
 
     useEffect(initializePage, [chatroomid, username, opponent]);
     useEffect(getOpponentInfo, [opponent]);
-    useEffect(getMessageCount, [messageCount, chatroomid, username]);
-    useEffect(getMessages, [messageCount, chatroomid, username]);
-    useEffect(scrollToBottom, [mesasgeList, doScroll]);
+    useEffect(getMessages, [chatroomid, username]);
+    useEffect(()=> {
+        if(refreshInterval && refreshInterval > 0){
+            const interval = setInterval(checkRendezvous, refreshInterval);
+            return () => {
+                clearInterval(interval);
+            }
+        }
+    })
 
-
+    const addMessage = (message) => {
+        if(message.rendezvousFlag == true){
+            addRendezvous(new Date(message.rendezvousTime));
+        }
+        setMessageList(ml => [...ml,message]);
+    }
+    
     if (isloading > 0) {
         return (
             <>
@@ -152,7 +166,6 @@ function ChattingPage(props) {
         );
     }
 
-
     return (
         <>
             <Header back title={opponentInfo.name} friendAddDel username={username} friendId={opponent} userFunction={goChatList}>
@@ -160,11 +173,11 @@ function ChattingPage(props) {
             <Wrapper paddingBottom="240px">
                 <Content minHeight="calc(100vh - 290px)" gray>
                     <div></div>
-                    {mesasgeList.map((message) => {
+                    {messageList.map((message) => {
                         if (message.senderId === username) {
                             if (message.rendezvousFlag === true) {
                                 return (
-                                    <Message receive readOrNot={message.readTime} rendezvous={message.rendezvousLocation + ", " + message.rendezvousTime.substr(11, 8)}
+                                    <Message key={message.messageId} receive readOrNot={message.readTime} rendezvous={message.rendezvousLocation + ", " + message.rendezvousTime.substr(11, 8)}
                                         date={message.sendTime.substr(0, 10)} time={message.sendTime.substr(11, 8)}>
                                         {message.content}
                                     </Message>
@@ -180,17 +193,12 @@ function ChattingPage(props) {
                         }
                         else {
                             if (message.rendezvousFlag === true) {
-                                const nowDate = new Date();
-                                const rendezvousDate = new Date(message.rendezvousTime);
-                                addRendezvous(rendezvousDate);
-                                if (rendezvousDate > nowDate) {
-                                    return (
-                                        <Message hide={rendezvous[rendezvousDate]} send readOrNot={message.readTime} rendezvous={message.rendezvousLocation + ", " + message.rendezvousTime.substr(11, 8)}
-                                            date={message.sendTime.substr(0, 10)} time={message.sendTime.substr(11, 8)}>
-                                            {message.content}
-                                        </Message>
-                                    )
-                                }
+                                return (
+                                    <Message send readOrNot={message.readTime} rendezvous={message.rendezvousLocation + ", " + message.rendezvousTime.substr(11, 8)}
+                                        date={message.sendTime.substr(0, 10)} time={message.sendTime.substr(11, 8)}>
+                                        {rendezvous[new Date(message.rendezvousTime)]?"hiden message":message.content}
+                                    </Message>
+                                )
                             }
                             else {
                                 return (
